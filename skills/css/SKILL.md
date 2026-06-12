@@ -1,0 +1,76 @@
+---
+name: css
+description: Write modern, maintainable, performant CSS. Use when styling UI, building layouts, setting up design tokens/theming, fixing responsiveness or specificity issues, or reviewing CSS — including inside React/Tailwind projects.
+---
+
+# CSS
+
+Modern CSS removed the need for most hacks and heavy frameworks. Lean on the platform: layout engines, custom properties, layers, and container queries.
+
+## Layout: pick the right engine
+
+- **Flexbox** for one-dimensional layout (a row or column, distribution along one axis).
+- **Grid** for two-dimensional layout (rows *and* columns), and for overlapping/area-based layouts.
+- Avoid absolute positioning for layout; reserve it for overlays/badges.
+- Use `gap` for spacing between items instead of margins on children.
+- Prefer **logical properties** (`margin-inline`, `padding-block`, `inset`) so layouts adapt to writing direction.
+
+```css
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+```
+
+## Responsive without breakpoint soup
+
+- **Container queries** (`container-type: inline-size` + `@container`) let components respond to *their* space, not the viewport — prefer these for reusable components.
+- Intrinsic sizing: `min()`, `max()`, `clamp()` for fluid type/spacing (`font-size: clamp(1rem, 0.5rem + 2vw, 1.5rem)`).
+- Use **dynamic viewport units** (`dvh`/`dvw`) instead of `vh`/`vw` so mobile browser chrome (address bar) doesn't break layouts.
+- Set `aspect-ratio` on media to reserve space and prevent layout shift (CLS).
+- **Subgrid** (`grid-template-columns: subgrid`) aligns nested grid items (card titles/footers) to the parent's tracks.
+- Use viewport breakpoints only for page-level layout shifts.
+
+## Tame the cascade
+
+- **Cascade layers** (`@layer reset, base, components, utilities;`) give predictable ordering without specificity wars.
+- Keep specificity low and flat: prefer single classes; avoid IDs and deep descendant selectors.
+- Use `:where()` for zero-specificity grouping; `:is()` to shorten selectors.
+- Nesting is native now — nest shallowly; deep nesting recreates specificity problems.
+- Prefer **`@scope`** over `:not()`/deep descendants when proximity should win (e.g. theming): `@scope (.card) to (.content) { … }`.
+
+## Style state with the platform, not JS
+
+- **`:has()`** styles a parent from its children — replaces JS class-toggling: `label:has(:checked)`, `form:has(:invalid)`, `.card:has(img)`. Scope it to a close container (broad `body:has()` triggers more recalc); don't nest `:has()`.
+- For critical `:has()` UI, add an `@supports not selector(:has(*))` class-based fallback.
+- `:focus-visible` (keyboard-only rings), `accent-color` (themed form controls), `scroll-snap` (carousels) remove common JS.
+- `text-wrap: balance` for headings, `text-wrap: pretty` for body — used deliberately, never on `*` (cost).
+
+## Design tokens & theming
+
+- Define tokens as custom properties on `:root`; theme by overriding them (e.g. under `[data-theme="dark"]` or `@media (prefers-color-scheme)`).
+- Build scales (color, space, radius, type) as variables; never sprinkle raw magic values.
+- `color-scheme` + relative color / `color-mix()` for systematic variants.
+
+```css
+:root { --space-2: .5rem; --accent: oklch(0.7 0.15 250); }
+[data-theme="dark"] { --bg: #111; --fg: #eee; }
+```
+
+## Performance
+
+- Animate only **`transform`** and **`opacity`** (GPU-composited); avoid animating layout properties (width/height/top/left).
+- Use `will-change` sparingly and remove it after the animation.
+- `content-visibility: auto` to skip rendering offscreen sections.
+- Avoid expensive filters/large box-shadows on many elements; avoid `@import` (blocks loading).
+- Respect `@media (prefers-reduced-motion: reduce)`.
+
+## Maintainability
+
+- Co-locate styles with components; keep a single source of truth for tokens.
+- With Tailwind/utility CSS: use the configured tokens/theme, extract repeated clusters into components, don't fight the cascade with `!important`.
+- Watch selector specificity collisions between class-based and element-based rules (a common source of "padding randomly disappears").
+
+## Reference
+
+- **`GoogleChrome/modern-web-guidance`** (the CSS guide — `:has()`, `@scope`, container queries, `dvh`, `text-wrap`; retrievable via `npx modern-web-guidance@latest`).
+- MDN CSS reference; web.dev: "Learn CSS", "Learn Responsive Design".
+- Specs: Cascade Layers, Container Queries, Nesting, `@scope`, `:has()`, `color-mix()`/relative color.
+- Josh Comeau "CSS for JS"; Kevin Powell (modern CSS patterns).

@@ -1,10 +1,67 @@
+<div align="center">
+
 # shre-skills
 
-Curated **agent skills** for modern web dev — HTML/CSS/JS, React + TanStack, performance, caching, security, and GPU/WASM rendering. One place for my team and me to pull battle-tested guidance instead of re-searching.
+**Battle-tested agent skills for shipping fast, correct web apps.**
 
-By [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret"). **Ever-evolving — refreshed ~monthly** as the web moves. Portable Markdown in `.agents/skills/`, read by Cascade/Windsurf, Claude Code, Codex, Devin. Each skill is short, opinionated, and ends with a `## Reference`.
+HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-## Skills (19)
+[![skills](https://img.shields.io/badge/skills-19-6C5CE7?style=for-the-badge)](#-skills)
+[![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
+[![refreshed](https://img.shields.io/badge/refreshed-monthly-0984E3?style=for-the-badge)](#)
+[![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
+
+[**Quick start**](#-quick-start) · [**Skills**](#-skills) · [**Install options**](#-install-options) · [**Credits**](CREDITS.md)
+
+</div>
+
+---
+
+One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown in `.agents/skills/`, read by **Cascade/Windsurf, Claude Code, Codex, Devin**. Each skill is short, example-light, and ends with a `## Reference`. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret") and **refreshed ~monthly** as the web moves.
+
+## ⚡ Quick start
+
+Add the whole collection with one command (hover the block → click the copy icon):
+
+```bash
+npx skills add shreyam1008/shre-skills
+```
+
+Want just one? Append `@<skill>` — the slug is the skill's name from the table below:
+
+```bash
+npx skills add shreyam1008/shre-skills@webgl
+```
+
+<details open>
+<summary><b>📋 Copy all 19 one-liners</b></summary>
+
+```bash
+npx skills add shreyam1008/shre-skills@minimalism
+npx skills add shreyam1008/shre-skills@code-quality
+npx skills add shreyam1008/shre-skills@html
+npx skills add shreyam1008/shre-skills@css
+npx skills add shreyam1008/shre-skills@javascript
+npx skills add shreyam1008/shre-skills@git
+npx skills add shreyam1008/shre-skills@react-best-practices
+npx skills add shreyam1008/shre-skills@react-rendering-performance
+npx skills add shreyam1008/shre-skills@tanstack
+npx skills add shreyam1008/shre-skills@web-performance
+npx skills add shreyam1008/shre-skills@caching
+npx skills add shreyam1008/shre-skills@service-worker
+npx skills add shreyam1008/shre-skills@security
+npx skills add shreyam1008/shre-skills@react-three-fiber
+npx skills add shreyam1008/shre-skills@webgl
+npx skills add shreyam1008/shre-skills@wasm-rust
+npx skills add shreyam1008/shre-skills@low-level-web-rendering
+npx skills add shreyam1008/shre-skills@design-language
+npx skills add shreyam1008/shre-skills@web-design-guidelines
+```
+</details>
+
+## 🧩 Skills
+
+> Auto-loads when a task matches the skill's `description`, or summon it by name (`@webgl` in Cascade).
 
 | Skill | For |
 |---|---|
@@ -28,26 +85,50 @@ By [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret"). **Ever-evolv
 | [`design-language`](skills/design-language/SKILL.md) | Tokens, color/type/spacing/motion systems. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | UI "rules": placement, contrast, a11y, UX states. |
 
-## Install
+## 🛠️ Install options
 
-Skills go in your project's `.agents/skills/` — just copy a folder, no build step.
+Skills live in your project's `.agents/skills/` — no build step, just files.
 
 ```bash
-# Skills CLI — installs from GitHub, no npm publish needed
+# 1 · Skills CLI (recommended) — installs straight from GitHub
 npx skills add shreyam1008/shre-skills            # all
 npx skills add shreyam1008/shre-skills@webgl      # one
 
-# or the script (clone this repo first)
+# 2 · Bundled script (clone this repo first)
 ./install.sh                      # all → ./.agents/skills
 ./install.sh webgl ~/code/my-app  # one → target project
 
-# or by hand
+# 3 · By hand
 cp -R skills/webgl my-app/.agents/skills/
 ```
 
-Agents auto-load a skill when the task matches its `description`, or summon it by name (`@webgl` in Cascade).
+<details>
+<summary><b>📋 All 19 install commands (again, for the road)</b></summary>
 
-## Notes
+```bash
+npx skills add shreyam1008/shre-skills@minimalism
+npx skills add shreyam1008/shre-skills@code-quality
+npx skills add shreyam1008/shre-skills@html
+npx skills add shreyam1008/shre-skills@css
+npx skills add shreyam1008/shre-skills@javascript
+npx skills add shreyam1008/shre-skills@git
+npx skills add shreyam1008/shre-skills@react-best-practices
+npx skills add shreyam1008/shre-skills@react-rendering-performance
+npx skills add shreyam1008/shre-skills@tanstack
+npx skills add shreyam1008/shre-skills@web-performance
+npx skills add shreyam1008/shre-skills@caching
+npx skills add shreyam1008/shre-skills@service-worker
+npx skills add shreyam1008/shre-skills@security
+npx skills add shreyam1008/shre-skills@react-three-fiber
+npx skills add shreyam1008/shre-skills@webgl
+npx skills add shreyam1008/shre-skills@wasm-rust
+npx skills add shreyam1008/shre-skills@low-level-web-rendering
+npx skills add shreyam1008/shre-skills@design-language
+npx skills add shreyam1008/shre-skills@web-design-guidelines
+```
+</details>
+
+## 📎 Notes
 
 - **Structure:** `skills/<name>/SKILL.md` — frontmatter (`name` + `description`) then guidance. Only the description loads until the skill triggers (progressive disclosure).
 - **Credits:** see [CREDITS.md](CREDITS.md). A few skills are derived from others (Vercel; `minimalism` from ponytail) and say so in an Attribution note; the rest are original syntheses from primary docs.

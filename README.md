@@ -6,7 +6,7 @@
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-19-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-20-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![refreshed](https://img.shields.io/badge/refreshed-monthly-0984E3?style=for-the-badge)](#)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -34,7 +34,7 @@ npx skills add shreyam1008/shre-skills@webgl
 ```
 
 <details open>
-<summary><b>📋 Copy all 19 one-liners</b></summary>
+<summary><b>📋 Copy all 20 one-liners</b></summary>
 
 ```bash
 npx skills add shreyam1008/shre-skills@minimalism
@@ -56,6 +56,7 @@ npx skills add shreyam1008/shre-skills@wasm-rust
 npx skills add shreyam1008/shre-skills@low-level-web-rendering
 npx skills add shreyam1008/shre-skills@design-language
 npx skills add shreyam1008/shre-skills@web-design-guidelines
+npx skills add shreyam1008/shre-skills@webview2-winui
 ```
 </details>
 
@@ -84,6 +85,7 @@ npx skills add shreyam1008/shre-skills@web-design-guidelines
 | [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Canvas 2D, OffscreenCanvas, DPR, render pipeline. |
 | [`design-language`](skills/design-language/SKILL.md) | Tokens, color/type/spacing/motion systems. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | UI "rules": placement, contrast, a11y, UX states. |
+| [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
 
 ## 🛠️ Install options
 
@@ -103,7 +105,7 @@ cp -R skills/webgl my-app/.agents/skills/
 ```
 
 <details>
-<summary><b>📋 All 19 install commands (again, for the road)</b></summary>
+<summary><b>📋 All 20 install commands (again, for the road)</b></summary>
 
 ```bash
 npx skills add shreyam1008/shre-skills@minimalism
@@ -125,6 +127,7 @@ npx skills add shreyam1008/shre-skills@wasm-rust
 npx skills add shreyam1008/shre-skills@low-level-web-rendering
 npx skills add shreyam1008/shre-skills@design-language
 npx skills add shreyam1008/shre-skills@web-design-guidelines
+npx skills add shreyam1008/shre-skills@webview2-winui
 ```
 </details>
 

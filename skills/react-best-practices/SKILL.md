@@ -1,6 +1,6 @@
 ---
 name: react-best-practices
-description: React performance and maintainability guidelines. Use when writing, reviewing, or refactoring React code: data fetching, rendering, state, hooks, and bundle size.
+description: "React performance and maintainability guidelines. Use when writing, reviewing, or refactoring React code: data fetching, rendering, state, hooks, and bundle size."
 ---
 
 # React Best Practices

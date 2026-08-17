@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "slug": "shre-skills",
+  "name": "shre-skills",
+  "summary": "A curated public catalog of reusable coding-agent skills maintained by Shreyam Adhikari.",
+  "visibility": "public",
+  "portfolioApproved": true,
+  "lifecycle": "active",
+  "repository": "https://github.com/shreyam1008/shre-skills",
+  "canonicalUrl": "https://skills.shreyam1008.com.np/",
+  "creatorUrl": "https://shreyam1008.com.np/me",
+  "versionSource": "Git tags matching YYYY.MM.DD",
+  "verifyCommand": "node scripts/validate-repository.mjs && node scripts/build-site.mjs",
+  "changelog": "docs/releases.md",
+  "securityPolicy": "SECURITY.md",
+  "installDocs": "README.md",
+  "rollbackDocs": "docs/domain-release.md",
+  "screenshotManifest": "docs/screenshots.json",
+  "distributions": [
+    {
+      "channel": "Product website",
+      "status": "prepared",
+      "url": "https://skills.shreyam1008.com.np/",
+      "version": "23e20de"
+    },
+    {
+      "channel": "GitHub repository",
+      "status": "live",
+      "url": "https://github.com/shreyam1008/shre-skills/tree/23e20de",
+      "version": "23e20de",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "channel": "CalVer release",
+      "status": "planned"
+    }
+  ]
+}

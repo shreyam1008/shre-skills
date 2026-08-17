@@ -22,3 +22,4 @@ dist/
 # Local scratch / research dumps (not part of the published collection)
 _scratch/
 _research/
+_site/

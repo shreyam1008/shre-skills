@@ -1,0 +1,23 @@
+name: Validate repository
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Validate skills and README catalog
+        run: node scripts/validate-repository.mjs
+
+      - name: Build static site
+        run: node scripts/build-site.mjs

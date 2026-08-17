@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>shre-skills — practical agent skills</title>
+    <meta name="description" content="A maintained catalog of practical, dependency-free agent skills for web engineering, performance, design, security, and native webviews." />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#17132b" />
+    <link rel="canonical" href="{{SITE_URL}}" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="shre-skills — practical agent skills" />
+    <meta property="og:description" content="Install focused agent guidance for modern web and desktop work." />
+    <meta property="og:url" content="{{SITE_URL}}" />
+  </head>
+  <body>
+    <a class="skip-link" href="#catalog">Skip to skill catalog</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="shre-skills home"><span aria-hidden="true">&lt;/&gt;</span> shre-skills</a>
+      <nav aria-label="Project links">
+        <a href="https://github.com/shreyam1008/shre-skills">GitHub</a>
+        <a href="https://github.com/shreyam1008/shre-skills/blob/main/CREDITS.md">Credits</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">{{SKILL_COUNT}} focused modules · MIT licensed</p>
+        <h1 id="hero-title">Useful context,<br /><span>right when you need it.</span></h1>
+        <p class="lede">Practical agent skills for web engineering, performance, design, security, GPU work, and WebView2—kept as readable Markdown and maintained in the open.</p>
+        <div class="install" aria-label="Install command">
+          <span>Install the collection</span>
+          <code>npx skills add shreyam1008/shre-skills</code>
+        </div>
+        <p class="hero-links"><a class="primary" href="https://github.com/shreyam1008/shre-skills">Browse the repository</a> <a href="#catalog">Explore all skills</a></p>
+      </section>
+
+      <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <p class="eyebrow">Repository catalog</p>
+          <h2 id="catalog-title">All {{SKILL_COUNT}} skills</h2>
+          <p>Each card links directly to its source file. The install slug, folder name, and frontmatter name are validated together in CI.</p>
+        </div>
+        <ul class="skill-grid">
+{{SKILL_CARDS}}
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>. Source is available under the <a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License</a>.</p>
+    </footer>
+  </body>
+</html>

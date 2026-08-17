@@ -35,7 +35,9 @@ jobs:
 
       - name: Build site from skill frontmatter
         env:
-          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+          # GitHub reports an http:// Pages URL while the custom-domain
+          # certificate is provisioning. The published canonical stays HTTPS.
+          PAGES_BASE_URL: https://skills.shreyam1008.com.np
         run: node scripts/build-site.mjs
 
       - name: Upload Pages artifact

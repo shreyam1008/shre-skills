@@ -2,6 +2,8 @@
 
 # shre-skills
 
+Public catalog and release state are recorded in [`product.json`](product.json) and [`docs/distribution-log.md`](docs/distribution-log.md).
+
 **Battle-tested agent skills for shipping fast, correct web apps.**
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
@@ -18,6 +20,8 @@ HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WAS
 ---
 
 One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown in `.agents/skills/`, read by **Cascade/Windsurf, Claude Code, Codex, Devin**. Each skill is short, example-light, and ends with a `## Reference`. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret") and **refreshed ~monthly** as the web moves.
+
+Product site (prepared; deployment not yet publicly verified): [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/)
 
 ## ⚡ Quick start
 
@@ -135,6 +139,7 @@ npx skills add shreyam1008/shre-skills@webview2-winui
 
 - **Structure:** `skills/<name>/SKILL.md` — frontmatter (`name` + `description`) then guidance. Only the description loads until the skill triggers (progressive disclosure).
 - **Credits:** see [CREDITS.md](CREDITS.md). A few skills are derived from others (Vercel; `minimalism` from ponytail) and say so in an Attribution note; the rest are original syntheses from primary docs.
+- **Release contract:** see [docs/domain-release.md](docs/domain-release.md) before changing Pages or DNS status.
 - **Roadmap:** `webgpu`, `shaders-glsl`, `web-animations`, `accessibility-audit`, `testing`.
 
 MIT — see [LICENSE](LICENSE).

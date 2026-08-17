@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "screenshots": [],
+  "required": false,
+  "reason": "shre-skills is a generated text catalog whose skill manifests are the product units; runtime screenshots are not required by the product standard."
+}

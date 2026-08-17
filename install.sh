@@ -30,17 +30,48 @@ if [[ ! -d "${SKILLS_SRC}" ]]; then
 fi
 
 mkdir -p "${DEST}"
+DEST="$(cd "${DEST}" && pwd -P)"
+
+is_valid_skill_name() {
+  [[ "$1" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]
+}
 
 copy_one() {
   local name="$1"
   local src="${SKILLS_SRC}/${name}"
+  local dest staging backup
+  if ! is_valid_skill_name "${name}"; then
+    echo "error: invalid skill name '${name}'" >&2
+    exit 1
+  fi
   if [[ ! -d "${src}" ]]; then
     echo "error: skill '${name}' not found. Available skills:" >&2
     ls -1 "${SKILLS_SRC}" >&2
     exit 1
   fi
-  rm -rf "${DEST:?}/${name}"
-  cp -R "${src}" "${DEST}/${name}"
+
+  dest="${DEST}/${name}"
+  if [[ "$(dirname "${dest}")" != "${DEST}" ]]; then
+    echo "error: refusing destination outside ${DEST}" >&2
+    exit 1
+  fi
+
+  staging="$(mktemp -d "${DEST}/.${name}.tmp.XXXXXX")"
+  cp -R "${src}/." "${staging}/"
+
+  if [[ -e "${dest}" ]]; then
+    backup="$(mktemp -d "${DEST}/.${name}.backup.XXXXXX")"
+    rmdir "${backup}"
+    mv "${dest}" "${backup}"
+    if ! mv "${staging}" "${dest}"; then
+      mv "${backup}" "${dest}"
+      echo "error: failed to replace ${name}; previous copy restored" >&2
+      exit 1
+    fi
+    rm -rf -- "${backup}"
+  else
+    mv "${staging}" "${dest}"
+  fi
   echo "  installed ${name}"
 }
 

@@ -15,7 +15,8 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 ## Format & method
 
 - Skill structure (frontmatter, progressive disclosure, "pushy" descriptions, explain-*why*) follows [`anthropics/skills`](https://github.com/anthropics/skills) `skill-creator` guidance.
-- `css` / `html` / `javascript` / `web-performance` cross-reference [`GoogleChrome/modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance).
+- `css` / `html` / `javascript` / `web-performance` cross-reference [`GoogleChrome/modern-web-guidance-src`](https://github.com/GoogleChrome/modern-web-guidance-src).
+- `webgpu` and the rendering decision guidance are synthesized from the [GPU for the Web specifications](https://github.com/gpuweb/gpuweb), [Khronos WebGL](https://github.com/KhronosGroup/WebGL), and the [WICG HTML-in-Canvas proposal](https://github.com/WICG/html-in-canvas). HTML-in-Canvas remains explicitly experimental.
 
 ## Primary references used across skills
 
@@ -32,3 +33,4 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 Reference collections browsed while curating: `VoltAgent/awesome-agent-skills`, `obra/superpowers`, `hesreallyhim/awesome-claude-code`.
 
 Each skill also lists its own sources in its `## Reference` section.
+Pinned revisions for fast-moving web-platform sources are recorded in [`docs/source-baselines.json`](docs/source-baselines.json). A pin records what was reviewed; it does not imply that the upstream project stopped changing.

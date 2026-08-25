@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-25",
+  "sources": [
+    {
+      "id": "gpuweb-spec",
+      "title": "GPU for the Web specifications",
+      "kind": "git",
+      "url": "https://github.com/gpuweb/gpuweb",
+      "revision": "7af79e816d5ae53626cb28b79be1fe83bb63c871",
+      "skills": ["webgpu", "webgl", "low-level-web-rendering"]
+    },
+    {
+      "id": "html-in-canvas-proposal",
+      "title": "WICG HTML-in-Canvas proposal",
+      "kind": "git",
+      "url": "https://github.com/WICG/html-in-canvas",
+      "revision": "d4433e329697c4341a9f915f75dbd9608f3939fa",
+      "skills": ["low-level-web-rendering", "webgpu", "webgl"]
+    },
+    {
+      "id": "html-in-canvas-origin-trial",
+      "title": "Chromium HTML-in-Canvas intent and extension",
+      "kind": "browser-intent",
+      "url": "https://groups.google.com/a/chromium.org/g/blink-dev/c/BpWbzJ9P22s",
+      "revision": "origin-trial-extended-through-m154",
+      "skills": ["low-level-web-rendering", "webgpu", "webgl"]
+    },
+    {
+      "id": "modern-web-guidance",
+      "title": "GoogleChrome modern-web-guidance",
+      "kind": "git",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+      "revision": "265a187ec96288c29fb1d08d4c9102cafaeb18c9",
+      "packageVersion": "0.0.185",
+      "skills": ["html", "css", "javascript", "web-performance", "low-level-web-rendering"]
+    },
+    {
+      "id": "khronos-webgl",
+      "title": "Khronos WebGL specifications and conformance tests",
+      "kind": "git",
+      "url": "https://github.com/KhronosGroup/WebGL",
+      "revision": "e55ed012f0ed2bbe603936ae0a6046a67ecfe870",
+      "skills": ["webgl", "low-level-web-rendering"]
+    },
+    {
+      "id": "wasm-bindgen",
+      "title": "Rust wasm-bindgen",
+      "kind": "git",
+      "url": "https://github.com/wasm-bindgen/wasm-bindgen",
+      "revision": "7efa2e0fd28966d70a03527ad2ff1e748d48f9d8",
+      "skills": ["wasm-rust", "low-level-web-rendering"]
+    },
+    {
+      "id": "webcodecs-spec",
+      "title": "W3C WebCodecs specification",
+      "kind": "git",
+      "url": "https://github.com/w3c/webcodecs",
+      "revision": "ce2788dc57681b4d56f3728848f3d99a1d1bf456",
+      "skills": ["low-level-web-rendering", "web-performance"]
+    },
+    {
+      "id": "css-paint-spec",
+      "title": "W3C CSS Houdini drafts",
+      "kind": "git",
+      "url": "https://github.com/w3c/css-houdini-drafts",
+      "revision": "954df531741a9d2da94aec82b073b3f9b5af5573",
+      "skills": ["low-level-web-rendering", "css"]
+    },
+    {
+      "id": "mdn-platform-docs",
+      "title": "MDN web-platform documentation source",
+      "kind": "git",
+      "url": "https://github.com/mdn/content",
+      "revision": "737b931225e92e0cba47e57a150878b1a78ee45a",
+      "skills": ["html", "css", "javascript", "web-performance", "webgpu", "low-level-web-rendering"]
+    },
+    {
+      "id": "w3c-aria",
+      "title": "W3C Accessible Rich Internet Applications specifications",
+      "kind": "git",
+      "url": "https://github.com/w3c/aria",
+      "revision": "37b9d2b8b9c7ba3ff24060d3367377d64dabef64",
+      "skills": ["html", "low-level-web-rendering"]
+    }
+  ]
+}

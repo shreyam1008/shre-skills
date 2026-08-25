@@ -17,6 +17,8 @@ Run near-native Rust in the browser. WASM wins for **compute-heavy, long-running
 
 Rule of thumb: **fewer, bigger calls** beat many tiny calls.
 
+WASM and WebGPU solve different bottlenecks. WASM runs CPU kernels in browser-managed linear memory; WebGPU submits sandboxed work to a browser-managed GPU device. Neither is “GPU Direct.” Profile first, keep transfer boundaries coarse, and preserve a JavaScript/CPU fallback when the support contract requires it. Use `low-level-web-rendering` to choose the renderer and `webgpu` for GPU pipelines.
+
 ## Toolchain
 
 ```bash

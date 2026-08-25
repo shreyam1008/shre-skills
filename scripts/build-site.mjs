@@ -36,7 +36,10 @@ const index = template
 await rm(outputRoot, { recursive: true, force: true });
 await mkdir(outputRoot, { recursive: true });
 await writeFile(join(outputRoot, 'index.html'), index);
-await cp(join(siteRoot, 'styles.css'), join(outputRoot, 'styles.css'));
+
+for (const file of ['styles.css', 'favicon.svg']) {
+  await cp(join(siteRoot, file), join(outputRoot, file));
+}
 
 for (const file of ['robots.txt', 'sitemap.xml']) {
   const source = await readFile(join(siteRoot, file), 'utf8');

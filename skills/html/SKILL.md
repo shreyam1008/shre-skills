@@ -38,7 +38,7 @@ Semantic HTML is the cheapest accessibility and SEO win available — the browse
 - Prefer native semantics over ARIA — "no ARIA is better than bad ARIA". Add roles/attributes only to fill genuine gaps.
 - Images: meaningful `alt`; decorative images get `alt=""`.
 - Keep a logical DOM/tab order; visible focus must survive your CSS.
-- Associate dynamic messages with `aria-live`/`role="alert"`.
+- Use `role="status"` / `aria-live="polite"` for routine dynamic messages. Reserve `role="alert"` (assertive announcement) for urgent, time-sensitive information.
 
 ## Document head & metadata
 
@@ -54,7 +54,7 @@ Semantic HTML is the cheapest accessibility and SEO win available — the browse
 
 ## Reference
 
-- `GoogleChrome/modern-web-guidance` (HTML/forms/accessibility guides).
+- `GoogleChrome/modern-web-guidance-src` (HTML/forms/accessibility guides).
 - MDN: HTML element reference; "HTML: A good basis for accessibility".
 - WHATWG HTML Living Standard; web.dev: "Learn HTML", "Learn Forms".
 - W3C WAI / ARIA Authoring Practices.

@@ -21,14 +21,15 @@
       "channel": "Product website",
       "status": "prepared",
       "url": "https://skills.shreyam1008.com.np/",
-      "version": "23e20de"
+      "version": "main (unreleased)",
+      "verifiedAt": "2026-08-25"
     },
     {
       "channel": "GitHub repository",
       "status": "live",
-      "url": "https://github.com/shreyam1008/shre-skills/tree/23e20de",
-      "version": "23e20de",
-      "verifiedAt": "2026-08-17"
+      "url": "https://github.com/shreyam1008/shre-skills/tree/main",
+      "version": "main (unreleased)",
+      "verifiedAt": "2026-08-25"
     },
     {
       "channel": "CalVer release",

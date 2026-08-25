@@ -23,7 +23,7 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 
 - **Container queries** (`container-type: inline-size` + `@container`) let components respond to *their* space, not the viewport — prefer these for reusable components.
 - Intrinsic sizing: `min()`, `max()`, `clamp()` for fluid type/spacing (`font-size: clamp(1rem, 0.5rem + 2vw, 1.5rem)`).
-- Use **dynamic viewport units** (`dvh`/`dvw`) instead of `vh`/`vw` so mobile browser chrome (address bar) doesn't break layouts.
+- Choose viewport units by behavior: `svh` for a stable unobscured minimum, `lvh` for the expanded viewport, and `dvh` only when resizing with browser chrome is desirable. Do not blanket-replace `vh`/`vw`; dynamic units can resize during scroll.
 - Set `aspect-ratio` on media to reserve space and prevent layout shift (CLS).
 - **Subgrid** (`grid-template-columns: subgrid`) aligns nested grid items (card titles/footers) to the parent's tracks.
 - Use viewport breakpoints only for page-level layout shifts.
@@ -56,9 +56,9 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 
 ## Performance
 
-- Animate only **`transform`** and **`opacity`** (GPU-composited); avoid animating layout properties (width/height/top/left).
+- Prefer **`transform`** and **`opacity`** for motion; they often avoid layout/paint, but compositing is not guaranteed. Verify the Layers/Performance trace, and avoid layout properties in hot animation loops.
 - Use `will-change` sparingly and remove it after the animation.
-- `content-visibility: auto` to skip rendering offscreen sections.
+- Pair `content-visibility: auto` with a realistic `contain-intrinsic-size` to reduce scrollbar/CLS jumps. Audit accessibility and forced-render DOM reads before broad use.
 - Avoid expensive filters/large box-shadows on many elements; avoid `@import` (blocks loading).
 - Respect `@media (prefers-reduced-motion: reduce)`.
 
@@ -70,7 +70,7 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 
 ## Reference
 
-- **`GoogleChrome/modern-web-guidance`** (the CSS guide — `:has()`, `@scope`, container queries, `dvh`, `text-wrap`; retrievable via `npx modern-web-guidance@latest`).
+- **`GoogleChrome/modern-web-guidance-src`** (the CSS guidance; retrievable via `npx modern-web-guidance@latest`).
 - MDN CSS reference; web.dev: "Learn CSS", "Learn Responsive Design".
 - Specs: Cascade Layers, Container Queries, Nesting, `@scope`, `:has()`, `color-mix()`/relative color.
 - Josh Comeau "CSS for JS"; Kevin Powell (modern CSS patterns).

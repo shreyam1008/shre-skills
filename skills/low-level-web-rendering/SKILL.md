@@ -1,99 +1,131 @@
 ---
 name: low-level-web-rendering
-description: How the browser turns markup into pixels, plus Canvas 2D / OffscreenCanvas rendering. Use for the render pipeline (style, layout, paint, composite), DOM-vs-canvas decisions, DPR scaling, and canvas performance.
+description: Choose and engineer the browser rendering path across DOM/CSS, SVG, Canvas 2D, OffscreenCanvas, WebGL, WebGPU, and WASM. Use for render-pipeline diagnosis, DOM-vs-canvas decisions, HTML-in-Canvas experiments, DPR scaling, worker rendering, and production fallback design.
 ---
 
 # Low-Level Web Rendering
 
-Understand how pixels actually get on screen, then pick the right tool: DOM, Canvas 2D, or GPU (WebGL/WebGPU).
+Choose the least specialized renderer that meets the product need. A GPU path is not automatically faster, and “painting without the DOM” is usually the wrong model for text, controls, or accessible application UI.
 
-## The browser render pipeline
+## Production decision router
 
-Each frame the browser may run, in order:
+| Need | Default | Why / boundary |
+|---|---|---|
+| Text, forms, navigation, selectable content | DOM + CSS | Native semantics, layout, accessibility, input, search, and internationalization. |
+| Scalable diagrams with addressable elements | SVG | DOM semantics plus vector rendering; watch very large node counts. |
+| Dense custom 2D pixels, drawing, charts, sprites | Canvas 2D | Immediate-mode rendering; supply a semantic DOM alternative for interaction. |
+| Canvas work blocks input/scroll | OffscreenCanvas + Worker | Moves supported rendering and preparation off the main thread. Feature-detect. |
+| Portable 3D/shaders | WebGL2 | Mature compatibility; use an engine unless raw API control is the product. |
+| Compute, storage buffers, explicit modern GPU pipelines | WebGPU | Progressive enhancement with a WebGL/CPU fallback; see `webgpu`. |
+| CPU-heavy parsing, simulation, codecs | Worker, then WASM if measured | WASM accelerates compute; it does not replace the DOM or choose the renderer. |
+| Video frame decode/encode or transforms | WebCodecs when supported | Specialized media frames; retain `<video>` / server paths where compatibility matters. |
 
-1. **JS** — your handlers/animations mutate the DOM/styles.
-2. **Style** — compute which CSS rules apply (recalc styles).
-3. **Layout (reflow)** — compute geometry/positions. Triggered by size/position/text changes.
-4. **Paint** — fill pixels for each layer (text, colors, images, borders).
-5. **Composite** — the GPU assembles layers into the final image.
+Apply the table in this order:
 
-Cheapest path: change only **composite** (transform/opacity). Most expensive: trigger **layout** every frame.
+1. Preserve semantics first. If users read, edit, focus, select, search, translate, or automate it, keep a server-rendered or pre-rendered real DOM representation.
+2. Measure the bottleneck: DOM count/layout, paint, main-thread JS, draw calls, fill rate, GPU time, transfers, or memory.
+3. Change only the constrained layer. Moving pixels to a canvas does not fix unrelated data or scripting work.
+4. Define fallback and recovery before adopting a less portable API.
 
-```css
-/* GPU-composited, skips layout & paint */
-.move { transform: translateX(100px); will-change: transform; }
-/* AVOID animating these — they relayout/repaint */
-.bad  { left: 100px; width: 50%; }
-```
+## Browser frame pipeline
 
-## Avoid layout thrashing
+Each frame may perform:
 
-Interleaving reads and writes forces synchronous layout ("forced reflow"):
+`JavaScript → style → layout → paint → composite`
 
-```js
-// BAD: read, write, read, write -> multiple forced layouts
-el.style.height = el.offsetHeight + 10 + 'px';
-// GOOD: batch reads, then batch writes
-const h = el.offsetHeight;          // read phase
-el.style.height = h + 10 + 'px';    // write phase
-```
+- Batch geometry reads before writes; reading layout after a mutation can force synchronous layout.
+- Prefer transforms and opacity for motion when they avoid layout/paint, but verify in DevTools—compositing is an implementation decision, not a promise.
+- Use `will-change` only around a measured transition; permanent layers consume memory.
+- Reduce DOM/layout scope before replacing accessible markup with custom pixels (`contain`, `content-visibility`, virtualization, smaller subtrees).
 
-Layout-triggering reads include `offsetTop/Width/Height`, `getBoundingClientRect()`, `scrollTop`, `getComputedStyle()`.
+## Canvas 2D baseline
 
-## DOM vs Canvas vs GPU — choosing
-
-- **DOM/CSS**: accessible, text, forms, modest interactivity. Let the browser optimize. Default choice.
-- **Canvas 2D**: many custom shapes, charts, freeform drawing, games where DOM nodes would explode. No built-in accessibility — add ARIA/fallbacks.
-- **WebGL/WebGPU**: thousands of objects, 3D, shaders, heavy effects. See `webgl` / `react-three-fiber` skills.
-
-Rough guide: hundreds of dynamic visual elements → consider canvas; thousands or 3D/shaders → GPU.
-
-## Canvas 2D setup with correct DPR
-
-Canvas looks blurry on HiDPI unless you scale the backing store:
+Size the backing store from actual display pixels and update it when the element changes:
 
 ```js
-const dpr = window.devicePixelRatio || 1;
-const rect = canvas.getBoundingClientRect();
-canvas.width  = Math.round(rect.width  * dpr);  // backing store px
-canvas.height = Math.round(rect.height * dpr);
-canvas.style.width  = `${rect.width}px`;         // CSS px
-canvas.style.height = `${rect.height}px`;
-const ctx = canvas.getContext('2d', { alpha: false }); // opaque = faster
-ctx.scale(dpr, dpr);                              // draw in CSS px units
+function resizeCanvas(canvas, ctx) {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const width = Math.max(1, Math.round(rect.width * dpr));
+  const height = Math.max(1, Math.round(rect.height * dpr));
+  if (canvas.width === width && canvas.height === height) return;
+  canvas.width = width;
+  canvas.height = height;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
 ```
 
-## Canvas 2D performance rules
+- Clamp DPR when fill rate, VRAM, memory, or power matters; expose quality as a product decision.
+- Drive animation with `requestAnimationFrame`; use its timestamp and stop when nothing changes.
+- Reuse paths, images, typed arrays, and state. Avoid allocations, text measurement, filters, and readbacks in hot loops.
+- Layer static and dynamic content only when it reduces measured redraw cost.
+- Use dirty rectangles only when tracking/overdraw complexity beats a full redraw in measurements.
 
-- **Render only differences** — clear/redraw dirty regions, not the whole canvas, when feasible.
-- **Layer canvases**: static background, dynamic gameplay, rarely-changing UI on separate stacked `<canvas>` elements. Redraw only the layer that changed.
-- **Pre-render** repeated sprites/primitives to an offscreen canvas once, then `drawImage` them.
-- **Integer coordinates** — `Math.floor` positions to avoid sub-pixel anti-aliasing cost.
-- **Don't scale in `drawImage`** every frame — cache pre-scaled sizes.
-- **Batch path ops** (one `stroke()` for a polyline, not many) and minimize `ctx` state changes.
-- Avoid `shadowBlur` and excessive text rendering in hot loops.
-- Use a static CSS/`<img>` background instead of redrawing it each tick.
-- Drive animation with `requestAnimationFrame`, never `setInterval`.
-
-## OffscreenCanvas + Web Workers
-
-Move rendering off the main thread (great past ~1000 dynamic objects/frame):
+## OffscreenCanvas and workers
 
 ```js
-// main thread
-const offscreen = canvas.transferControlToOffscreen();
-worker.postMessage({ canvas: offscreen }, [offscreen]);
-// worker: getContext('2d' | 'webgl2') on the transferred canvas, render in the worker
+if ('transferControlToOffscreen' in canvas) {
+  const offscreen = canvas.transferControlToOffscreen();
+  worker.postMessage({ canvas: offscreen }, [offscreen]);
+} else {
+  startMainThreadRenderer(canvas);
+}
 ```
 
-Keeps scrolling/input smooth while heavy drawing runs in the worker. (Safari support landed in iOS 16.4.)
+- Keep input, accessibility, and DOM state on the main thread; send compact state snapshots or commands.
+- Transfer ownership once. Do not copy large frame payloads when transferable buffers or shared state are justified.
+- Worker support differs by context/API. Test the exact browser matrix; the fallback is part of the architecture.
 
-## Scaling tricks
+## HTML-in-Canvas and CSS Paint: lab only
 
-- Prefer CSS `transform: scale()` (GPU) over redrawing at a new resolution.
-- Better to draw a smaller canvas and scale **up** than a big canvas scaled down.
+HTML-in-Canvas is a **WICG proposal**, not a production rendering dependency. The proposal keeps real DOM descendants under `<canvas layoutsubtree>`, then adds `drawElementImage()`, `texElementImage2D()`, and `copyElementImageToTexture()` to draw their browser-rendered snapshots into Canvas 2D, WebGL, or WebGPU. It is not DOM-free painting.
+
+Current status reviewed 25 August 2026:
+
+- Chromium records the origin trial as M148–M150, subsequently extended through M154.
+- Gecko and WebKit have no positive implementation signal.
+- The API shape, privacy rules, hit testing, and accessibility behavior are still being developed.
+- Cross-origin embedded content is restricted, and canvas-contained scrolling/animation remains tied to main-thread JavaScript.
+
+Rules:
+
+- Use it only for a lab/prototype or a separately guarded enhancement.
+- Feature-detect the exact method; never infer it from a Chrome version.
+- Keep an equivalent semantic DOM path visible and meaningful when the experimental drawing method is absent; descendants used only as ordinary canvas fallback content are not enough in a canvas-capable browser.
+- Production fallback: DOM overlay for interactive UI; DOM/SVG/Canvas 2D for 2D content; DOM overlay or established texture pipeline for WebGL/WebGPU scenes.
+- Never make an origin-trial token or browser flag a normal-user requirement.
+
+CSS Paint worklets are also a specialized progressive enhancement, not an escape hatch from DOM/CSS architecture. Keep an ordinary CSS background/border fallback and do not put content or essential state only in paint output.
+
+## Accessibility and input
+
+- Canvas pixels do not create semantics. Provide DOM controls, names, focus order, keyboard behavior, announcements, and equivalent text/data.
+- Keep hit testing in one coordinate system and account for CSS size, backing-store size, camera transforms, zoom, and DPR.
+- Preserve no-JS content, reduced motion, forced colors, text scaling, and high contrast outside custom rendering where possible.
+- Do not duplicate an interactive control in both canvas and DOM accessibility trees.
+
+## Measure before escalating
+
+- Record a representative interaction in the Performance panel; identify scripting, layout, paint, raster, or GPU work.
+- Count DOM nodes, draw calls, submissions, buffer/texture uploads, and frame allocations.
+- Set explicit pixel, texture/VRAM, frame-time, and power budgets before increasing visual complexity.
+- Test integrated GPUs, mobile thermal throttling, high-DPR displays, and background/hidden tabs.
+- Compare against the simpler renderer. Keep the specialized path only when the user-visible win survives target-device testing.
+
+## Ship gate
+
+- [ ] The renderer matches the content’s semantic and interaction needs.
+- [ ] The bottleneck was measured before the architecture changed.
+- [ ] DPR, resize, visibility, context/device loss, and cleanup are handled.
+- [ ] Unsupported browsers and no-JS users get a usable path, not an empty canvas.
+- [ ] The main thread remains responsive and accessibility/reduced-motion behavior is verified.
+- [ ] Experimental APIs are isolated and removable.
 
 ## Reference
 
-- MDN: "Optimizing canvas", "Canvas API".
-- web.dev: "OffscreenCanvas", "Rendering performance", "Avoid large, complex layouts and layout thrashing".
+- WHATWG: [HTML canvas element](https://html.spec.whatwg.org/multipage/canvas.html).
+- W3C: [WebCodecs](https://www.w3.org/TR/webcodecs/) and [CSS Painting API](https://drafts.css-houdini.org/css-paint-api/).
+- MDN: [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API), [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas), and [WebCodecs](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API).
+- WICG: [HTML-in-Canvas explainer](https://github.com/WICG/html-in-canvas).
+- Chromium: [HTML-in-Canvas intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/t_nGEmJ_v4s) and [experiment extension](https://groups.google.com/a/chromium.org/g/blink-dev/c/BpWbzJ9P22s).
+- web.dev: rendering performance and avoiding large, complex layouts and layout thrashing.

@@ -22,7 +22,7 @@ Modern JS is expressive and fast — most footguns come from async handling, mut
 - Run independent work concurrently with `Promise.all`; use `Promise.allSettled` when partial failure is acceptable.
 - Never leave a floating promise where errors matter — await it or explicitly handle it.
 - Don't mix `await` inside a `forEach` (it won't wait). Use `for...of` with `await`, or map to promises + `Promise.all`.
-- Cancel stale async work with `AbortController` (fetch, event listeners, timers).
+- Cancel stale fetches and signal-aware event listeners with `AbortController`. Cancel timers with `clearTimeout` / `clearInterval` (or an explicit signal-aware wrapper).
 
 ```js
 // parallel, not serial
@@ -36,8 +36,9 @@ const res = await fetch(url, { signal: ac.signal });
 ## Data & correctness
 
 - Validate/parse external data at the boundary (a schema lib like Zod, or explicit checks) — don't trust shapes.
+- Keep untrusted text out of code/HTML sinks: prefer `textContent`; require a reviewed sanitizer/`TrustedHTML` before `innerHTML` or `insertAdjacentHTML`; avoid `eval` and string-form timers. Enforce Trusted Types with CSP where feasible.
 - Beware floating-point money math; use integer minor units or a decimal lib.
-- Copy before sort/reverse (they mutate); use `structuredClone` for deep copies.
+- Prefer copying array methods (`toSorted`, `toReversed`, `toSpliced`, `with`); copy-then-mutate only for compatibility. Use `structuredClone` only for cloneable values and handle `DataCloneError` at untrusted boundaries.
 - Use `Intl` for dates/numbers/currency formatting, not hand-rolled string math.
 
 ## Performance & memory
@@ -46,7 +47,7 @@ const res = await fetch(url, { signal: ac.signal });
 - Debounce/throttle high-frequency events (scroll, resize, input); use `requestAnimationFrame` for visual updates.
 - Offload heavy CPU work to a Web Worker to keep the main thread responsive (see `web-performance` and `wasm-rust`).
 - Remove event listeners/observers/timers on teardown to avoid leaks; detached DOM nodes held by closures leak.
-- Use `WeakMap`/`WeakRef` for caches keyed by objects you don't want to keep alive.
+- Use `WeakMap` for object-keyed metadata that must not retain its keys. Reserve `WeakRef` for recomputable, best-effort values—collection timing is deliberately nondeterministic.
 
 ## TypeScript (when present)
 
@@ -62,5 +63,6 @@ const res = await fetch(url, { signal: ac.signal });
 ## Reference
 
 - MDN JavaScript reference; "JavaScript guide".
-- `GoogleChrome/modern-web-guidance` (JS/DOM guides).
+- `GoogleChrome/modern-web-guidance-src` (JS/DOM guides).
+- MDN: `AbortController`, copying array methods, `WeakMap`/`WeakRef`, `innerHTML`, and Trusted Types CSP.
 - TC39 proposals; "You Don't Know JS" (Kyle Simpson); web.dev performance guides.

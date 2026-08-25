@@ -8,9 +8,9 @@ Public catalog and release state are recorded in [`product.json`](product.json) 
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-20-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-21-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
-[![refreshed](https://img.shields.io/badge/refreshed-monthly-0984E3?style=for-the-badge)](#)
+[![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
 
 [**Quick start**](#-quick-start) · [**Skills**](#-skills) · [**Install options**](#-install-options) · [**Credits**](CREDITS.md)
@@ -19,9 +19,9 @@ HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WAS
 
 ---
 
-One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown in `.agents/skills/`, read by **Cascade/Windsurf, Claude Code, Codex, Devin**. Each skill is short, example-light, and ends with a `## Reference`. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret") and **refreshed ~monthly** as the web moves.
+One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown in `.agents/skills/`, read by **Cascade/Windsurf, Claude Code, Codex, Devin**. Each skill is short, example-light, and ends with a `## Reference`. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret"); moving web-platform sources are pinned in [`docs/source-baselines.json`](docs/source-baselines.json) and reviewed before refreshes.
 
-Product site (prepared; deployment not yet publicly verified): [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/)
+Product site: DNS and Pages are configured, but GitHub's custom-domain certificate is still pending. The GitHub repository remains the distribution authority until HTTPS verifies.
 
 ## ⚡ Quick start
 
@@ -38,7 +38,7 @@ npx skills add shreyam1008/shre-skills@webgl
 ```
 
 <details open>
-<summary><b>📋 Copy all 20 one-liners</b></summary>
+<summary><b>📋 Copy all 21 one-liners</b></summary>
 
 ```bash
 npx skills add shreyam1008/shre-skills@minimalism
@@ -56,6 +56,7 @@ npx skills add shreyam1008/shre-skills@service-worker
 npx skills add shreyam1008/shre-skills@security
 npx skills add shreyam1008/shre-skills@react-three-fiber
 npx skills add shreyam1008/shre-skills@webgl
+npx skills add shreyam1008/shre-skills@webgpu
 npx skills add shreyam1008/shre-skills@wasm-rust
 npx skills add shreyam1008/shre-skills@low-level-web-rendering
 npx skills add shreyam1008/shre-skills@design-language
@@ -79,14 +80,15 @@ npx skills add shreyam1008/shre-skills@webview2-winui
 | [`react-best-practices`](skills/react-best-practices/SKILL.md) | React data/render/state/bundle; React 19 APIs. |
 | [`react-rendering-performance`](skills/react-rendering-performance/SKILL.md) | Jank, slow lists, re-render diagnosis. |
 | [`tanstack`](skills/tanstack/SKILL.md) | Query/Router/Table/Form/Start; no `useEffect` fetching. |
-| [`web-performance`](skills/web-performance/SKILL.md) | Core Web Vitals, 60fps, scheduling, load speed. |
+| [`web-performance`](skills/web-performance/SKILL.md) | Core Web Vitals, adaptive frame budgets, scheduling, load speed. |
 | [`caching`](skills/caching/SKILL.md) | Cache-Control/CDN/browser/SW/query, invalidation. |
 | [`service-worker`](skills/service-worker/SKILL.md) | PWA, offline, caching strategies, updates. |
 | [`security`](skills/security/SKILL.md) | Validation, encoding, auth, secrets, XSS/CSRF/injection. |
 | [`react-three-fiber`](skills/react-three-fiber/SKILL.md) | 3D with `@react-three/fiber` + `drei`. |
 | [`webgl`](skills/webgl/SKILL.md) | Raw WebGL/GPU, shaders, draw-call budgets. |
+| [`webgpu`](skills/webgpu/SKILL.md) | Browser WebGPU/WGSL, compute, device loss, measured fallbacks. |
 | [`wasm-rust`](skills/wasm-rust/SKILL.md) | Hot paths to Rust + WebAssembly. |
-| [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Canvas 2D, OffscreenCanvas, DPR, render pipeline. |
+| [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
 | [`design-language`](skills/design-language/SKILL.md) | Tokens, color/type/spacing/motion systems. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | UI "rules": placement, contrast, a11y, UX states. |
 | [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
@@ -109,7 +111,7 @@ cp -R skills/webgl my-app/.agents/skills/
 ```
 
 <details>
-<summary><b>📋 All 20 install commands (again, for the road)</b></summary>
+<summary><b>📋 All 21 install commands (again, for the road)</b></summary>
 
 ```bash
 npx skills add shreyam1008/shre-skills@minimalism
@@ -127,6 +129,7 @@ npx skills add shreyam1008/shre-skills@service-worker
 npx skills add shreyam1008/shre-skills@security
 npx skills add shreyam1008/shre-skills@react-three-fiber
 npx skills add shreyam1008/shre-skills@webgl
+npx skills add shreyam1008/shre-skills@webgpu
 npx skills add shreyam1008/shre-skills@wasm-rust
 npx skills add shreyam1008/shre-skills@low-level-web-rendering
 npx skills add shreyam1008/shre-skills@design-language
@@ -138,8 +141,9 @@ npx skills add shreyam1008/shre-skills@webview2-winui
 ## 📎 Notes
 
 - **Structure:** `skills/<name>/SKILL.md` — frontmatter (`name` + `description`) then guidance. Only the description loads until the skill triggers (progressive disclosure).
+- **Source baselines:** [`docs/source-baselines.json`](docs/source-baselines.json) records the primary-source revision used for fast-moving platform guidance; validation rejects unknown skills, duplicate sources, insecure URLs, and missing rendering coverage.
 - **Credits:** see [CREDITS.md](CREDITS.md). A few skills are derived from others (Vercel; `minimalism` from ponytail) and say so in an Attribution note; the rest are original syntheses from primary docs.
 - **Release contract:** see [docs/domain-release.md](docs/domain-release.md) before changing Pages or DNS status.
-- **Roadmap:** `webgpu`, `shaders-glsl`, `web-animations`, `accessibility-audit`, `testing`.
+- **Roadmap:** `shaders-glsl`, `web-animations`, `accessibility-audit`, `testing`.
 
 MIT — see [LICENSE](LICENSE).

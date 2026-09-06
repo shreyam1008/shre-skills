@@ -2,6 +2,8 @@
 
 # shre-skills
 
+Official source and install links: [shre-skills distribution tracker](https://shreyam1008.com.np/projects/#distribution-shre-skills). GitHub and the Skills CLI are the supported channels; OS app stores are not applicable.
+
 Public catalog and release state are recorded in [`product.json`](product.json) and [`docs/distribution-log.md`](docs/distribution-log.md).
 
 **Battle-tested agent skills for shipping fast, correct web apps.**

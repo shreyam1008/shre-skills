@@ -31,6 +31,7 @@ wasm-pack build --target web --release
 
 - `--target web` → native ESM import; `--target bundler` → for webpack/Vite; `--target nodejs` for Node.
 - `wasm-bindgen` generates the JS glue and TypeScript types automatically.
+- Keep the crate, generated glue, and CLI versions compatible. The reviewed 0.2.128 release adds `web-sys` OffscreenCanvas overloads for WebGL texture uploads; confirm the selected `web-sys` version and feature flags before using them. This does not add browser support by itself.
 
 ## Minimal crate
 

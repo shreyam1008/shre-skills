@@ -13,6 +13,7 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 - **Grid** for two-dimensional layout (rows *and* columns), and for overlapping/area-based layouts.
 - Avoid absolute positioning for layout; reserve it for overlays/badges.
 - Use `gap` for spacing between items instead of margins on children.
+- Fix overflow at its cause instead of hiding it with `overflow: hidden`. Check intrinsic minimum sizes, flexible tracks, and wrapping; use `display: block` on canvas/images when their inline baseline gap is unwanted. Preserve intentional clipping for visual effects.
 - Prefer **logical properties** (`margin-inline`, `padding-block`, `inset`) so layouts adapt to writing direction.
 
 ```css

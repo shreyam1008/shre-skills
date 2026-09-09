@@ -96,7 +96,7 @@ requestAnimationFrame(frame);
 - Need compute, storage buffers, or modern GPU features → use the `webgpu` skill, but keep WebGL2 as the production fallback unless the product controls its browser/GPU matrix.
 - Building a full scene graph → use Three.js / React Three Fiber instead of hand-rolling (see the `react-three-fiber` skill).
 
-WebGL is also the fallback boundary for an experimental HTML-in-Canvas texture path. Do not make `texElementImage2D()` an ordinary production dependency; keep semantic DOM or an established texture pipeline when the proposal is unavailable. See `low-level-web-rendering`.
+WebGL is also the fallback boundary for an experimental HTML-in-Canvas texture path. The explainer reviewed on 9 September 2026 uses `texElementSubImage2D()`, replacing earlier `texElementImage2D()` examples. Keep this experimental method feature-detected and preserve semantic DOM or an established texture pipeline when it is unavailable. See `low-level-web-rendering`.
 
 ## Reference
 

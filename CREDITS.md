@@ -11,6 +11,7 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 | `react-best-practices` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `react-best-practices` (MIT) | Distilled 70 rules into a single-file checklist; dropped Next.js-specific items; merged in view transitions; added a React 19 section. |
 | `web-design-guidelines` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `web-design-guidelines` + [Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines) | Turned the fetch-at-runtime reviewer into a self-contained offline checklist (live fetch kept as an option). |
 | `minimalism` | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) (MIT) | Adapted the "ladder" + "when not to be lazy" framing; extended to cover prose verbosity, not just code. |
+| `vgpu` | [`vercel-labs/vgpu`](https://github.com/vercel-labs/vgpu), its documentation, and upstream skill (MIT) | Version-aware documentation routing plus original guidance for visual direction, 3D, accessible application integration, and rendering verification. Not an official Vercel skill. |
 
 ## Format & method
 

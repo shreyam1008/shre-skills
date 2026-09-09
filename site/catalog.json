@@ -14,6 +14,7 @@
   "security": { "title": "Web security", "category": "Foundations", "summary": "Protect trust boundaries with validation, authorization, safe output, and secure defaults." },
   "service-worker": { "title": "Service workers & PWAs", "category": "Performance", "summary": "Make offline behavior, cache ownership, and application updates work together." },
   "tanstack": { "title": "The TanStack toolkit", "category": "React", "summary": "Connect query caches, route data, forms, tables, and virtual lists with less glue code." },
+  "vgpu": { "title": "vgpu: shaders & 3D", "category": "Graphics", "summary": "Build expressive GPU visuals with Vercel’s vgpu: shaders, materials, 3D scenes, and responsive effects." },
   "wasm-rust": { "title": "Rust & WebAssembly", "category": "Graphics", "summary": "Move demanding computation to WASM and keep memory transfers under control." },
   "web-design-guidelines": { "title": "Web interface design", "category": "Design", "summary": "Check hierarchy, contrast, keyboard access, responsive layout, and the states users encounter." },
   "web-performance": { "title": "Web performance", "category": "Performance", "summary": "Improve loading, Core Web Vitals, and frame times by measuring the work that matters." },

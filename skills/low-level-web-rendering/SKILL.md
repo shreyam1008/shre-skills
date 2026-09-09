@@ -17,6 +17,7 @@ Choose the least specialized renderer that meets the product need. A GPU path is
 | Canvas work blocks input/scroll | OffscreenCanvas + Worker | Moves supported rendering and preparation off the main thread. Feature-detect. |
 | Portable 3D/shaders | WebGL2 | Mature compatibility; use an engine unless raw API control is the product. |
 | Compute, storage buffers, explicit modern GPU pipelines | WebGPU | Progressive enhancement with a WebGL/CPU fallback; see `webgpu`. |
+| vgpu-based shader effects, procedural visuals, or custom 3D | Vercel vgpu over WebGPU | Use the installed version's docs; see `vgpu`. Preserve the surrounding semantic UI. |
 | CPU-heavy parsing, simulation, codecs | Worker, then WASM if measured | WASM accelerates compute; it does not replace the DOM or choose the renderer. |
 | Video frame decode/encode or transforms | WebCodecs when supported | Specialized media frames; retain `<video>` / server paths where compatibility matters. |
 
@@ -78,14 +79,16 @@ if ('transferControlToOffscreen' in canvas) {
 
 ## HTML-in-Canvas and CSS Paint: lab only
 
-HTML-in-Canvas is a **WICG proposal**, not a production rendering dependency. The proposal keeps real DOM descendants under `<canvas layoutsubtree>`, then adds `drawElementImage()`, `texElementImage2D()`, and `copyElementImageToTexture()` to draw their browser-rendered snapshots into Canvas 2D, WebGL, or WebGPU. It is not DOM-free painting.
+HTML-in-Canvas is a **WICG proposal**, not a production rendering dependency. The current explainer keeps real DOM descendants under `<canvas layoutsubtree>`, marks drawn elements with `drawable`, and uses `drawElementImage()`, `texElementSubImage2D()`, and `GPUQueue.drawElementImageToTexture()` for Canvas 2D, WebGL, and WebGPU. Earlier drafts used different names. It is not DOM-free painting, and vgpu does not require it.
 
-Current status reviewed 25 August 2026:
+Current status reviewed 9 September 2026:
 
 - Chromium records the origin trial as M148–M150, subsequently extended through M154.
 - Gecko and WebKit have no positive implementation signal.
 - The API shape, privacy rules, hit testing, and accessibility behavior are still being developed.
-- Cross-origin embedded content is restricted, and canvas-contained scrolling/animation remains tied to main-thread JavaScript.
+- The explainer now includes `CanvasPaintEvent.changedElements`, transferable `ElementImage` snapshots for workers, and explicit element geometry updates. Snapshot drawing and DOM updates are distinct: mutations during `paint` appear in the next rendering update.
+- WebGL/WebGPU experiments must update element geometry for hit testing and accessibility; 2D drawing can update it automatically. Captured snapshots do not make DOM layout or input independent of the main thread.
+- Cross-origin embedded content and readback are restricted; consult the current privacy rules rather than treating this as unrestricted DOM screenshot access.
 
 Rules:
 

@@ -79,7 +79,7 @@ if (sourceBaselines) {
     const sourceSignatures = new Set();
     const coveredSkills = new Set();
     const allowedKinds = new Set(['browser-intent', 'git', 'package', 'platform-docs', 'specification']);
-    const allowedHosts = new Set(['developer.mozilla.org', 'github.com', 'groups.google.com', 'react.dev', 'learn.microsoft.com', 'wasm-bindgen.github.io', 'tanstack.com', 'cheatsheetseries.owasp.org', 'r3f.docs.pmnd.rs']);
+    const allowedHosts = new Set(['developer.mozilla.org', 'github.com', 'groups.google.com', 'react.dev', 'learn.microsoft.com', 'wasm-bindgen.github.io', 'tanstack.com', 'cheatsheetseries.owasp.org', 'r3f.docs.pmnd.rs', 'registry.npmjs.org']);
     for (const [index, source] of sources.entries()) {
       const label = `${sourceBaselineFile}: sources[${index}]`;
       if (!source || typeof source !== 'object' || Array.isArray(source)) {
@@ -120,7 +120,7 @@ if (sourceBaselines) {
       }
     }
 
-    for (const skill of ['html', 'css', 'javascript', 'web-performance', 'low-level-web-rendering', 'webgl', 'webgpu', 'wasm-rust']) {
+    for (const skill of ['html', 'css', 'javascript', 'web-performance', 'low-level-web-rendering', 'webgl', 'webgpu', 'vgpu', 'wasm-rust']) {
       if (!coveredSkills.has(skill)) errors.push(`${sourceBaselineFile}: missing primary-source baseline for ${skill}`);
     }
   }

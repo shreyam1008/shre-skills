@@ -7,26 +7,28 @@
       "title": "GPU for the Web specifications",
       "kind": "git",
       "url": "https://github.com/gpuweb/gpuweb",
-      "revision": "7af79e816d5ae53626cb28b79be1fe83bb63c871",
+      "revision": "e0aff163a37eb3633ffd612e2a943ceb6196d6af",
       "skills": [
         "webgpu",
         "webgl",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09",
+      "reviewScope": "Reviewed two spec changes: optional texture-compression-unaligned feature and WGSL swizzle indexing clarification; capability checks remain required."
     },
     {
       "id": "html-in-canvas-proposal",
       "title": "WICG HTML-in-Canvas proposal",
       "kind": "git",
       "url": "https://github.com/WICG/html-in-canvas",
-      "revision": "d4433e329697c4341a9f915f75dbd9608f3939fa",
+      "revision": "14a0815adaf8f146112f35927a32831d31cc4ccc",
       "skills": [
         "low-level-web-rendering",
         "webgpu",
         "webgl"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09",
+      "reviewScope": "Reviewed current explainer, API names, drawable snapshots, worker transfer, geometry, and paint event ordering."
     },
     {
       "id": "html-in-canvas-origin-trial",
@@ -39,7 +41,7 @@
         "webgpu",
         "webgl"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09"
     },
     {
       "id": "modern-web-guidance",
@@ -55,43 +57,49 @@
         "web-performance",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-08-25",
+      "latestObservedRevision": "63059982607acb8adf4fbcbe562bdc12aff4064b",
+      "checkedAt": "2026-09-09",
+      "checkScope": "Compared upstream changes and reviewed CSS layout guidance; retained the broader corpus baseline pending a complete guide refresh."
     },
     {
       "id": "khronos-webgl",
       "title": "Khronos WebGL specifications and conformance tests",
       "kind": "git",
       "url": "https://github.com/KhronosGroup/WebGL",
-      "revision": "e55ed012f0ed2bbe603936ae0a6046a67ecfe870",
+      "revision": "3b7a7538e880ab7ee7383b73fbfefb6a35179e7c",
       "skills": [
         "webgl",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09",
+      "reviewScope": "Reviewed two pixel-local-storage conformance test changes; no change to general rendering guidance."
     },
     {
       "id": "wasm-bindgen",
       "title": "Rust wasm-bindgen",
       "kind": "git",
       "url": "https://github.com/wasm-bindgen/wasm-bindgen",
-      "revision": "7efa2e0fd28966d70a03527ad2ff1e748d48f9d8",
+      "revision": "246946fddd62163e778c3a1f6afe7264347adceb",
       "skills": [
         "wasm-rust",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09",
+      "reviewScope": "Reviewed 0.2.128 release notes for rendering and OffscreenCanvas integration; experimental additions are not defaults."
     },
     {
       "id": "webcodecs-spec",
       "title": "W3C WebCodecs specification",
       "kind": "git",
       "url": "https://github.com/w3c/webcodecs",
-      "revision": "ce2788dc57681b4d56f3728848f3d99a1d1bf456",
+      "revision": "db320a818347f7af913f58e0020855bb9a6e16a5",
       "skills": [
         "low-level-web-rendering",
         "web-performance"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09",
+      "reviewScope": "Reviewed four spec changes including frame RGB copies, shared audio data, and decoder promises; renderer routing remains valid."
     },
     {
       "id": "css-paint-spec",
@@ -103,7 +111,7 @@
         "low-level-web-rendering",
         "css"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-09-09"
     },
     {
       "id": "mdn-platform-docs",
@@ -119,7 +127,10 @@
         "webgpu",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-08-25",
+      "latestObservedRevision": "005ee0dd179c8dead097251e8d028355b8cf183f",
+      "checkedAt": "2026-09-09",
+      "checkScope": "Compared upstream changes and checked relevant Canvas documentation corrections; retained broader HTML/CSS/JS corpus baseline."
     },
     {
       "id": "w3c-aria",
@@ -131,7 +142,10 @@
         "html",
         "low-level-web-rendering"
       ],
-      "reviewedAt": "2026-08-25"
+      "reviewedAt": "2026-08-25",
+      "latestObservedRevision": "2f5c69b053c2b03f03fb00b4c9ff2c4ce517af55",
+      "checkedAt": "2026-09-09",
+      "checkScope": "Compared five editorial and formatting changes; retained existing accessibility baseline."
     },
     {
       "id": "react-transition-docs",
@@ -268,6 +282,32 @@
       "skills": [
         "react-three-fiber"
       ]
+    },
+    {
+      "id": "vercel-vgpu-source",
+      "title": "Vercel vgpu source and version-aware skill",
+      "kind": "git",
+      "url": "https://github.com/vercel-labs/vgpu",
+      "revision": "ca13ef1f456f4db4bf46391f769f3af4f88889ca",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "vgpu",
+        "low-level-web-rendering"
+      ],
+      "reviewScope": "Reviewed upstream skill and development docs to distinguish canary APIs from the installed stable release."
+    },
+    {
+      "id": "vercel-vgpu-stable",
+      "title": "vgpu 0.4.1 package and bundled documentation",
+      "kind": "package",
+      "url": "https://registry.npmjs.org/vgpu/0.4.1",
+      "revision": "0.4.1",
+      "integrity": "sha512-Kq2W2Y7Z0hZnSp4Hdf3jaoVL7oHjFypZapwGcMYYVkTfRXqAISmklGl3yd6wmte8yFwOhAkhJErPKZjWJBGpzA==",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "vgpu"
+      ],
+      "reviewScope": "Executed stable CLI docs/help; reviewed getting-started, two-pass rendering, scene, bundler integration, shader validation, and example discovery."
     }
   ]
 }

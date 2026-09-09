@@ -10,7 +10,7 @@ Public catalog and release state are recorded in [`product.json`](product.json) 
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-21-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-22-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -27,43 +27,44 @@ Product site: [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/) �
 
 ## ⚡ Quick start
 
-Run from your target project with Node.js/npm installed. Select all skills, then choose your agent in the CLI:
+Run from your target project with Bun and Node.js installed. Select all skills, then choose your agent in the CLI. Prefer npm? Replace `bunx` with `npx` in any command:
 
 ```bash
-npx skills add shreyam1008/shre-skills --skill '*'
+bunx skills add shreyam1008/shre-skills --skill '*'
 ```
 
 Want just one? Use `--skill <name>` from the table below:
 
 ```bash
-npx skills add shreyam1008/shre-skills --skill webgl
+bunx skills add shreyam1008/shre-skills --skill webgl
 ```
 
 <details open>
-<summary><b>📋 Copy all 21 one-liners</b></summary>
+<summary><b>📋 Copy all 22 one-liners</b></summary>
 
 ```bash
-npx skills add shreyam1008/shre-skills --skill minimalism
-npx skills add shreyam1008/shre-skills --skill code-quality
-npx skills add shreyam1008/shre-skills --skill html
-npx skills add shreyam1008/shre-skills --skill css
-npx skills add shreyam1008/shre-skills --skill javascript
-npx skills add shreyam1008/shre-skills --skill git
-npx skills add shreyam1008/shre-skills --skill react-best-practices
-npx skills add shreyam1008/shre-skills --skill react-rendering-performance
-npx skills add shreyam1008/shre-skills --skill tanstack
-npx skills add shreyam1008/shre-skills --skill web-performance
-npx skills add shreyam1008/shre-skills --skill caching
-npx skills add shreyam1008/shre-skills --skill service-worker
-npx skills add shreyam1008/shre-skills --skill security
-npx skills add shreyam1008/shre-skills --skill react-three-fiber
-npx skills add shreyam1008/shre-skills --skill webgl
-npx skills add shreyam1008/shre-skills --skill webgpu
-npx skills add shreyam1008/shre-skills --skill wasm-rust
-npx skills add shreyam1008/shre-skills --skill low-level-web-rendering
-npx skills add shreyam1008/shre-skills --skill design-language
-npx skills add shreyam1008/shre-skills --skill web-design-guidelines
-npx skills add shreyam1008/shre-skills --skill webview2-winui
+bunx skills add shreyam1008/shre-skills --skill minimalism
+bunx skills add shreyam1008/shre-skills --skill code-quality
+bunx skills add shreyam1008/shre-skills --skill html
+bunx skills add shreyam1008/shre-skills --skill css
+bunx skills add shreyam1008/shre-skills --skill javascript
+bunx skills add shreyam1008/shre-skills --skill git
+bunx skills add shreyam1008/shre-skills --skill react-best-practices
+bunx skills add shreyam1008/shre-skills --skill react-rendering-performance
+bunx skills add shreyam1008/shre-skills --skill tanstack
+bunx skills add shreyam1008/shre-skills --skill web-performance
+bunx skills add shreyam1008/shre-skills --skill caching
+bunx skills add shreyam1008/shre-skills --skill service-worker
+bunx skills add shreyam1008/shre-skills --skill security
+bunx skills add shreyam1008/shre-skills --skill react-three-fiber
+bunx skills add shreyam1008/shre-skills --skill webgl
+bunx skills add shreyam1008/shre-skills --skill webgpu
+bunx skills add shreyam1008/shre-skills --skill vgpu
+bunx skills add shreyam1008/shre-skills --skill wasm-rust
+bunx skills add shreyam1008/shre-skills --skill low-level-web-rendering
+bunx skills add shreyam1008/shre-skills --skill design-language
+bunx skills add shreyam1008/shre-skills --skill web-design-guidelines
+bunx skills add shreyam1008/shre-skills --skill webview2-winui
 ```
 </details>
 
@@ -89,6 +90,7 @@ npx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`react-three-fiber`](skills/react-three-fiber/SKILL.md) | 3D with `@react-three/fiber` + `drei`. |
 | [`webgl`](skills/webgl/SKILL.md) | Raw WebGL/GPU, shaders, draw-call budgets. |
 | [`webgpu`](skills/webgpu/SKILL.md) | Browser WebGPU/WGSL, compute, device loss, measured fallbacks. |
+| [`vgpu`](skills/vgpu/SKILL.md) | Vercel vgpu: shader effects, procedural materials, 3D, visual UI, and version-aware docs. |
 | [`wasm-rust`](skills/wasm-rust/SKILL.md) | Hot paths to Rust + WebAssembly. |
 | [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
 | [`design-language`](skills/design-language/SKILL.md) | Tokens, color/type/spacing/motion systems. |
@@ -101,8 +103,8 @@ Skills are Markdown files with no build step. The CLI selects the supported dire
 
 ```bash
 # 1 · Skills CLI (recommended) — installs straight from GitHub
-npx skills add shreyam1008/shre-skills --skill '*' # all skills; choose agent
-npx skills add shreyam1008/shre-skills --skill webgl      # one
+bunx skills add shreyam1008/shre-skills --skill '*' # all skills; choose agent
+bunx skills add shreyam1008/shre-skills --skill webgl      # one
 
 # 2 · Bundled script (clone this repo first)
 ./install.sh                      # all → ./.agents/skills
@@ -116,12 +118,12 @@ cp -R skills/webgl my-app/.agents/skills/
 To inspect the catalog before installing:
 
 ```bash
-npx skills add shreyam1008/shre-skills --list
+bunx skills add shreyam1008/shre-skills --list
 ```
 
 To target one agent without affecting other clients, add `--agent <agent-name>`.
 Add `--global` for a user-level install. Review the destination before confirming.
-To refresh skills installed through the CLI, run `npx skills update` and choose the scope.
+To refresh skills installed through the CLI, run `bunx skills update` and choose the scope.
 The bundled script replaces the selected skill folder, including any local edits; back up customizations before rerunning it.
 On Windows, run `install.sh` from Git Bash or WSL.
 
@@ -133,6 +135,7 @@ See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for ag
 - **Source baselines:** [`docs/source-baselines.json`](docs/source-baselines.json) records the primary-source revision used for fast-moving platform guidance; validation rejects unknown skills, duplicate sources, insecure URLs, and missing rendering coverage.
 - **Credits:** see [CREDITS.md](CREDITS.md). A few skills are derived from others (Vercel; `minimalism` from ponytail) and say so in an Attribution note; the rest are original syntheses from primary docs.
 - **Latest review:** [9 September 2026 findings and verification](docs/review-2026-09-09.md).
+- **Rendering update:** [vgpu and current GPU/rendering reference checks](docs/rendering-review-2026-09-09.md).
 - **Release contract:** see [docs/domain-release.md](docs/domain-release.md) before changing Pages or DNS status.
 - **Roadmap:** `shaders-glsl`, `web-animations`, `accessibility-audit`, `testing`.
 

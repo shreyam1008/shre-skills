@@ -116,7 +116,7 @@ context.configure({ device, format, alphaMode: 'premultiplied' });
 
 ## Experimental HTML-in-Canvas boundary
 
-The proposed `copyElementImageToTexture()` HTML-in-Canvas path is not a production WebGPU primitive yet. It is part of a WICG proposal and Chromium origin trial. Keep semantic DOM or another renderer as the shipping path; use the proposal only in an isolated, feature-detected experiment. See `low-level-web-rendering` for the full routing and fallback rule.
+The proposed `GPUQueue.drawElementImageToTexture()` HTML-in-Canvas path (formerly `copyElementImageToTexture()`) is not a production WebGPU primitive yet. The explainer was rechecked on 9 September 2026; it remains separate from the core WebGPU specification. Keep semantic DOM or another renderer as the shipping path and feature-detect experiments against the current draft. See `low-level-web-rendering` for the routing and fallback rule. For Vercel's vgpu library and shader-based visual UI, use `vgpu`; it does not depend on HTML-in-Canvas.
 
 ## Ship gate
 

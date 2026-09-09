@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { mkdtemp, mkdir, readFile, readdir, writeFile, symlink, lstat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -116,5 +117,41 @@ test('built catalog contains every source link, install command, and local asset
   }
   for (const [, path] of html.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
     assert.ok((await readFile(join(repoRoot, '_site', path))).length > 0);
+  }
+});
+
+test('page assets use content hashes so cached styles cannot mismatch new markup', async () => {
+  const html = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
+  for (const [name, extension] of [['styles', 'css'], ['catalog', 'js']]) {
+    const match = html.match(new RegExp(name + '\\.([a-f0-9]{12})\\.' + extension));
+    assert.ok(match, name + ' must have a fingerprinted URL');
+    const content = await readFile(join(repoRoot, '_site', match[0]));
+    assert.equal(createHash('sha256').update(content).digest('hex').slice(0, 12), match[1]);
+  }
+});
+
+test('static HTML, structured data, and agent catalog describe the same complete library', async () => {
+  const html = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
+  const llms = await readFile(join(repoRoot, '_site/llms.txt'), 'utf8');
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const list = schema['@graph'].find((entry) => entry['@type'] === 'ItemList');
+  const skills = await loadSkills();
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.equal((html.match(/data-group="/g) || []).length, 6);
+  assert.equal(catalog.skills.length, skills.length);
+  assert.equal(list.numberOfItems, skills.length);
+  assert.equal(list.itemListElement.length, skills.length);
+  assert.match(html, /name="runner" value="bunx" checked/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/skills\.shreyam1008\.com\.np\/" \/>/);
+  for (const { name, relativeFile } of skills) {
+    const entry = catalog.skills.find((skill) => skill.name === name);
+    assert.ok(entry);
+    assert.equal((html.match(new RegExp('id="skill-' + name + '"', 'g')) || []).length, 1);
+    assert.ok(html.includes(entry.install.bunx));
+    assert.equal(entry.install.npx, entry.install.bunx.replace(/^bunx /, 'npx '));
+    assert.ok(llms.includes(entry.markdownUrl));
+    assert.equal(await readFile(join(repoRoot, '_site/skills', name, 'SKILL.md'), 'utf8'), await readFile(join(repoRoot, relativeFile), 'utf8'));
+    assert.ok(list.itemListElement.some(({ item }) => item['@id'] === entry.url && item.encoding.contentUrl === entry.markdownUrl));
   }
 });

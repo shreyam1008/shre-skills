@@ -3,21 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>shre-skills — practical agent skills</title>
-    <meta name="description" content="A maintained catalog of practical, dependency-free agent skills for web engineering, performance, design, security, and native webviews." />
+    <title>Agent skills for web development | shre-skills</title>
+    <meta name="description" content="{{DESCRIPTION}}" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#111015" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="{{SITE_URL}}" />
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./catalog.js" defer></script>
+    <link rel="stylesheet" href="./{{STYLES_URL}}" />
+    <link rel="alternate" type="application/json" href="./skills.json" title="Machine-readable skill catalog" />
+    <link rel="alternate" type="text/plain" href="./llms.txt" title="Agent-readable index" />
+    <script src="./{{SCRIPT_URL}}" defer></script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="shre-skills" />
     <meta name="application-name" content="shre-skills" />
-    <meta property="og:title" content="shre-skills — practical agent skills" />
-    <meta property="og:description" content="Install focused agent guidance for modern web and desktop work." />
+    <meta property="og:title" content="Agent skills for web development | shre-skills" />
+    <meta property="og:description" content="{{DESCRIPTION}}" />
     <meta property="og:url" content="{{SITE_URL}}" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"{{SITE_URL}}#website","name":"shre-skills","alternateName":"Shre Skills","url":"{{SITE_URL}}"}</script>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Agent skills for web development | shre-skills" />
+    <meta name="twitter:description" content="{{DESCRIPTION}}" />
+    <script type="application/ld+json">{{STRUCTURED_DATA}}</script>
   </head>
   <body>
     <a class="skip-link" href="#catalog">Skip to skill catalog</a>
@@ -34,16 +39,23 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> The open skill library</p>
-          <h1 id="hero-title">Small skills.<br /><span>Better builds.</span></h1>
-          <p class="lede">Focused guidance for your coding agent. From the first line of HTML to the last GPU draw call.</p>
+          <h1 id="hero-title">Agent skills.<br /><span>Better builds.</span></h1>
+          <p class="lede">Practical web development guidance for your coding agent. From the first line of HTML to the last GPU draw call.</p>
           <p class="hero-details"><span>{{SKILL_COUNT}} practical skills</span><span>Readable Markdown</span><span>MIT licensed</span></p>
         </div>
         <div class="install-panel">
           <div class="terminal-heading"><span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>your-project / terminal</span><span aria-hidden="true">⌘</span></div>
           <div class="install" aria-label="Install command">
             <div class="install-heading"><span class="install-kicker">READY WHEN YOU ARE</span><h2>One command. Every skill.</h2></div>
-            <div class="command"><code>npx skills add shreyam1008/shre-skills --skill '*'</code><button type="button" class="copy-button" data-copy="collection" hidden aria-label="Copy collection install command">Copy</button></div>
-            <p class="install-help">Run in your project with Node.js installed, then choose your coding agent.</p>
+            <fieldset class="runner-switch" hidden>
+              <legend>Install with</legend>
+              <label><input type="radio" name="runner" value="bunx" checked /><span>bunx <small>Bun</small></span></label>
+              <label><input type="radio" name="runner" value="npx" /><span>npx <small>npm</small></span></label>
+            </fieldset>
+            <div class="command"><code data-install="*">bunx skills add shreyam1008/shre-skills --skill '*'</code><button type="button" class="copy-button" data-copy="collection" hidden aria-label="Copy collection install command">Copy</button></div>
+            <p class="install-help" id="runner-help">Use bunx with Bun installed. Run in your project, then choose your coding agent. The skills CLI also uses Node.js.</p>
+            <p class="runner-note" id="runner-status" role="status">bunx selected · applies to every command below</p>
+            <noscript><p class="install-help">Prefer npm? Replace <code>bunx</code> with <code>npx</code> in any command. Requires Node.js and npm.</p></noscript>
           </div>
           <a class="install-guide" href="https://github.com/shreyam1008/shre-skills#-install-options">Prefer to start with one? <span>See install options <span aria-hidden="true">↗</span></span></a>
         </div>
@@ -54,7 +66,7 @@
           <div class="section-heading">
             <p class="eyebrow">PICK WHAT YOU NEED</p>
             <h2 id="catalog-title">The skill library <span class="count-badge">{{SKILL_COUNT}}</span></h2>
-            <p>A little context for whatever you’re building.</p>
+            <p>{{SKILL_COUNT}} skills. Six categories. Find the right guidance for your next build.</p>
           </div>
           <div class="catalog-tools" hidden>
             <label class="sr-only" for="skill-search">Find a skill</label>
@@ -62,10 +74,15 @@
             <p id="search-status" role="status" aria-live="polite"></p>
           </div>
         </div>
-        <p id="no-results" hidden>No skills match your search. Try another topic or clear the search.</p>
-        <ul class="skill-grid">
-{{SKILL_CARDS}}
-        </ul>
+        <nav class="category-nav" aria-label="Skill categories">
+{{CATEGORY_LINKS}}
+        </nav>
+        <p id="no-results" hidden>No matching skills in this category. Try another topic or use Clear to reset all filters.</p>
+{{SKILL_SECTIONS}}
+      </section>
+      <section class="agent-access" aria-labelledby="agent-title">
+        <div><p class="eyebrow">READABLE BY DESIGN</p><h2 id="agent-title">For people. And their agents.</h2><p>Browse the library here, read the original Markdown, or let your agent discover the full catalog. No account needed.</p></div>
+        <div class="agent-links"><a href="./llms.txt">Agent index <span>llms.txt ↗</span></a><a href="./skills.json">Structured catalog <span>JSON ↗</span></a><a href="https://github.com/shreyam1008/shre-skills#-install-options">Installation guide <span>GitHub ↗</span></a></div>
       </section>
     </main>
 

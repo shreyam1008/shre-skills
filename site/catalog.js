@@ -1,7 +1,7 @@
 const items = [...document.querySelectorAll('.skill-grid > li')];
 const search = document.querySelector('#skill-search');
 const status = document.querySelector('#search-status');
-const searchable = items.map((item) => ({ item, text: item.querySelector('article').textContent.toLowerCase() }));
+const searchable = items.map((item) => ({ item, text: item.dataset.search.toLowerCase() }));
 
 function filterSkills() {
   const terms = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
@@ -32,6 +32,7 @@ for (const button of document.querySelectorAll('[data-copy]')) {
     button.disabled = true;
     try {
       await navigator.clipboard.writeText(code.textContent.trim());
+      button.textContent = 'Copied';
       copyStatus.textContent = `Copied ${button.dataset.copy} install command.`;
     } catch {
       const range = document.createRange();
@@ -42,6 +43,7 @@ for (const button of document.querySelectorAll('[data-copy]')) {
       copyStatus.textContent = 'Clipboard unavailable. The command is selected; use your keyboard or menu to copy it.';
     } finally {
       button.disabled = false;
+      setTimeout(() => { button.textContent = 'Copy'; }, 2000);
       clearTimeout(copyTimer);
       copyTimer = setTimeout(() => { copyStatus.textContent = ''; }, 8000);
     }

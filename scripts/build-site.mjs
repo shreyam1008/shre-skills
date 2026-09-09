@@ -17,13 +17,30 @@ const escapeHtml = (value) => value
   .replaceAll('"', '&quot;');
 
 const skills = await loadSkills();
-const cards = skills.map((skill) => `        <li>
-          <article class="skill-card">
-            <h3><a href="https://github.com/shreyam1008/shre-skills/blob/main/${skill.relativeFile}">${escapeHtml(skill.name)}</a></h3>
-            <p>${escapeHtml(skill.description)}</p>
-            <div class="command"><code>npx skills add shreyam1008/shre-skills --skill ${escapeHtml(skill.name)}</code><button type="button" class="copy-button" data-copy="${escapeHtml(skill.name)}" hidden aria-label="Copy install command for ${escapeHtml(skill.name)}">Copy</button></div>
+// Public summaries stay separate from agent-facing trigger descriptions.
+const presentation = JSON.parse(await readFile(join(repoRoot, 'site/catalog.json'), 'utf8'));
+const names = skills.map(({ name }) => name).sort();
+if (JSON.stringify(Object.keys(presentation).sort()) !== JSON.stringify(names)) {
+  throw new Error('site/catalog.json must describe exactly the current skills.');
+}
+for (const name of names) {
+  for (const field of ['title', 'category', 'summary']) {
+    if (typeof presentation[name]?.[field] !== 'string' || !presentation[name][field].trim()) {
+      throw new Error(`site/catalog.json: ${name}.${field} is required.`);
+    }
+  }
+}
+const cards = skills.map((skill, index) => {
+  const info = presentation[skill.name];
+  return `        <li data-search="${escapeHtml(`${skill.name} ${skill.description} ${info.title} ${info.category} ${info.summary}`)}">
+          <article class="skill-card" data-category="${escapeHtml(info.category.toLowerCase())}">
+            <div class="card-meta"><span class="category">${escapeHtml(info.category)}</span><span class="card-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span></div>
+            <h3><a href="https://github.com/shreyam1008/shre-skills/blob/main/${skill.relativeFile}">${escapeHtml(info.title)}<span class="source-arrow" aria-hidden="true">↗</span></a></h3>
+            <p>${escapeHtml(info.summary)}</p>
+            <div class="card-install"><span class="command-label">INSTALL SKILL</span><div class="command"><code>npx skills add shreyam1008/shre-skills --skill ${escapeHtml(skill.name)}</code><button type="button" class="copy-button" data-copy="${escapeHtml(skill.name)}" hidden aria-label="Copy install command for ${escapeHtml(skill.name)}">Copy</button></div></div>
           </article>
-        </li>`).join('\n');
+        </li>`;
+}).join('\n');
 
 const siteRoot = join(repoRoot, 'site');
 const outputRoot = join(repoRoot, '_site');

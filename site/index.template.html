@@ -6,7 +6,7 @@
     <title>shre-skills — practical agent skills</title>
     <meta name="description" content="A maintained catalog of practical, dependency-free agent skills for web engineering, performance, design, security, and native webviews." />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="theme-color" content="#17132b" />
+    <meta name="theme-color" content="#111015" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="{{SITE_URL}}" />
     <link rel="stylesheet" href="./styles.css" />
@@ -22,36 +22,45 @@
   <body>
     <a class="skip-link" href="#catalog">Skip to skill catalog</a>
     <header class="site-header">
-      <a class="brand" href="./" aria-label="shre-skills home"><span aria-hidden="true">&lt;/&gt;</span> shre-skills</a>
+      <a class="brand" href="./" aria-label="shre-skills home"><img class="brand-mark" src="./favicon.svg" width="34" height="34" alt="" />shre-skills<span class="brand-note">/ agent skills</span></a>
       <nav aria-label="Project links">
-        <a href="https://github.com/shreyam1008/shre-skills">GitHub</a>
+        <a href="#catalog">The library</a>
         <a href="https://github.com/shreyam1008/shre-skills/blob/main/CREDITS.md">Credits</a>
+        <a class="github-link" href="https://github.com/shreyam1008/shre-skills">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">{{SKILL_COUNT}} focused modules · MIT licensed</p>
-        <h1 id="hero-title">Useful context,<br /><span>right when you need it.</span></h1>
-        <p class="lede">Practical agent skills for web engineering, performance, design, security, GPU work, and WebView2—kept as readable Markdown and maintained in the open.</p>
-        <div class="install" aria-label="Install command">
-          <span>Install the collection</span>
-          <div class="command"><code>npx skills add shreyam1008/shre-skills --skill '*'</code><button type="button" class="copy-button" data-copy="collection" hidden aria-label="Copy collection install command">Copy</button></div>
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> The open skill library</p>
+          <h1 id="hero-title">Small skills.<br /><span>Better builds.</span></h1>
+          <p class="lede">Focused guidance for your coding agent. From the first line of HTML to the last GPU draw call.</p>
+          <p class="hero-details"><span>{{SKILL_COUNT}} practical skills</span><span>Readable Markdown</span><span>MIT licensed</span></p>
         </div>
-        <p class="install-help">Run in your project with Node.js installed, then choose your coding agent. <a href="https://github.com/shreyam1008/shre-skills#-install-options">More install options</a></p>
-        <p class="hero-links"><a class="primary" href="https://github.com/shreyam1008/shre-skills">Browse the repository</a> <a href="#catalog">Explore all skills</a></p>
+        <div class="install-panel">
+          <div class="terminal-heading"><span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>your-project / terminal</span><span aria-hidden="true">⌘</span></div>
+          <div class="install" aria-label="Install command">
+            <div class="install-heading"><span class="install-kicker">READY WHEN YOU ARE</span><h2>One command. Every skill.</h2></div>
+            <div class="command"><code>npx skills add shreyam1008/shre-skills --skill '*'</code><button type="button" class="copy-button" data-copy="collection" hidden aria-label="Copy collection install command">Copy</button></div>
+            <p class="install-help">Run in your project with Node.js installed, then choose your coding agent.</p>
+          </div>
+          <a class="install-guide" href="https://github.com/shreyam1008/shre-skills#-install-options">Prefer to start with one? <span>See install options <span aria-hidden="true">↗</span></span></a>
+        </div>
       </section>
 
       <section class="catalog" id="catalog" aria-labelledby="catalog-title">
-        <div class="section-heading">
-          <p class="eyebrow">Repository catalog</p>
-          <h2 id="catalog-title">All {{SKILL_COUNT}} skills</h2>
-          <p>Choose a skill to read its guidance, or copy its install command. All {{SKILL_COUNT}} modules are available individually.</p>
-        </div>
-        <div class="catalog-tools" hidden>
-          <label for="skill-search">Find a skill</label>
-          <div class="search-row"><input type="search" id="skill-search" placeholder="Search names or topics, e.g. React, caching, GPU" autocomplete="off" /><button type="button" id="clear-search">Clear</button></div>
-          <p id="search-status" role="status" aria-live="polite"></p>
+        <div class="catalog-heading">
+          <div class="section-heading">
+            <p class="eyebrow">PICK WHAT YOU NEED</p>
+            <h2 id="catalog-title">The skill library <span class="count-badge">{{SKILL_COUNT}}</span></h2>
+            <p>A little context for whatever you’re building.</p>
+          </div>
+          <div class="catalog-tools" hidden>
+            <label class="sr-only" for="skill-search">Find a skill</label>
+            <div class="search-row"><span class="search-icon" aria-hidden="true"></span><input type="search" id="skill-search" placeholder="Search skills, topics, or tools…" autocomplete="off" /><button type="button" id="clear-search">Clear</button></div>
+            <p id="search-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
         <p id="no-results" hidden>No skills match your search. Try another topic or clear the search.</p>
         <ul class="skill-grid">
@@ -62,8 +71,8 @@
 
     <footer>
       <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
-      <p><a href="https://shreyam1008.com.np/projects/#distribution-shre-skills">Install channels and publication status</a></p>
-      <p>Built and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>. Source is available under the <a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License</a>.</p>
+      <div class="footer-credit"><a class="footer-brand" href="./">shre-skills<span aria-hidden="true">_</span></a><p>Made and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>.</p></div>
+      <div class="footer-links"><a href="https://shreyam1008.com.np/projects/#distribution-shre-skills">Install channels</a><a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License <span aria-hidden="true">↗</span></a></div>
     </footer>
   </body>
 </html>

@@ -1,0 +1,23 @@
+{
+  "caching": { "title": "Caching", "category": "Performance", "summary": "Keep data fresh across browser, CDN, service worker, and application caches." },
+  "code-quality": { "title": "Code quality", "category": "Foundations", "summary": "Write maintainable code with clear boundaries, useful tests, and fewer surprises." },
+  "css": { "title": "Modern CSS", "category": "Foundations", "summary": "Build responsive layouts with Grid, container queries, design tokens, and a predictable cascade." },
+  "design-language": { "title": "Design language", "category": "Design", "summary": "Bring color, typography, spacing, and motion together in one consistent visual system." },
+  "git": { "title": "Git workflows", "category": "Foundations", "summary": "Keep history readable, resolve conflicts carefully, and recover from mistakes." },
+  "html": { "title": "Semantic HTML", "category": "Foundations", "summary": "Give pages solid structure with accessible forms, native controls, and useful metadata." },
+  "javascript": { "title": "JavaScript & TypeScript", "category": "Foundations", "summary": "Handle async work, data, types, and browser APIs without the common footguns." },
+  "low-level-web-rendering": { "title": "Choose your renderer", "category": "Graphics", "summary": "Find the right path through DOM, SVG, Canvas, GPU, and WASM for your workload." },
+  "minimalism": { "title": "Keep it simple", "category": "Foundations", "summary": "Remove unnecessary code and abstractions while preserving everything the task needs." },
+  "react-best-practices": { "title": "React best practices", "category": "React", "summary": "Build clear components with intentional state, effects, data loading, and bundle size." },
+  "react-rendering-performance": { "title": "React performance", "category": "React", "summary": "Find expensive renders, smooth out interactions, and make long lists feel fast." },
+  "react-three-fiber": { "title": "React Three Fiber", "category": "Graphics", "summary": "Create efficient 3D scenes with sensible frame loops, reusable assets, and fewer draw calls." },
+  "security": { "title": "Web security", "category": "Foundations", "summary": "Protect trust boundaries with validation, authorization, safe output, and secure defaults." },
+  "service-worker": { "title": "Service workers & PWAs", "category": "Performance", "summary": "Make offline behavior, cache ownership, and application updates work together." },
+  "tanstack": { "title": "The TanStack toolkit", "category": "React", "summary": "Connect query caches, route data, forms, tables, and virtual lists with less glue code." },
+  "wasm-rust": { "title": "Rust & WebAssembly", "category": "Graphics", "summary": "Move demanding computation to WASM and keep memory transfers under control." },
+  "web-design-guidelines": { "title": "Web interface design", "category": "Design", "summary": "Check hierarchy, contrast, keyboard access, responsive layout, and the states users encounter." },
+  "web-performance": { "title": "Web performance", "category": "Performance", "summary": "Improve loading, Core Web Vitals, and frame times by measuring the work that matters." },
+  "webgl": { "title": "WebGL", "category": "Graphics", "summary": "Take control of shaders, geometry, textures, and draw calls with a reliable GPU foundation." },
+  "webgpu": { "title": "WebGPU", "category": "Graphics", "summary": "Build modern rendering and compute pipelines with capability checks and usable fallbacks." },
+  "webview2-winui": { "title": "WebView2 & WinUI", "category": "Native", "summary": "Bring web interfaces into Windows apps with local assets and a secure messaging boundary." }
+}

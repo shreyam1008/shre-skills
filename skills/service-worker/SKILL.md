@@ -1,6 +1,6 @@
 ---
 name: service-worker
-description: Build service workers and PWAs — offline support, caching strategies, background sync, installability, and updates. Use when adding offline/PWA capability, intercepting fetches, precaching assets, or debugging a stale/broken service worker.
+description: "Implements service-worker lifecycle, offline routing, cache ownership, update flows, and PWA behavior. Use for a worker or offline/PWA task; HTTP/CDN header policy alone belongs to caching."
 ---
 
 # Service Worker & PWA

@@ -9,3 +9,5 @@ Fast-moving web-platform guidance must update [`source-baselines.json`](source-b
 ## 2026-09-09 — catalog review (main, untagged)
 
 Corrected React scheduling, WebView2 APIs and message validation, service-worker cache isolation and installability, WASM copy semantics, GPU fallbacks, TanStack guidance, and overly broad skill defaults. Added catalog search and copy controls, clarified installation, aligned hosting records with Cloudflare Pages, and added behavioral regression checks. See [review evidence](review-2026-09-09.md).
+
+Added version-aware vgpu guidance and refreshed rendering references. Consolidated 22 skills into 19: minimalism into code-quality, React rendering performance into React best practices, and design language into web design guidelines. Retained specialist material as optional references, narrowed discovery descriptions, and added installer aliases and website redirects. See [rendering review](rendering-review-2026-09-09.md) and [consolidation details](skill-consolidation-2026-09-09.md).

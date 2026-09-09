@@ -1,6 +1,6 @@
 ---
 name: webgpu
-description: Build and review browser WebGPU rendering or compute paths. Use when code touches navigator.gpu, WGSL, GPU pipelines, buffers, textures, bind groups, compute shaders, WebGL-to-WebGPU migration, device loss, or target-device GPU performance. Do not use for ordinary DOM or CSS animation.
+description: "Implements or debugs raw browser WebGPU/WGSL pipelines, compute, buffers, textures, and device loss. Use for direct GPU API work; vgpu-library APIs and R3F scenes have separate workflows."
 ---
 
 # WebGPU

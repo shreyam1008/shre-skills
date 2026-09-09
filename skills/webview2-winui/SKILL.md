@@ -1,6 +1,6 @@
 ---
 name: webview2-winui
-description: Best practices for embedding WebView2 in WinUI 3 desktop apps — virtual host mapping, React SPA integration, messaging, performance, and production bundling.
+description: "Embeds web content in WinUI 3 through WebView2. Use for virtual host mapping, native/web messages, lifecycle, and desktop packaging; not generic browser React development."
 ---
 
 # WebView2 in WinUI 3

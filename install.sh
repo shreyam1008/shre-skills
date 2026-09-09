@@ -37,6 +37,13 @@ if [[ "${SKILL}" != "all" ]] && ! is_valid_skill_name "${SKILL}"; then
   echo "error: invalid skill name '${SKILL}'" >&2
   exit 1
 fi
+while IFS=$'\t' read -r previous replacement; do
+  if [[ "${SKILL}" == "${previous}" ]]; then
+    echo "note: ${previous} merged into ${replacement}; installing ${replacement}." >&2
+    SKILL="${replacement}"
+    break
+  fi
+done < "${SCRIPT_DIR}/skill-migrations.tsv"
 if [[ -L "${TARGET}/.agents" || -L "${DEST}" ]]; then
   echo "error: refusing symlinked skills destination" >&2
   exit 1
@@ -97,4 +104,9 @@ else
   copy_one "${SKILL}"
 fi
 
+while IFS=$'\t' read -r previous replacement; do
+  if [[ -e "${DEST}/${previous}/SKILL.md" ]]; then
+    echo "note: existing ${previous} is retired; after checking local edits, remove or disable it and use ${replacement}." >&2
+  fi
+done < "${SCRIPT_DIR}/skill-migrations.tsv"
 echo "Done."

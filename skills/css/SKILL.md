@@ -1,6 +1,6 @@
 ---
 name: css
-description: Write modern, maintainable, performant CSS. Use when styling UI, building layouts, setting up design tokens/theming, fixing responsiveness or specificity issues, or reviewing CSS — including inside React/Tailwind projects.
+description: "Implements or debugs CSS layout, responsive sizing, cascade, selectors, and styling performance. Use for concrete stylesheet work; visual-system design and UX reviews belong to web-design-guidelines."
 ---
 
 # CSS

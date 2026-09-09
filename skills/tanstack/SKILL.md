@@ -1,11 +1,11 @@
 ---
 name: tanstack
-description: Build or review React apps using TanStack Query, Router, Table, Form, Virtual, or Start. Use for query caching, mutations, route loading, URL state, headless tables/forms, virtualization, or a requested TanStack migration.
+description: "Uses TanStack Query, Router, Table, Form, Virtual, or Start in an existing or explicitly selected TanStack project. Use for its query keys, mutations, loaders, URL state, and library APIs; do not introduce the stack for generic React work."
 ---
 
 # TanStack
 
-A cohesive, type-safe stack that replaces most hand-rolled data plumbing. The guiding rule: **stop syncing server data into component state.** `useEffect` + `useState` for fetching is the anti-pattern this stack exists to remove.
+Use the selected TanStack libraries for their specific data and routing contracts. Avoid maintaining an accidental second copy of shared server state in component state.
 
 Apply the libraries already chosen by the project. This skill does not require migrating a working framework loader or adding the entire TanStack stack. Form drafts may intentionally start from server data and diverge while the user edits.
 
@@ -13,7 +13,7 @@ Apply the libraries already chosen by the project. This skill does not require m
 
 - **Server state ≠ client state.** Data owned by the server (lives in a DB, can change, is shared) belongs in **TanStack Query**, not `useState`.
 - Reserve `useState`/`useReducer` for true UI state (open/closed, input draft, selection).
-- Reserve `useEffect` for synchronizing with external systems (subscriptions, non-React widgets) — *not* for fetching.
+- Prefer Query or Router for shared server data. Preserve justified effect-based integrations with appropriate race handling and cleanup.
 
 ## TanStack Query (server state)
 
@@ -75,13 +75,13 @@ This snapshot pattern assumes mutations to that list are serialized and the key 
 ## TanStack Table / Form / Virtual
 
 - **Table**: headless — you own markup/styling; it manages sorting/filtering/pagination/grouping. Keep `columns` referentially stable (define outside render or `useMemo`).
-- **Virtual**: virtualize long lists/tables (`useVirtualizer`) so only visible rows render — essential past a few hundred rows.
+- **Virtual**: use `useVirtualizer` when measured list or table rendering costs justify windowing. Preserve keyboard focus and accessible navigation.
 - **Form**: type-safe, headless form state + validation (pairs with a schema lib). Avoids re-rendering the whole form on each keystroke.
 
 ## Do / Don't
 
 - Do: server data in Query, URL state in Router search params, UI state in `useState`.
-- Don't: fetch in `useEffect`, store fetched data in `useState`, or derive a second copy of server data into local state.
+- Avoid redundant copies of shared server data; form drafts and external integrations may intentionally diverge from the cache.
 - Don't omit data dependencies from query keys. Keep Table `columns` and `data` stable where required; Query `queryFn` does not need memoization solely to prevent refetches.
 
 ## Reference

@@ -1,6 +1,6 @@
 ---
 name: wasm-rust
-description: Move hot computation to Rust + WebAssembly with wasm-bindgen / wasm-pack. Use when offloading CPU-heavy work (parsing, image/audio, simulation, crypto, math) from JS to WASM, and for the JS–WASM boundary.
+description: "Implements Rust/WebAssembly modules and wasm-bindgen integration. Use for measured CPU kernels, wasm packaging, and JS-WASM transfers; not GPU shader execution or DOM styling."
 ---
 
 # Rust + WebAssembly

@@ -1,6 +1,6 @@
 ---
 name: html
-description: Write semantic, accessible, SEO-friendly HTML. Use when authoring markup, structuring pages/forms, fixing accessibility or document structure, or reviewing HTML — even when the task is framed as "a component" or "a page" rather than "HTML".
+description: "Implements semantic HTML, forms, document structure, and head metadata. Use for markup and native accessibility behavior, rather than general visual design or CSS layout."
 ---
 
 # HTML

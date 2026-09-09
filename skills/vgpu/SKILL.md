@@ -1,6 +1,6 @@
 ---
 name: vgpu
-description: Build and refine GPU-rendered visual experiences with Vercel's vgpu library — WGSL shaders, animated backgrounds, procedural materials, particles, 3D scenes, and post-processing. Use when vgpu is requested or already used, including React/Next.js integration, shader debugging, and GPU performance. Do not select it for ordinary DOM styling or silently migrate an existing Three.js renderer.
+description: "Builds shader effects, materials, particles, and 3D visual surfaces with Vercel vgpu. Use when vgpu is requested or installed, including integration and GPU debugging. Read version-matched docs; do not migrate other renderers implicitly."
 ---
 
 # vgpu: shaders, 3D, and visual UI

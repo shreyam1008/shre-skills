@@ -1,6 +1,6 @@
 ---
 name: webgl
-description: Raw WebGL / GPU rendering guidance — context setup, shaders, buffers, draw-call budgets, state management, and performance. Use when writing WebGL directly or debugging GPU rendering and frame cost.
+description: "Implements or debugs raw WebGL/WebGL2 contexts, GLSL, buffers, textures, and GL draw calls. Use for direct WebGL API work, not generic 3D tasks owned by a higher-level renderer."
 ---
 
 # WebGL

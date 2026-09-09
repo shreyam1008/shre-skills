@@ -155,7 +155,6 @@
       "revision": "sha256:d4370bbc49ce1daa6776affa5b938e5ab2ace08dbf208ae5c9217e5e272de5b4",
       "reviewedAt": "2026-09-09",
       "skills": [
-        "react-rendering-performance",
         "react-best-practices"
       ]
     },
@@ -167,7 +166,6 @@
       "revision": "sha256:a86ca3a2a5ed46773f514ec639286a99253ec563459537322d315967c712236f",
       "reviewedAt": "2026-09-09",
       "skills": [
-        "react-rendering-performance",
         "react-best-practices"
       ]
     },

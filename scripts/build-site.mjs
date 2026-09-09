@@ -1,7 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
-import { loadSkills, repoRoot } from './repository.mjs';
+import { loadSkills, loadSkillMigrations, repoRoot } from './repository.mjs';
 
 const canonicalUrl = 'https://skills.shreyam1008.com.np/';
 const requestedUrl = new URL(process.env.PAGES_BASE_URL || canonicalUrl);
@@ -13,6 +13,7 @@ const siteUrl = requestedUrl.toString();
 const repository = 'https://github.com/shreyam1008/shre-skills';
 const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const skills = await loadSkills();
+const migrations = await loadSkillMigrations(skills);
 const presentation = JSON.parse(await readFile(join(repoRoot, 'site/catalog.json'), 'utf8'));
 const names = skills.map(({ name }) => name).sort();
 if (JSON.stringify(Object.keys(presentation).sort()) !== JSON.stringify(names)) {
@@ -36,13 +37,14 @@ for (const name of names) {
 }
 const records = skills.map((skill) => ({
   name: skill.name, ...presentation[skill.name],
+  aliases: Object.keys(migrations).filter((previous) => migrations[previous] === skill.name),
   description: skill.description,
   url: `${siteUrl}#skill-${skill.name}`,
   sourceUrl: `${repository}/blob/main/${skill.relativeFile}`,
   markdownUrl: `${siteUrl}skills/${skill.name}/SKILL.md`,
   install: { bunx: `bunx skills add shreyam1008/shre-skills --skill ${skill.name}`, npx: `npx skills add shreyam1008/shre-skills --skill ${skill.name}` },
 }));
-const card = (skill) => `<li data-search="${escapeHtml(`${skill.name} ${skill.description} ${skill.title} ${skill.category} ${skill.summary}`)}">
+const card = (skill) => `<li data-aliases="${escapeHtml(JSON.stringify(skill.aliases))}" data-search="${escapeHtml(`${skill.name} ${skill.aliases.join(' ')} ${skill.description} ${skill.title} ${skill.category} ${skill.summary}`)}">
   <article id="skill-${skill.name}" class="skill-card" data-category="${skill.category.toLowerCase()}">
     <div class="card-meta"><span class="category">${escapeHtml(skill.category)}</span><a class="markdown-link" href="./skills/${skill.name}/SKILL.md" aria-label="Read ${skill.name} as Markdown">Markdown <span aria-hidden="true">↗</span></a></div>
     <h4><a href="${skill.sourceUrl}">${escapeHtml(skill.title)}<span class="source-arrow" aria-hidden="true">↗</span></a></h4>
@@ -99,9 +101,10 @@ const index = template
 await writeFile(join(outputRoot, 'index.html'), index);
 for (const file of ['favicon.svg', '404.html', '_headers']) await cp(join(siteRoot, file), join(outputRoot, file));
 for (const skill of skills) {
-  await mkdir(join(outputRoot, 'skills', skill.name), { recursive: true });
-  await cp(join(repoRoot, skill.relativeFile), join(outputRoot, 'skills', skill.name, 'SKILL.md'));
+  await cp(join(repoRoot, 'skills', skill.name), join(outputRoot, 'skills', skill.name), { recursive: true });
 }
+await writeFile(join(outputRoot, '_redirects'), Object.entries(migrations)
+  .map(([previous, next]) => `/skills/${previous}/SKILL.md /skills/${next}/SKILL.md 301`).join('\n') + '\n');
 for (const file of ['robots.txt', 'sitemap.xml']) {
   const source = await readFile(join(siteRoot, file), 'utf8');
   await writeFile(join(outputRoot, file), source.replaceAll('{{SITE_URL}}', siteUrl));
@@ -111,7 +114,7 @@ await writeFile(join(outputRoot, 'llms.txt'), `# shre-skills
 
 > ${records.length} open-source, MIT-licensed agent skills for web development and native web integration.
 
-Each skill is readable Markdown with YAML name and description metadata. Choose only the skills relevant to your task. The linked SKILL.md files are the complete skill content.
+Each skill is readable Markdown with YAML name and description metadata. Choose only the skills relevant to your task. A SKILL.md may link to optional local references; read those only for the matching task.
 
 ## Installation
 

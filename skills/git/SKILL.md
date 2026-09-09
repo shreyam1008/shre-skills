@@ -1,6 +1,6 @@
 ---
 name: git
-description: Use Git well — commits, branching, history, rebase/merge, recovery, and collaboration hygiene. Use when committing, branching, resolving conflicts, cleaning history, undoing mistakes, or setting up a team workflow.
+description: "Manages Git commits, branches, conflict resolution, and recovery. Use when the task requires Git operations or history analysis; follow the repository workflow."
 ---
 
 # Git

@@ -1,96 +1,47 @@
 ---
 name: react-best-practices
-description: "React performance and maintainability guidelines. Use when writing, reviewing, or refactoring React code: data fetching, rendering, state, hooks, and bundle size."
+description: Builds and reviews React components, hooks, state, data loading, and rendering performance. Use for React correctness, effect cleanup, slow renders, or unresponsive component interactions. TanStack-specific API work and React Three Fiber scenes have separate workflows.
 ---
 
-# React Best Practices
+# React correctness and rendering
 
-Apply when authoring or reviewing React components.
+Inspect the installed React version, framework, data layer, and compiler configuration before choosing APIs. Preserve those choices unless changing them is part of the task.
 
-## 1. Eliminate waterfalls
+## Select the relevant path
 
-- Start independent async work early; await as late as possible.
-- Parallelize independent requests with `Promise.all`.
-- Avoid serial fetching caused by nested components each fetching their own data.
-- Hoist data requirements up so they can be requested together.
+For a slow interaction, expensive render, long list, or memoization decision, read [rendering performance](references/rendering-performance.md). For ordinary component work, use the guidance below; profiling the whole application is not a prerequisite for a small edit.
 
-## 2. Control bundle size
+## State and effects
 
-- Prefer direct imports over barrel (`index.ts`) imports from large packages.
-- Lazy-load heavy or rarely-opened UI: charts, editors, large drawers, admin tools.
-- Keep heavy chart/visualization libs out of the initial route chunk.
-- Re-check the build output after adding any dependency.
+- Keep state with the components that own it. Derive values during render rather than synchronizing duplicate state with effects.
+- Use stable component definitions and keys that preserve identity across reordering. A component defined inside another component is recreated and can reset state.
+- Use effects to synchronize with external systems. Include reactive dependencies and clean up subscriptions, timers, and pending work; restructure unnecessary dependencies instead of hiding them from the linter.
+- Handle user actions in event handlers. Use functional updates when the next state depends on the previous state.
+- Keep transient values in refs when they do not need to render. Do not replace state needed for controlled input or visible feedback simply to suppress renders.
 
-## 3. Server state belongs in a query library
+## Data and delivery
 
-- Prefer the project's framework loaders, server components, or query library for API data. If an effect is the appropriate integration point, handle cancellation/races, errors, and loading explicitly; do not add a library merely to avoid one effect.
-- Use stable, serializable query keys.
-- Set `staleTime` / refetch intervals intentionally.
-- Always render loading, empty, error, and stale states.
+Use the project's framework loaders, server components, or query library when appropriate. If a fetch effect is needed, handle races, cancellation, errors, and loading. Do not introduce a data library solely to avoid one effect.
 
-## 4. Avoid unnecessary re-renders
+Start independent requests together when their failure semantics allow it. Avoid parent/child fetch waterfalls. Preserve loading, empty, failure, and stale-data states.
 
-- Never define components inside other components.
-- Include every reactive dependency in effects and memo hooks. Reduce unnecessary object/function dependencies by restructuring the code, never by omitting values to silence the linter.
-- Derive state during render instead of syncing it with effects.
-- Use functional `setState` updates to keep callbacks stable.
-- Use refs for transient, high-frequency values that shouldn't trigger renders.
-- Memoize only when it protects real work or stabilizes a child's props — not by default.
+Lazy-load heavy optional UI when it improves initial delivery. Inspect actual chunk output before changing import style; a barrel import is not automatically expensive. Changes to TanStack query keys or mutations should follow the installed TanStack API.
 
-```tsx
-// derive, don't sync
-const fullName = `${first} ${last}`; // not useState + useEffect
-```
+## Version-sensitive features
 
-## 5. Effects: use sparingly
+- React 19 Actions can coordinate async form submission. Use the documented `useActionState` / `useFormStatus` boundaries and provide error handling; an Action does not make arbitrary failures disappear.
+- Use `useOptimistic` inside its action/transition context. Treat optimistic UI as provisional and reconcile failed or concurrent writes.
+- Client `use()` reads need a stable promise from an appropriate cache/framework; avoid creating a new fetch promise during every render.
+- Ref-as-prop is a React 19 capability. Preserve older compatibility requirements.
+- React Compiler is a separate build tool, not a consequence of installing React 19. Verify it is configured and covers the measured work before replacing memoization.
+- Confirm the installed version/channel supports React view transitions. Do not mix its transition ownership with direct `document.startViewTransition` calls on the same update. Retain reduced-motion behavior and a supported fallback.
 
-- An effect is for synchronizing with an external system (DOM, network, subscriptions).
-- If you can compute it during render, you don't need an effect.
-- Always provide a cleanup function for subscriptions/timers.
-- Prefer loaders/query caches for fetching. Derive render data during render and respond to user events in their handlers.
+## Verify
 
-## 5b. React 19+ (check your version first)
+Exercise the affected interaction and relevant loading/error states. Run the project's applicable lint, typecheck, build, and tests. For performance changes, compare the same interaction before and after using the method in the linked reference.
 
-- **Actions**: pass an async function to `<form action={fn}>`; React manages pending/error/reset. Pair with `useActionState` (form lifecycle) and `useFormStatus` (child pending state).
-- **`useOptimistic`** for instant mutation feedback (must run inside a transition or action).
-- **`use()`** reads a promise/context and can be called conditionally within a component or hook. For client Suspense reads, use a stable promise supplied by a framework/cache or server component; creating a fetch promise on every render is unsupported.
-- **`ref` is a prop** — drop `forwardRef` on new components (`function Input({ ref, ...p }) {}`).
-- **React Compiler** auto-memoizes; where it's enabled, stop hand-writing most `useMemo`/`useCallback`/`memo`.
+## References and attribution
 
-## 6. Rendering & interaction
-
-- Use `useTransition` / `startTransition` for non-urgent updates that block input.
-- Virtualize or paginate lists when mounting all rows is expensive; an overflow/scroll container alone does not reduce mounted DOM or React work.
-- Preserve keyboard and focus behavior.
-- Avoid layout shift in loading states (reserve space / skeletons).
-
-## 7. Motion & view transitions
-
-Add motion only when it helps users keep context (drawer open/close, selected-row focus, list reorder) — never on urgent status changes or where it slows scanning.
-
-- React's `<ViewTransition>` is experimental — confirm the installed React version supports it before using it. Otherwise use the native `document.startViewTransition` API or plain CSS transitions.
-- Never call `document.startViewTransition` directly while using React's `<ViewTransition>` (they conflict).
-- React view transitions trigger on transition boundaries (`startTransition`), not ordinary `setState`.
-- Choose transition boundaries around the DOM whose change should be animated; follow the installed version's nesting and enter/exit behavior.
-- Always respect `prefers-reduced-motion`; animate `transform`/`opacity`, not layout.
-- Don't pull in a full animation library for a single transition.
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*) { animation: none; }
-}
-```
-
-## Verification
-
-- Run the project's lint, type-check, build, and tests.
-- Inspect build output for chunk shape after adding heavy imports.
-
-## Attribution
-
-Distilled from **`vercel-labs/agent-skills`** `react-best-practices` (MIT, 70 rules across 8 categories) into a single-file checklist. Edits for this collection: condensed to high-signal rules, dropped Next.js-specific items (RSC/`after()`), merged in view transitions, and added the React 19 section above. See the original for the full rule set and per-rule examples.
-
-## Reference
-
-- Original skill: `https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices`
-- React docs: "You Might Not Need an Effect"; React 19 release notes (Actions, `use`, `useOptimistic`, ref-as-prop, Compiler).
+- [React documentation](https://react.dev/learn) and [effect guidance](https://react.dev/learn/you-might-not-need-an-effect).
+- [React Compiler installation](https://react.dev/learn/react-compiler/installation).
+- Adapted in part from [Vercel agent skills](https://github.com/vercel-labs/agent-skills) (MIT), with the former `react-rendering-performance` workflow consolidated into this skill.

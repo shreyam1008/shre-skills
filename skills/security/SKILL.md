@@ -1,6 +1,6 @@
 ---
 name: security
-description: Web application security — what to do and never do for input validation, output encoding, auth, secrets, and common vulns (XSS, CSRF, injection, SSRF). Use when handling user input, building auth/APIs, managing secrets, or reviewing code for security.
+description: "Reviews and implements web security boundaries, authorization, output encoding, session protection, and secret handling. Use for security-sensitive changes or a requested security review."
 ---
 
 # Security

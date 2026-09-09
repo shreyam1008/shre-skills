@@ -8,14 +8,14 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 
 | Skill | Source | What we changed |
 |---|---|---|
-| `react-best-practices` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `react-best-practices` (MIT) | Distilled 70 rules into a single-file checklist; dropped Next.js-specific items; merged in view transitions; added a React 19 section. |
-| `web-design-guidelines` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `web-design-guidelines` + [Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines) | Turned the fetch-at-runtime reviewer into a self-contained offline checklist (live fetch kept as an option). |
-| `minimalism` | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) (MIT) | Adapted the "ladder" + "when not to be lazy" framing; extended to cover prose verbosity, not just code. |
+| `react-best-practices` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `react-best-practices` (MIT) | Focused component and data guidance with optional rendering-performance references, formerly a separate skill. |
+| `web-design-guidelines` | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) — `web-design-guidelines` + [Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines) | Self-contained UI review guidance; incorporates the former `design-language` skill as an optional design-system reference. |
+| `code-quality` (formerly also `minimalism`) | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) (MIT) | Retains evidence-based simplification guidance alongside code review; removes universal prose and minimal-line-count mandates. |
 | `vgpu` | [`vercel-labs/vgpu`](https://github.com/vercel-labs/vgpu), its documentation, and upstream skill (MIT) | Version-aware documentation routing plus original guidance for visual direction, 3D, accessible application integration, and rendering verification. Not an official Vercel skill. |
 
 ## Format & method
 
-- Skill structure (frontmatter, progressive disclosure, "pushy" descriptions, explain-*why*) follows [`anthropics/skills`](https://github.com/anthropics/skills) `skill-creator` guidance.
+- Skill structure follows [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-skills) and [Claude authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): bounded triggers, focused instructions, and optional references loaded for the matching task.
 - `css` / `html` / `javascript` / `web-performance` cross-reference [`GoogleChrome/modern-web-guidance-src`](https://github.com/GoogleChrome/modern-web-guidance-src).
 - `webgpu` and the rendering decision guidance are synthesized from the [GPU for the Web specifications](https://github.com/gpuweb/gpuweb), [Khronos WebGL](https://github.com/KhronosGroup/WebGL), and the [WICG HTML-in-Canvas proposal](https://github.com/WICG/html-in-canvas). HTML-in-Canvas remains explicitly experimental.
 
@@ -26,7 +26,7 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 - **TanStack** docs + TkDodo's "Practical React Query".
 - **React** docs & v19 release notes.
 - **Workbox** (service workers); HTTP caching writing by Jono Alderson.
-- **Material Design 3**, Google **HEART**, "Refactoring UI" (design-language).
+- **Material Design 3**, Google **HEART**, "Refactoring UI" (now consolidated into `web-design-guidelines`).
 - Three.js / R3F / drei docs; WebGL2 Fundamentals; the Rust & WebAssembly book.
 
 ## Discovery

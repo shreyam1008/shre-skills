@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { runInNewContext, createContext, runInContext } from 'node:vm';
 import test from 'node:test';
-import { loadSkills, repoRoot } from './repository.mjs';
+import { loadSkills, loadSkillMigrations, repoRoot } from './repository.mjs';
 
 const bashPath = process.env.BASH_PATH || (process.platform === 'win32' ? 'C:/Program Files/Git/bin/bash.exe' : 'bash');
 const slash = (path) => path.replaceAll('\\', '/');
@@ -18,13 +18,23 @@ const install = (skill, target) => {
 // Keep fixtures in the OS temp directory, outside user projects and the published tree.
 const fixture = () => mkdtemp(join(tmpdir(), 'shre-skills-test-'));
 
+const compareFolder = async (source, destination) => {
+  const entries = await readdir(source, { withFileTypes: true });
+  assert.deepEqual((await readdir(destination)).sort(), entries.map(({ name }) => name).sort());
+  for (const entry of entries) {
+    const original = join(source, entry.name);
+    const copy = join(destination, entry.name);
+    if (entry.isDirectory()) await compareFolder(original, copy);
+    else assert.deepEqual(await readFile(copy), await readFile(original));
+  }
+};
+
 test('installer copies every skill exactly and replaces stale files without touching siblings', async () => {
   const target = await fixture();
   let result = install('all', target);
   assert.equal(result.status, 0, result.stderr);
   for (const skill of await loadSkills()) {
-    assert.equal(await readFile(join(target, '.agents/skills', skill.folder, 'SKILL.md'), 'utf8'),
-      await readFile(join(repoRoot, skill.relativeFile), 'utf8'));
+    await compareFolder(join(repoRoot, 'skills', skill.folder), join(target, '.agents/skills', skill.folder));
   }
   await writeFile(join(target, '.agents/skills/webgl/stale.txt'), 'stale');
   await mkdir(join(target, '.agents/skills/custom'));
@@ -34,6 +44,42 @@ test('installer copies every skill exactly and replaces stale files without touc
   await assert.rejects(lstat(join(target, '.agents/skills/webgl/stale.txt')), { code: 'ENOENT' });
   assert.equal(await readFile(join(target, '.agents/skills/custom/keep.txt'), 'utf8'), 'keep');
   assert.equal((await readdir(join(target, '.agents/skills'))).some((name) => name.startsWith('.')), false);
+});
+
+test('retired install names resolve without deleting customized retired copies', async () => {
+  const skills = await loadSkills();
+  for (const [previous, replacement] of Object.entries(await loadSkillMigrations(skills))) {
+    const target = await fixture();
+    const oldFolder = join(target, '.agents/skills', previous);
+    await mkdir(oldFolder, { recursive: true });
+    await writeFile(join(oldFolder, 'SKILL.md'), 'local customization');
+    const result = install(previous, target);
+    assert.equal(result.status, 0, result.stderr);
+    assert.ok(result.stderr.includes(`${previous} merged into ${replacement}`));
+    assert.ok(result.stderr.includes('checking local edits'));
+    assert.equal(await readFile(join(oldFolder, 'SKILL.md'), 'utf8'), 'local customization');
+    await compareFolder(join(repoRoot, 'skills', replacement), join(target, '.agents/skills', replacement));
+    assert.deepEqual((await readdir(join(target, '.agents/skills'))).sort(), [previous, replacement].sort());
+  }
+});
+
+test('published skills include linked references and redirects for retired names', async () => {
+  const skills = await loadSkills();
+  const redirects = await readFile(join(repoRoot, '_site/_redirects'), 'utf8');
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
+  for (const skill of skills) {
+    await compareFolder(join(repoRoot, 'skills', skill.name), join(repoRoot, '_site/skills', skill.name));
+    const body = await readFile(join(repoRoot, skill.relativeFile), 'utf8');
+    for (const [, reference] of body.matchAll(/\]\((references\/[^)#]+)(?:#[^)]*)?\)/g)) {
+      assert.ok((await readFile(join(repoRoot, '_site/skills', skill.name, reference))).length);
+    }
+  }
+  for (const [previous, replacement] of Object.entries(await loadSkillMigrations(skills))) {
+    assert.ok(redirects.includes(`/skills/${previous}/SKILL.md /skills/${replacement}/SKILL.md 301`));
+    assert.ok(!catalog.skills.some(({ name }) => name === previous));
+    assert.ok(catalog.skills.find(({ name }) => name === replacement).aliases.includes(previous));
+    await assert.rejects(lstat(join(repoRoot, 'skills', previous)), { code: 'ENOENT' });
+  }
 });
 
 test('installer rejects traversal and missing skill names', async () => {

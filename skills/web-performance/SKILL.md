@@ -1,6 +1,6 @@
 ---
 name: web-performance
-description: Make web apps load quickly and render smoothly at the display's refresh rate. Use for Core Web Vitals, refresh-rate-aware frame budgets, jank, main-thread scheduling, loading optimization, and rendering loops whenever a page feels slow or fails a Lighthouse/Vitals check.
+description: "Diagnoses browser loading, Core Web Vitals, main-thread work, and layout/paint bottlenecks. Use for a slow page or measured browser-performance issue; isolated React renders and GPU passes have specialist workflows."
 ---
 
 # Web Performance
@@ -46,7 +46,7 @@ JS → Style → Layout → Paint → Composite
   - Feature-detect `scheduler.yield()` / `scheduler.postTask()` and retain a timer-based fallback where support is missing.
   - Use `requestIdleCallback` only for deferrable work; required work needs a supported fallback or a timeout because idle callbacks may be delayed indefinitely.
 - Move heavy compute to a **Web Worker** (parsing, image/audio, physics, search indexing). Use `OffscreenCanvas` to render in a worker.
-- For measured CPU hot loops, consider **WebAssembly** (see `wasm-rust`). For substantial 3D/rendering workloads, start with `webgl`; use `webgpu` only as measured progressive enhancement with a working fallback.
+- Consider **WebAssembly** for measured CPU kernels (see `wasm-rust`). Preserve an existing GPU renderer when investigating its cost; evaluate a renderer change only when the bottleneck and support requirements justify it.
 - Debounce/throttle scroll/resize/pointer handlers; use passive event listeners.
 
 ## Game-loop pattern

@@ -1,8 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { loadSkills, repoRoot } from './repository.mjs';
+import { loadSkills, loadSkillMigrations, repoRoot } from './repository.mjs';
 
 const skills = await loadSkills();
+await loadSkillMigrations(skills);
 const errors = [];
 const folderNames = skills.map(({ folder }) => folder);
 

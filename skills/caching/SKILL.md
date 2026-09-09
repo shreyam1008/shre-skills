@@ -1,6 +1,6 @@
 ---
 name: caching
-description: Cache correctly across every layer — HTTP/Cache-Control, CDN, browser, service worker, and app/query caches. Use when setting cache headers, deploying static assets, designing API freshness, debugging stale content, or planning invalidation.
+description: "Diagnoses stale data and defines HTTP/CDN caching, freshness, and invalidation policies. Use for cache headers, ETags, hashed assets, or cache-layer investigations. Service-worker lifecycle and TanStack APIs are separate workflows."
 ---
 
 # Caching

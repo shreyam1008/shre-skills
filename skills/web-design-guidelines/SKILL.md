@@ -1,65 +1,44 @@
 ---
 name: web-design-guidelines
-description: The web "rules" for UI quality — where controls go, color and contrast, accessibility, responsive layout, and UX states. Use when reviewing or building web UI.
+description: Designs or reviews web interfaces for visual hierarchy, coherent tokens and themes, interaction states, responsiveness, and accessibility. Use for a UI redesign, design-system decisions, or a screen/flow review. Pure CSS debugging and HTML markup implementation are separate tasks.
 ---
 
-# Web Design Guidelines
+# Web interface design and review
 
-The baseline rules for shipping a UI that looks right and works for everyone. Use for design reviews and before significant UI changes.
+Use the product brief or affected screen as the starting point. Preserve the user's branding, platform conventions, and intended interaction. Return an implemented design or evidence-backed review, according to the request.
 
-## Layout & placement
+## Design or review
 
-- Place the primary action consistently with the product, platform, reading direction, and form layout; there is no universal bottom-right rule.
-- Destructive actions are visually separated and never the default focus.
-- Keep a clear visual hierarchy: one primary action per view.
-- Group related controls; use whitespace, not borders, as the first separator.
-- Maintain a consistent spacing scale (e.g. 4 / 8 / 12 / 16).
-- Don't reflow content as data loads — reserve space.
+- For a new visual system, theme, or inconsistent typography/color/spacing, read [design system decisions](references/design-system.md). Apply only the parts needed for the requested surface.
+- For a screen or flow review, inspect the rendered states and relevant code. Identify concrete consequences such as a hidden primary action, lost focus, illegible status, or blocked small-screen task.
+- For a focused repair, address the demonstrated problem and verify it. Do not require a redesign, token hierarchy, or new component library for a small change.
 
-## Color & contrast
+## Hierarchy and interaction
 
-- Use design tokens, not random raw hex values.
-- Text contrast: ≥ 4.5:1 for body, ≥ 3:1 for large text and UI/icon boundaries.
-- **Color is never the only signal** — pair it with text, icon, or shape (status pills, errors).
-- Use status colors consistently and distinguish them from brand/decorative color; red/green are not universally reserved meanings across products and cultures.
+Make the next action clear, group related information, and follow the product's reading direction and form layout. There is no universal bottom-right action placement or fixed number of primary actions for every screen.
 
-## Accessibility checklist
+Separate destructive actions from routine ones. Use confirmation, undo, or another suitable recovery mechanism proportional to the action's consequences; avoid confirmation dialogs on every reversible operation.
 
-- Every interactive element is keyboard reachable and has a visible focus state.
-- Buttons and inputs have accessible names (label, `aria-label`, or visible text).
-- Modal dialogs/drawers contain focus, restore it on close, and support dismissal. Non-modal drawers must not trap keyboard focus.
-- Hit targets are ≥ 24px (ideally 44px on touch).
-- Respect `prefers-reduced-motion`.
-- Images have `alt`; decorative images use empty `alt=""`.
+Represent loading, empty, error, success, and stale states where the flow can encounter them. Preserve user input during recoverable failures. Show active search/filter state and a clear reset path.
 
-## UX state checklist
+## Accessibility and responsiveness
 
-- Every async surface has loading, empty, error, and success states.
-- Destructive/irreversible actions require confirmation.
-- Active filters/search are visibly reflected in the UI.
-- Long lists/tables stay scannable with sticky headers/context.
-- Copy is direct and operational — not vague marketing text.
-- Dates, numbers, and statuses are formatted consistently.
+- Use named native controls where possible, with logical keyboard order and visible focus. Check the actual interaction, not just presence of ARIA attributes.
+- Modal dialogs contain focus and restore it on close. Non-modal surfaces must not trap focus.
+- Check text contrast against its actual background, including overlays and supported themes. Target at least 4.5:1 for ordinary text and 3:1 for qualifying large text and applicable UI boundaries. Pair color with another signal.
+- Keep touch targets comfortably usable; account for WCAG target-size exceptions and aim for 44px where practical. Respect reduced motion, text zoom, and forced colors.
+- Check meaningful image alternatives, errors associated with fields, and appropriate status announcements.
+- Test narrow screens with realistic long labels and data. Preserve intentional scrolling for tables or graphics while fixing accidental page overflow.
+- Reserve space for media and asynchronous content so the interface does not jump during use.
 
-## Responsive
+## Verification and findings
 
-- Design mobile-first; verify at common breakpoints.
-- No horizontal scroll on small screens (except intentional carousels/tables).
-- Tap targets and spacing scale up on touch.
+Exercise the affected flow with keyboard and pointer/touch as relevant. Check representative viewport sizes and the states the change introduces. Report findings by location, user impact, and proposed repair; distinguish measured defects from subjective visual preferences.
 
-## Workflow
+For a formal review that requires the latest external checklist, consult [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines). Existing local conventions and the user's requirements determine which recommendations apply.
 
-1. For a formal review, optionally fetch the latest Vercel Web Interface Guidelines:
-   `https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
-2. Apply rules to changed files; report findings by file/line.
-3. Manually test the affected screens, including keyboard-only.
+## References and attribution
 
-## Attribution
-
-Inspired by **`vercel-labs/agent-skills`** `web-design-guidelines` (which fetches Vercel's **Web Interface Guidelines** at review time). Edit for this collection: made it a self-contained, offline checklist so it's useful without a network fetch, while keeping the live-fetch step as an option for the newest rules. For deep visual-system work (tokens/type/color), see the `design-language` skill.
-
-## Reference
-
-- Original skill: `https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines`
-- Web Interface Guidelines: `https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
-- `GoogleChrome/modern-web-guidance` (UX/accessibility guides); W3C WAI / ARIA Authoring Practices.
+- [WAI accessibility tutorials](https://www.w3.org/WAI/tutorials/) and [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/).
+- Inspired by [Vercel agent skills](https://github.com/vercel-labs/agent-skills) and its Web Interface Guidelines.
+- The former `design-language` skill's visual-system guidance is preserved in the linked reference.

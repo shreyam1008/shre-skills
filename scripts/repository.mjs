@@ -59,3 +59,19 @@ export const loadSkills = async () => {
     return { folder, relativeFile, ...parseSkill(source, relativeFile) };
   }));
 };
+
+export const loadSkillMigrations = async (skills) => {
+  const source = await readFile(join(repoRoot, 'skill-migrations.tsv'), 'utf8');
+  const current = new Set(skills.map(({ name }) => name));
+  const migrations = {};
+  for (const line of source.trim().split(/\r?\n/)) {
+    const fields = line.split('\t');
+    const [previous, next] = fields;
+    if (fields.length !== 2 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(previous) ||
+        current.has(previous) || !current.has(next) || migrations[previous]) {
+      throw new Error('Invalid skill migration: ' + line);
+    }
+    migrations[previous] = next;
+  }
+  return migrations;
+};

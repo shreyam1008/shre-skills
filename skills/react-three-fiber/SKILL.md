@@ -1,6 +1,6 @@
 ---
 name: react-three-fiber
-description: Build performant 3D scenes with React Three Fiber (@react-three/fiber) and drei. Use when creating or optimizing R3F/Three.js scenes, animations, loaders, or controlling draw calls and frame cost.
+description: "Builds and optimizes scenes using @react-three/fiber and drei. Use for R3F frame loops, React scene ownership, assets, and instancing; do not select solely because a task mentions 3D or Three.js."
 ---
 
 # React Three Fiber
@@ -49,7 +49,7 @@ return items.map((p) => <mesh key={p.id} geometry={geom} material={mat} position
 
 ## Draw calls — keep them low
 
-- Each mesh ≈ one draw call. Aim for a few hundred; ~1000 is the ceiling.
+- Measure actual draw calls, material groups, and render passes on target devices. There is no universal draw-call ceiling.
 - **Instance** repeated objects to reduce draw calls; React-backed instances still incur CPU cost. For very large populations, benchmark a raw `InstancedMesh` with buffer updates:
 
 ```tsx

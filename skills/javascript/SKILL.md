@@ -1,6 +1,6 @@
 ---
 name: javascript
-description: Write modern, correct, performant JavaScript/TypeScript. Use when authoring or reviewing JS/TS logic, async code, modules, or data handling, and to avoid common language footguns — applies in browser, Node, and bundler contexts.
+description: "Implements or debugs JavaScript/TypeScript language behavior, async work, data transformations, and runtime memory. Use for JS/TS logic issues; React rendering and UI design have separate workflows."
 ---
 
 # JavaScript

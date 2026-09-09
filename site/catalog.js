@@ -28,11 +28,18 @@ function filterSkills() {
   document.querySelector('#no-results').hidden = count !== 0;
 }
 function categoryFromHash() {
-  const hash = location.hash;
+  let hash = location.hash;
+  const legacyName = hash.startsWith('#skill-') ? hash.slice(7) : '';
+  const replacement = items.find((item) => JSON.parse(item.dataset.aliases || '[]').includes(legacyName));
+  if (replacement) {
+    hash = '#' + replacement.querySelector('article').id;
+    history.replaceState(null, '', hash);
+  }
   activeCategory = categoryLinks.find((link) => link.hash === hash)?.dataset.filter || 'all';
   // Direct skill anchors must stay visible after another filter was selected.
   if (hash.startsWith('#skill-')) search.value = '';
   filterSkills();
+  if (replacement) replacement.querySelector('article').scrollIntoView();
 }
 for (const link of categoryLinks) {
   link.addEventListener('click', (event) => {

@@ -6,11 +6,11 @@ Official source and install links: [shre-skills distribution tracker](https://sh
 
 Public catalog and release state are recorded in [`product.json`](product.json) and [`docs/distribution-log.md`](docs/distribution-log.md).
 
-**Battle-tested agent skills for shipping fast, correct web apps.**
+**Focused agent skills for building fast, correct web apps.**
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-22-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-19-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -21,7 +21,7 @@ HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WAS
 
 ---
 
-One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown installed to the paths supported by your coding agent through the Skills CLI. Each skill is a focused Markdown file with guidance and references. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret"); moving web-platform sources are pinned in [`docs/source-baselines.json`](docs/source-baselines.json) and reviewed before refreshes.
+One place to pull consistent, opinionated guidance instead of re-searching every time. Portable Markdown installed to the paths supported by your coding agent through the Skills CLI. Each skill has a focused Markdown entry point and optional task-specific references. Maintained by [Shreyam Adhikari](https://shreyam1008.com.np) ("buggythegret"); moving web-platform sources are pinned in [`docs/source-baselines.json`](docs/source-baselines.json) and reviewed before refreshes.
 
 Product site: [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/) — live on Cloudflare Pages, HTTPS verified 9 September 2026. Browse and search the catalog, read the source, or copy an install command.
 
@@ -40,17 +40,15 @@ bunx skills add shreyam1008/shre-skills --skill webgl
 ```
 
 <details open>
-<summary><b>📋 Copy all 22 one-liners</b></summary>
+<summary><b>📋 Copy all 19 one-liners</b></summary>
 
 ```bash
-bunx skills add shreyam1008/shre-skills --skill minimalism
 bunx skills add shreyam1008/shre-skills --skill code-quality
 bunx skills add shreyam1008/shre-skills --skill html
 bunx skills add shreyam1008/shre-skills --skill css
 bunx skills add shreyam1008/shre-skills --skill javascript
 bunx skills add shreyam1008/shre-skills --skill git
 bunx skills add shreyam1008/shre-skills --skill react-best-practices
-bunx skills add shreyam1008/shre-skills --skill react-rendering-performance
 bunx skills add shreyam1008/shre-skills --skill tanstack
 bunx skills add shreyam1008/shre-skills --skill web-performance
 bunx skills add shreyam1008/shre-skills --skill caching
@@ -62,7 +60,6 @@ bunx skills add shreyam1008/shre-skills --skill webgpu
 bunx skills add shreyam1008/shre-skills --skill vgpu
 bunx skills add shreyam1008/shre-skills --skill wasm-rust
 bunx skills add shreyam1008/shre-skills --skill low-level-web-rendering
-bunx skills add shreyam1008/shre-skills --skill design-language
 bunx skills add shreyam1008/shre-skills --skill web-design-guidelines
 bunx skills add shreyam1008/shre-skills --skill webview2-winui
 ```
@@ -74,14 +71,12 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 
 | Skill | For |
 |---|---|
-| [`minimalism`](skills/minimalism/SKILL.md) | Write less code *and* less prose; kill over-engineering. |
-| [`code-quality`](skills/code-quality/SKILL.md) | Conventions, types, tests, handoff — any language. |
+| [`code-quality`](skills/code-quality/SKILL.md) | Focused code review, correctness, and simplification. |
 | [`html`](skills/html/SKILL.md) | Semantic markup, forms, a11y, metadata. |
 | [`css`](skills/css/SKILL.md) | Grid/flex, container queries, `:has()`/`@scope`, tokens. |
 | [`javascript`](skills/javascript/SKILL.md) | Modern JS/TS: async, immutability, footguns. |
 | [`git`](skills/git/SKILL.md) | Commits, branching, rebase/merge, recovery. |
-| [`react-best-practices`](skills/react-best-practices/SKILL.md) | React data/render/state/bundle; React 19 APIs. |
-| [`react-rendering-performance`](skills/react-rendering-performance/SKILL.md) | Jank, slow lists, re-render diagnosis. |
+| [`react-best-practices`](skills/react-best-practices/SKILL.md) | React components, effects, data loading, and rendering-performance diagnosis. |
 | [`tanstack`](skills/tanstack/SKILL.md) | Query/Router/Table/Form/Start; cache keys, mutations, and route data. |
 | [`web-performance`](skills/web-performance/SKILL.md) | Core Web Vitals, adaptive frame budgets, scheduling, load speed. |
 | [`caching`](skills/caching/SKILL.md) | Cache-Control/CDN/browser/SW/query, invalidation. |
@@ -93,8 +88,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`vgpu`](skills/vgpu/SKILL.md) | Vercel vgpu: shader effects, procedural materials, 3D, visual UI, and version-aware docs. |
 | [`wasm-rust`](skills/wasm-rust/SKILL.md) | Hot paths to Rust + WebAssembly. |
 | [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
-| [`design-language`](skills/design-language/SKILL.md) | Tokens, color/type/spacing/motion systems. |
-| [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | UI "rules": placement, contrast, a11y, UX states. |
+| [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | Visual systems, themes, hierarchy, accessibility, and UI state reviews. |
 | [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
 
 ## 🛠️ Install options
@@ -129,13 +123,26 @@ On Windows, run `install.sh` from Git Bash or WSL.
 
 See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for agent names and supported options.
 
+### Merged skills
+
+The library now has 19 focused skills. Use these replacement names for new Skills CLI installs:
+
+| Previous name | Replacement |
+|---|---|
+| `minimalism` | `code-quality` |
+| `react-rendering-performance` | `react-best-practices` |
+| `design-language` | `web-design-guidelines` |
+
+The bundled `install.sh` translates the previous names to their replacements. The external Skills CLI discovers only the active names. Existing installed copies are not automatically removed: review any local edits, install the replacement in the same scope, then remove or disable the retired copy in your agent's skills directory. Old website Markdown URLs redirect to their replacements, and old catalog anchors still resolve.
+
 ## 📎 Notes
 
-- **Structure:** `skills/<name>/SKILL.md` — frontmatter (`name` + `description`) then guidance. Only the description loads until the skill triggers (progressive disclosure).
+- **Structure:** `skills/<name>/SKILL.md` — frontmatter (`name` + `description`) then guidance. Agents can discover the metadata before loading the body. Copy the whole skill folder, including optional `references/` files; load those references only for matching tasks.
 - **Source baselines:** [`docs/source-baselines.json`](docs/source-baselines.json) records the primary-source revision used for fast-moving platform guidance; validation rejects unknown skills, duplicate sources, insecure URLs, and missing rendering coverage.
-- **Credits:** see [CREDITS.md](CREDITS.md). A few skills are derived from others (Vercel; `minimalism` from ponytail) and say so in an Attribution note; the rest are original syntheses from primary docs.
+- **Credits:** see [CREDITS.md](CREDITS.md). Vercel-inspired skills and the ponytail simplification guidance now in `code-quality` retain attribution; the rest are original syntheses from primary docs.
 - **Latest review:** [9 September 2026 findings and verification](docs/review-2026-09-09.md).
 - **Rendering update:** [vgpu and current GPU/rendering reference checks](docs/rendering-review-2026-09-09.md).
+- **Consolidation:** [overlap audit, migration details, and routing review](docs/skill-consolidation-2026-09-09.md).
 - **Release contract:** see [docs/domain-release.md](docs/domain-release.md) before changing Pages or DNS status.
 - **Roadmap:** `shaders-glsl`, `web-animations`, `accessibility-audit`, `testing`.
 

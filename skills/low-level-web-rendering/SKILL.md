@@ -1,6 +1,6 @@
 ---
 name: low-level-web-rendering
-description: Choose and engineer the browser rendering path across DOM/CSS, SVG, Canvas 2D, OffscreenCanvas, WebGL, WebGPU, and WASM. Use for render-pipeline diagnosis, DOM-vs-canvas decisions, HTML-in-Canvas experiments, DPR scaling, worker rendering, and production fallback design.
+description: "Chooses between DOM, SVG, Canvas, WebGL, WebGPU, and worker rendering, or evaluates experimental HTML-in-Canvas. Use for renderer selection or architecture tradeoffs, not routine work in an already-selected GPU library."
 ---
 
 # Low-Level Web Rendering

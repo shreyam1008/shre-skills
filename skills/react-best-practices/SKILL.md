@@ -23,7 +23,7 @@ Apply when authoring or reviewing React components.
 
 ## 3. Server state belongs in a query library
 
-- Use TanStack Query (or similar) for API data — not ad hoc `useEffect` + `useState`.
+- Prefer the project's framework loaders, server components, or query library for API data. If an effect is the appropriate integration point, handle cancellation/races, errors, and loading explicitly; do not add a library merely to avoid one effect.
 - Use stable, serializable query keys.
 - Set `staleTime` / refetch intervals intentionally.
 - Always render loading, empty, error, and stale states.
@@ -31,7 +31,7 @@ Apply when authoring or reviewing React components.
 ## 4. Avoid unnecessary re-renders
 
 - Never define components inside other components.
-- Use primitive dependencies in `useEffect` / `useMemo` / `useCallback`.
+- Include every reactive dependency in effects and memo hooks. Reduce unnecessary object/function dependencies by restructuring the code, never by omitting values to silence the linter.
 - Derive state during render instead of syncing it with effects.
 - Use functional `setState` updates to keep callbacks stable.
 - Use refs for transient, high-frequency values that shouldn't trigger renders.
@@ -47,20 +47,20 @@ const fullName = `${first} ${last}`; // not useState + useEffect
 - An effect is for synchronizing with an external system (DOM, network, subscriptions).
 - If you can compute it during render, you don't need an effect.
 - Always provide a cleanup function for subscriptions/timers.
-- Don't use an effect for: fetching (use a query lib), transforming data for render (derive it), or responding to a user event (do it in the handler).
+- Prefer loaders/query caches for fetching. Derive render data during render and respond to user events in their handlers.
 
 ## 5b. React 19+ (check your version first)
 
 - **Actions**: pass an async function to `<form action={fn}>`; React manages pending/error/reset. Pair with `useActionState` (form lifecycle) and `useFormStatus` (child pending state).
 - **`useOptimistic`** for instant mutation feedback (must run inside a transition or action).
-- **`use()`** reads a promise/context and can be called conditionally — clean Suspense data reads without `useEffect`.
+- **`use()`** reads a promise/context and can be called conditionally within a component or hook. For client Suspense reads, use a stable promise supplied by a framework/cache or server component; creating a fetch promise on every render is unsupported.
 - **`ref` is a prop** — drop `forwardRef` on new components (`function Input({ ref, ...p }) {}`).
 - **React Compiler** auto-memoizes; where it's enabled, stop hand-writing most `useMemo`/`useCallback`/`memo`.
 
 ## 6. Rendering & interaction
 
 - Use `useTransition` / `startTransition` for non-urgent updates that block input.
-- Virtualize or internally-scroll long lists/tables.
+- Virtualize or paginate lists when mounting all rows is expensive; an overflow/scroll container alone does not reduce mounted DOM or React work.
 - Preserve keyboard and focus behavior.
 - Avoid layout shift in loading states (reserve space / skeletons).
 
@@ -71,7 +71,7 @@ Add motion only when it helps users keep context (drawer open/close, selected-ro
 - React's `<ViewTransition>` is experimental — confirm the installed React version supports it before using it. Otherwise use the native `document.startViewTransition` API or plain CSS transitions.
 - Never call `document.startViewTransition` directly while using React's `<ViewTransition>` (they conflict).
 - React view transitions trigger on transition boundaries (`startTransition`), not ordinary `setState`.
-- The transition wrapper must wrap the DOM that actually enters/exits; an outer wrapper suppresses it.
+- Choose transition boundaries around the DOM whose change should be animated; follow the installed version's nesting and enter/exit behavior.
 - Always respect `prefers-reduced-motion`; animate `transform`/`opacity`, not layout.
 - Don't pull in a full animation library for a single transition.
 

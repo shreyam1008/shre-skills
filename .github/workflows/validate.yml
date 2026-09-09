@@ -21,3 +21,6 @@ jobs:
 
       - name: Build static site
         run: node scripts/build-site.mjs
+
+      - name: Test installer and executable examples
+        run: node --test scripts/repository.test.mjs

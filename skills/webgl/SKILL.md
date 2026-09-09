@@ -13,23 +13,23 @@ Low-level GPU rendering in the browser. The mental model: minimize state changes
 const gl = canvas.getContext('webgl2', {
   alpha: false,              // skip compositing transparency if unneeded
   antialias: true,
-  powerPreference: 'high-performance', // request discrete GPU
-  desynchronized: true,      // lower-latency present where supported
+  powerPreference: 'high-performance', // optional performance/power hint
   preserveDrawingBuffer: false, // true is slow; only for readback/screenshots
 });
+if (!gl) throw new Error('WebGL2 unavailable; show the product fallback.');
 ```
 
 - Prefer **WebGL2** (instancing, VAOs, MRT, 3D textures are core). Fall back to WebGL1 only if you must.
-- Handle context loss: listen for `webglcontextlost` / `webglcontextrestored` and recreate resources.
+- Handle context loss: call `event.preventDefault()` in `webglcontextlost` to allow restoration, stop rendering, and recreate resources on `webglcontextrestored` before restarting.
 
 ## Confirm which GPU you actually got
 
 ```js
 const ext = gl.getExtension('WEBGL_debug_renderer_info');
-console.log(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL));
+if (ext) console.log(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL));
 ```
 
-If this reports the integrated GPU when you wanted the discrete one, the `powerPreference` hint was ignored — check OS/browser GPU settings.
+The extension may be unavailable for privacy reasons. `powerPreference` is a hint; it does not guarantee a discrete GPU, and renderer strings do not establish performance. Measure on target hardware.
 
 ## DPR & viewport
 
@@ -40,7 +40,7 @@ canvas.height = Math.floor(canvas.clientHeight * dpr);
 gl.viewport(0, 0, canvas.width, canvas.height);
 ```
 
-## The cost model (what to minimize, in order)
+## The cost model (profile to find the dominant cost)
 
 1. **Draw calls** — batch geometry, use instancing, sort by material to avoid redundant binds.
 2. **State changes** — `useProgram`, `bindTexture`, `bindBuffer`, enabling/disabling are not free. Group draws that share state.
@@ -100,5 +100,5 @@ WebGL is also the fallback boundary for an experimental HTML-in-Canvas texture p
 
 ## Reference
 
-- MDN WebGL API; WebGL2 Fundamentals (webgl2fundamentals.org).
+- MDN: [WebGL best practices](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices), [renderer info extension](https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info); WebGL2 Fundamentals.
 - Khronos WebGL best practices.

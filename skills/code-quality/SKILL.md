@@ -15,7 +15,7 @@ Language-agnostic conventions that hold up over time. Optimize for the next pers
 - Separate concerns: parsing, validation, business decisions, and side effects should not be tangled together.
 - Don't add abstraction until duplication or a real domain concept demands it (rule of three). Avoid speculative generality (YAGNI). See the `minimalism` skill for the full "write less" discipline.
 - No magic strings/numbers in core logic — promote repeated values to named constants or typed enums.
-- Delete dead code, unused files, and migration leftovers when a task is done.
+- Remove obsolete code introduced or superseded by the change after checking callers; leave unrelated files and user work alone.
 - Avoid broad refactors during bug fixes unless the refactor is required to fix the bug safely.
 
 ## Correctness & data
@@ -60,7 +60,7 @@ Language-agnostic conventions that hold up over time. Optimize for the next pers
 
 ## Tests
 
-- Add/update tests for changed behavior; cover the edge and failure paths, not just the happy path.
+- Add/update tests when changed behavior or failure risk warrants them; use existing checks or direct verification for low-impact edits. Cover meaningful edge and failure paths.
 - A test should fail for one clear reason; keep them deterministic (no real time/network/randomness unless controlled).
 - Don't weaken or delete tests to make a change pass — fix the cause.
 - Prefer behavior-level tests over asserting implementation details.
@@ -74,7 +74,7 @@ Language-agnostic conventions that hold up over time. Optimize for the next pers
 ## Review checklist before handoff
 
 - [ ] Smallest reasonable change; root cause addressed.
-- [ ] Tests added/updated and passing; type-check/build/lint clean for touched code.
+- [ ] Appropriate tests or direct checks pass; required type-check/build/lint clean for touched code.
 - [ ] No `any`/suppressions sneaking in; invalid states unrepresentable.
 - [ ] Inputs validated; errors handled, not swallowed.
 - [ ] No secrets in code, logs, or fixtures.

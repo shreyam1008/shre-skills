@@ -5,7 +5,7 @@ description: Build performant 3D scenes with React Three Fiber (@react-three/fib
 
 # React Three Fiber
 
-Declarative Three.js in React. The GPU is rarely the bottleneck — React reconciliation, draw calls, and per-frame allocations usually are.
+Declarative Three.js in React. Profile React work, draw-call overhead, allocations, and GPU fill/shader cost before choosing an optimization.
 
 ## Canvas setup
 
@@ -18,8 +18,9 @@ Declarative Three.js in React. The GPU is rarely the bottleneck — React reconc
 >
 ```
 
-- `powerPreference: 'high-performance'` asks the OS for the discrete GPU, not the iGPU. Big win on laptops.
+- `powerPreference` is an optional hint, not a discrete-GPU guarantee. Choose it against the app's power budget and measure on target devices.
 - Use `frameloop="demand"` for scenes that come to rest (configurators, viewers). Use the default loop only when something always moves.
+- In demand mode, imperative mutations need `invalidate()` to request a frame. `useFrame` alone does not keep the loop alive; invalidate while animating or use a continuous loop.
 
 ## The #1 rule: animate by mutation in `useFrame`, never `setState`
 
@@ -33,7 +34,7 @@ return <mesh ref={ref}>{/* ... */}</mesh>;
 
 - `setState` in `useFrame` routes a 60fps update through React's scheduler — never do it.
 - Use `delta` (not fixed increments) so motion runs the same speed on every display.
-- For smoothing use `THREE.MathUtils.lerp` / `damp` inside `useFrame`.
+- Use delta-aware `THREE.MathUtils.damp` for smoothing; a fixed `lerp` factor per frame is refresh-rate dependent.
 
 ## Don't allocate in the frame loop
 
@@ -49,7 +50,7 @@ return items.map((p) => <mesh key={p.id} geometry={geom} material={mat} position
 ## Draw calls — keep them low
 
 - Each mesh ≈ one draw call. Aim for a few hundred; ~1000 is the ceiling.
-- **Instance** repeated objects — hundreds of thousands in one draw call:
+- **Instance** repeated objects to reduce draw calls; React-backed instances still incur CPU cost. For very large populations, benchmark a raw `InstancedMesh` with buffer updates:
 
 ```tsx
 import { Instances, Instance } from '@react-three/drei';
@@ -59,7 +60,7 @@ import { Instances, Instance } from '@react-three/drei';
 </Instances>
 ```
 
-- Merge static geometry with drei `<Merged>`; use texture atlases to share materials.
+- drei `<Merged>` provides instancing for reusable meshes; use geometry merge utilities when actual static buffer merging is needed. Texture atlases can help share materials.
 
 ## Loading & assets
 
@@ -97,4 +98,4 @@ import { Instances, Instance } from '@react-three/drei';
 
 - R3F docs: "Scaling performance", "Performance pitfalls".
 - drei: `Instances`, `Merged`, `Detailed`, `PerformanceMonitor`, `AdaptiveDpr`, `Environment`, `BakeShadows`.
-- Verified against R3F 8.x / drei 9.x / three r160+. Check installed versions for API drift.
+- Check installed React/R3F/drei/Three versions and peer dependencies together; API support and performance vary by release.

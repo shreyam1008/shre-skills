@@ -1,11 +1,13 @@
 ---
 name: tanstack
-description: Build React apps the TanStack way — Query for server state, Router for routing/data loading, Table/Form/Virtual for UI, Start for SSR. Use when fetching data, managing server state, routing, large tables/lists, or replacing ad-hoc useEffect/useState data code.
+description: Build or review React apps using TanStack Query, Router, Table, Form, Virtual, or Start. Use for query caching, mutations, route loading, URL state, headless tables/forms, virtualization, or a requested TanStack migration.
 ---
 
 # TanStack
 
 A cohesive, type-safe stack that replaces most hand-rolled data plumbing. The guiding rule: **stop syncing server data into component state.** `useEffect` + `useState` for fetching is the anti-pattern this stack exists to remove.
+
+Apply the libraries already chosen by the project. This skill does not require migrating a working framework loader or adding the entire TanStack stack. Form drafts may intentionally start from server data and diverge while the user edits.
 
 ## The core mental model
 
@@ -21,7 +23,7 @@ A cohesive, type-safe stack that replaces most hand-rolled data plumbing. The gu
 - Co-locate query options in a factory so keys/fns stay consistent and reusable across components and route loaders.
 
 ```ts
-const todosQuery = (status: string) => ({
+const todosQuery = (status: string) => queryOptions({
   queryKey: ['todos', { status }],
   queryFn: ({ signal }) => fetchTodos(status, signal), // pass signal for cancellation
   staleTime: 60_000,
@@ -29,24 +31,31 @@ const todosQuery = (status: string) => ({
 useQuery(todosQuery(status));
 ```
 
+Import `queryOptions` and `useQuery` from `@tanstack/react-query`; `queryOptions` preserves inference for the query function context. Include every data-changing parameter in the key. Inline arrays and query functions are supported: keys are hashed by value, not object identity.
+
 ### Mutations + optimistic updates
 
 - `useMutation` for writes. After success, **invalidate** affected queries to refetch truth.
 - Optimistic update via `onMutate`: cancel in-flight queries, snapshot, write the optimistic value; **roll back in `onError`** using the snapshot; reconcile in `onSettled` by invalidating.
 
 ```ts
+const key = todosQuery(status).queryKey; // the same filtered list used by useQuery
 useMutation({
   mutationFn: updateTodo,
   onMutate: async (next) => {
-    await qc.cancelQueries({ queryKey: ['todos'] });
-    const prev = qc.getQueryData(['todos']);
-    qc.setQueryData(['todos'], (old) => applyOptimistic(old, next));
+    await qc.cancelQueries({ queryKey: key, exact: true });
+    const prev = qc.getQueryData(key);
+    qc.setQueryData(key, (old) => old === undefined ? old : applyOptimistic(old, next));
     return { prev };
   },
-  onError: (_e, _next, ctx) => qc.setQueryData(['todos'], ctx?.prev), // rollback
+  onError: (_e, _next, ctx) => {
+    if (ctx?.prev !== undefined) qc.setQueryData(key, ctx.prev);
+  },
   onSettled: () => qc.invalidateQueries({ queryKey: ['todos'] }),     // reconcile
 });
 ```
+
+This snapshot pattern assumes mutations to that list are serialized and the key remains fixed for the mutation's lifetime. Concurrent writes need mutation-aware reconciliation or optimistic UI derived from pending variables; restoring an old snapshot can erase a newer update. Make `applyOptimistic` respect the list's filter and leave uncached lists to refetch.
 
 - Prefetch on intent (hover/route enter) with `queryClient.prefetchQuery` to kill waterfalls.
 - React 19 note: `useOptimistic` + Actions give *transient* optimistic UI for a single form/mutation; Query's `onMutate` updates the *shared cache* so every component reading that key reflects it. Use Query's approach when the optimistic value must persist across components/navigation.
@@ -73,9 +82,9 @@ useMutation({
 
 - Do: server data in Query, URL state in Router search params, UI state in `useState`.
 - Don't: fetch in `useEffect`, store fetched data in `useState`, or derive a second copy of server data into local state.
-- Don't: use unstable query keys or recreate `columns`/`queryFn` inline every render.
+- Don't omit data dependencies from query keys. Keep Table `columns` and `data` stable where required; Query `queryFn` does not need memoization solely to prevent refetches.
 
 ## Reference
 
-- TanStack docs: Query (Caching, Mutations, Optimistic Updates), Router (Search Params, Data Loading), Start, Table, Form, Virtual — `tanstack.com`.
+- TanStack docs: [Query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys), [Query options](https://tanstack.com/query/latest/docs/framework/react/guides/query-options), Query mutations, Router, Start, Table, Form, Virtual.
 - TkDodo's blog "Practical React Query" (the canonical Query best-practices series).

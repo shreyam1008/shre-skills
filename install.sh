@@ -29,12 +29,20 @@ if [[ ! -d "${SKILLS_SRC}" ]]; then
   exit 1
 fi
 
-mkdir -p "${DEST}"
-DEST="$(cd "${DEST}" && pwd -P)"
-
 is_valid_skill_name() {
   [[ "$1" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]
 }
+
+if [[ "${SKILL}" != "all" ]] && ! is_valid_skill_name "${SKILL}"; then
+  echo "error: invalid skill name '${SKILL}'" >&2
+  exit 1
+fi
+if [[ -L "${TARGET}/.agents" || -L "${DEST}" ]]; then
+  echo "error: refusing symlinked skills destination" >&2
+  exit 1
+fi
+mkdir -p "${DEST}"
+DEST="$(cd "${DEST}" && pwd -P)"
 
 copy_one() {
   local name="$1"
@@ -44,13 +52,17 @@ copy_one() {
     echo "error: invalid skill name '${name}'" >&2
     exit 1
   fi
-  if [[ ! -d "${src}" ]]; then
+  if [[ ! -d "${src}" || -L "${src}" || ! -f "${src}/SKILL.md" ]]; then
     echo "error: skill '${name}' not found. Available skills:" >&2
     ls -1 "${SKILLS_SRC}" >&2
     exit 1
   fi
 
   dest="${DEST}/${name}"
+  if [[ -L "${dest}" ]]; then
+    echo "error: refusing symlinked skill destination '${name}'" >&2
+    exit 1
+  fi
   if [[ "$(dirname "${dest}")" != "${DEST}" ]]; then
     echo "error: refusing destination outside ${DEST}" >&2
     exit 1

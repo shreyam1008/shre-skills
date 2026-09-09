@@ -1,6 +1,6 @@
 ---
 name: minimalism
-description: Write the least code and the least prose that fully solves the task. Use on every coding and review task, and whenever the user says "be concise", "less code", "minimal", "simplest", "yagni", "stop over-engineering", or complains about bloat, boilerplate, verbosity, or unnecessary dependencies.
+description: Simplify code or explanations while preserving correctness and requested detail. Use for focused simplification, removing unnecessary abstractions or dependencies, reducing boilerplate, or an explicit request for a minimal solution.
 ---
 
 # Minimalism
@@ -13,7 +13,7 @@ The best code is the code you never wrote, and the best explanation is the one y
 2. **Standard library does it?** Use it.
 3. **Native platform feature covers it?** `<input type="date">` over a date lib, CSS over JS, a DB constraint over app code.
 4. **An already-installed dependency solves it?** Use it. Never add a new dependency for what a few lines do.
-5. **Can it be one line?** Make it one line.
+5. **Can it be clearer and smaller?** Simplify without compressing readable logic into clever one-liners.
 6. **Only then:** the minimum code that works.
 
 The ladder is a reflex, not a research project. Two rungs both work → take the higher one and move on.
@@ -27,7 +27,7 @@ The ladder is a reflex, not a research project. Two rungs both work → take the
 ## Prose discipline (the verbosity fix)
 
 - Lead with the answer or the code, not preamble.
-- If the explanation is longer than the code, cut the explanation. Every paragraph defending a simplification is complexity smuggled back as prose.
+- Match explanation length to the user's needs and the decision's complexity, not the number of code lines. Keep rationale that helps assess correctness or tradeoffs.
 - After a change, at most a few lines: what you did, what you skipped, when to add it. No feature tours, no restating the code in English.
 - Bullets over paragraphs; tables over bullets when comparing. No filler ("As you can see…", "It's worth noting…").
 - Requested depth (a report, a walkthrough, a design doc) is not bloat — give it in full. The rule is only against *unrequested* padding.
@@ -44,6 +44,6 @@ Leave a comment naming the ceiling and upgrade path so a shortcut reads as inten
 // minimal: O(n) scan; index this if the list grows past a few thousand
 ```
 
-## Inspiration
+## Reference and inspiration
 
 Adapted from **`DietrichGebert/ponytail`** (the "lazy senior dev" skill, MIT) — its "ladder" and "when not to be lazy" framing, extended here to cover prose verbosity too. See that skill for intensity levels (lite/full/ultra) and more examples.

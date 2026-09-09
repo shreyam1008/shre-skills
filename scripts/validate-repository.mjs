@@ -22,7 +22,7 @@ if (new Set(folderNames).size !== folderNames.length) errors.push('skill folder 
 
 const readme = await readFile(join(repoRoot, 'README.md'), 'utf8');
 const catalogLinks = [...readme.matchAll(/\]\(skills\/([a-z0-9-]+)\/SKILL\.md\)/g)].map((match) => match[1]);
-const installSlugs = [...readme.matchAll(/shreyam1008\/shre-skills@([a-z0-9-]+)/g)].map((match) => match[1]);
+const installSlugs = [...readme.matchAll(/shreyam1008\/shre-skills --skill ([a-z0-9-]+)/g)].map((match) => match[1]);
 
 const compareSet = (label, values) => {
   const unique = [...new Set(values)].sort();
@@ -79,7 +79,7 @@ if (sourceBaselines) {
     const sourceSignatures = new Set();
     const coveredSkills = new Set();
     const allowedKinds = new Set(['browser-intent', 'git', 'package', 'platform-docs', 'specification']);
-    const allowedHosts = new Set(['developer.mozilla.org', 'github.com', 'groups.google.com']);
+    const allowedHosts = new Set(['developer.mozilla.org', 'github.com', 'groups.google.com', 'react.dev', 'learn.microsoft.com', 'wasm-bindgen.github.io', 'tanstack.com', 'cheatsheetseries.owasp.org', 'r3f.docs.pmnd.rs']);
     for (const [index, source] of sources.entries()) {
       const label = `${sourceBaselineFile}: sources[${index}]`;
       if (!source || typeof source !== 'object' || Array.isArray(source)) {

@@ -35,10 +35,9 @@ type GpuStart = { device: GPUDevice; adapter: GPUAdapter } | null;
 export async function startWebGpu(): Promise<GpuStart> {
   if (!navigator.gpu) return null;
 
-  const adapter = await navigator.gpu.requestAdapter();
-  if (!adapter) return null; // unsupported, disabled, blocked, or no usable adapter
-
   try {
+    const adapter = await navigator.gpu.requestAdapter();
+    if (!adapter) return null; // unsupported, disabled, blocked, or no usable adapter
     const device = await adapter.requestDevice();
     device.lost.then((info) => {
       console.warn(`WebGPU device lost: ${info.reason}`, info.message);

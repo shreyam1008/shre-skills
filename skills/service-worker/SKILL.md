@@ -20,14 +20,17 @@ A service worker is a network proxy that runs in its own thread, independent of 
 navigator.serviceWorker.register('/sw.js'); // page side
 
 // sw.js
-const VERSION = 'v3';
+const CACHE_PREFIX = 'my-app-shell-'; // unique to this app on the origin
+const VERSION = `${CACHE_PREFIX}v3`;
+const SHELL_ASSETS = ['/offline.html']; // include every offline fallback
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL_ASSETS)));
 });
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))),
+      Promise.all(keys.filter((k) => k.startsWith(CACHE_PREFIX) && k !== VERSION)
+        .map((k) => caches.delete(k))),
     ),
   );
 });
@@ -44,27 +47,34 @@ self.addEventListener('activate', (e) => {
 
 - **Never serve stale HTML forever** — use network-first or SWR for documents so users discover updates.
 - Only cache `GET`. Don't cache responses to mutations.
-- Version cache names; delete old versions on `activate`.
+- Version and namespace cache names; delete only this app's old versions on `activate`. Cache Storage is shared across the origin, not isolated by service-worker scope.
+- The Cache API does not enforce HTTP freshness or `Cache-Control: no-store`. Explicitly exclude private/authenticated responses unless offline storage is designed for that data, partition by account when needed, and clear it on logout. Check response status before caching.
 
 ```js
 self.addEventListener('fetch', (e) => {
   const { request } = e;
   if (request.method !== 'GET') return;
   if (request.mode === 'navigate') {
-    e.respondWith(fetch(request).catch(() => caches.match('/offline.html')));
+    e.respondWith(fetch(request).catch(async () => {
+      const cache = await caches.open(VERSION);
+      return (await cache.match('/offline.html')) ??
+        new Response('Offline. Please reconnect and try again.', {
+          status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+        });
+    }));
   }
 });
 ```
 
 ## Background sync & updates
 
-- **Background Sync** (`sync` event): queue failed writes (e.g. in IndexedDB) and retry when connectivity returns — great for offline form submits. Periodic Background Sync for content refresh (limited support).
+- **Background Sync** (`sync` event): queue eligible failed writes in IndexedDB with idempotency keys, bounded retries, and an explicit failure state. Feature-detect support and provide a foreground retry path. Periodic Background Sync has limited support.
 - Tell users when a new SW is ready ("Refresh to update") rather than silently swapping, to avoid mid-session breakage.
 
 ## Installable PWA
 
 - Ship a **web app manifest** (`name`, `icons` incl. maskable, `start_url`, `display: standalone`, `theme_color`).
-- Requirements: HTTPS, manifest, a registered service worker. Handle `beforeinstallprompt` to offer install at a good moment.
+- Install criteria vary by browser; serve over HTTPS with a suitable manifest. A service worker enables offline behavior but is not a universal install prerequisite. `beforeinstallprompt` is not cross-browser: feature-detect it and provide platform-specific instructions where absent.
 
 ## Use Workbox unless you have a reason not to
 
@@ -72,7 +82,7 @@ self.addEventListener('fetch', (e) => {
 
 ## Footgun checklist
 
-- [ ] Cache names versioned; old caches deleted on `activate`.
+- [ ] Cache names versioned and app-scoped; other apps' caches preserved.
 - [ ] HTML is network-first / SWR, not cache-first.
 - [ ] Only `GET` cached; mutations always hit network.
 - [ ] Update flow handled (skipWaiting + user prompt) so changes ship.
@@ -80,5 +90,5 @@ self.addEventListener('fetch', (e) => {
 
 ## Reference
 
-- MDN: Service Worker API, Web App Manifest, Background Sync.
+- MDN: [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache), [PWA installability](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable), Service Worker API, Background Sync.
 - web.dev "Learn PWA"; Chrome for Developers: Workbox + "Caching strategies overview".

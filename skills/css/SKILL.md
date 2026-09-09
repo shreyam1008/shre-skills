@@ -16,7 +16,7 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 - Prefer **logical properties** (`margin-inline`, `padding-block`, `inset`) so layouts adapt to writing direction.
 
 ```css
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
 ```
 
 ## Responsive without breakpoint soup
@@ -40,7 +40,7 @@ Modern CSS removed the need for most hacks and heavy frameworks. Lean on the pla
 
 - **`:has()`** styles a parent from its children — replaces JS class-toggling: `label:has(:checked)`, `form:has(:invalid)`, `.card:has(img)`. Scope it to a close container (broad `body:has()` triggers more recalc); don't nest `:has()`.
 - For critical `:has()` UI, add an `@supports not selector(:has(*))` class-based fallback.
-- `:focus-visible` (keyboard-only rings), `accent-color` (themed form controls), `scroll-snap` (carousels) remove common JS.
+- `:focus-visible` shows focus when browser heuristics indicate it is useful, including text inputs focused by a pointer; it is not strictly keyboard-only. `accent-color` and `scroll-snap` can also replace common JS.
 - `text-wrap: balance` for headings, `text-wrap: pretty` for body — used deliberately, never on `*` (cost).
 
 ## Design tokens & theming

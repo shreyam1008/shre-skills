@@ -35,14 +35,14 @@ Lean on your framework's built-in protections first; only hand-roll when you und
 
 ## CSRF
 
-- Use the framework's CSRF protection. If none, add per-request **anti-CSRF tokens** for state-changing requests.
+- Use the framework's CSRF protection for cookie-authenticated state changes. If implementing tokens, validate a secret, unpredictable token bound to the session; per-request tokens are an option, not a universal requirement.
 - Set cookies `SameSite=Lax`/`Strict`, `Secure`, `HttpOnly`.
-- Prefer same-site; for cross-site APIs use proper CORS (don't reflect arbitrary origins).
+- Validate request origin where appropriate and configure CORS with explicit trusted origins. CORS is not CSRF protection: browsers can send some cross-origin requests even when scripts cannot read the response.
 
 ## AuthN / AuthZ
 
 - Don't roll your own crypto or auth — use a vetted provider/library.
-- Passwords: hash with bcrypt/argon2/scrypt + per-user salt. Never store plaintext or fast hashes.
+- Passwords: use a maintained password-hashing implementation, preferably Argon2id (or scrypt where unavailable), with tuned work factors and per-user salt. Retain bcrypt for compatible legacy systems while accounting for its input-length limit. Never store plaintext or fast hashes.
 - Enforce authorization on **every** request server-side (object-level too — don't trust IDs from the client → IDOR).
 - Sessions: rotate on privilege change, expire, invalidate on logout; short-lived tokens + refresh.
 - Use **constant-time comparison** for secrets/tokens/signatures.
@@ -75,5 +75,5 @@ Lean on your framework's built-in protections first; only hand-roll when you und
 
 ## Reference
 
-- OWASP Cheat Sheet Series (Input Validation, XSS Prevention, CSRF, SQL Injection, Auth, Secrets Management); OWASP Top 10 / ASVS.
+- OWASP: [CSRF prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html), [password storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), Input Validation, XSS Prevention, SQL Injection, Auth, Secrets Management.
 - MDN: CSP, `SameSite` cookies, Subresource Integrity.

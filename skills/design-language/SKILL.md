@@ -9,7 +9,7 @@ A design language is the **system** behind a UI: a small set of repeatable decis
 
 ## Tokens are the foundation
 
-Express every visual decision as a named token, then build components only from tokens. Three tiers:
+Reuse the project's design system. Tokenize repeated decisions and meaningful roles; do not introduce a token hierarchy for isolated values that do not benefit from one. Useful tiers:
 
 - **Primitive** (raw scale): `blue-500`, `space-4`, `font-size-2`.
 - **Semantic** (intent): `color-bg-surface`, `color-text-muted`, `space-inset-md`, `radius-control`.
@@ -30,7 +30,7 @@ Components reference *semantic* tokens, never raw values — so theming/dark mod
 
 - Build from roles, not random hues: background/surface, text (default/muted/inverse), border, accent/brand, and states (success/warning/danger/info).
 - Use a perceptual color space (OKLCH/LCH) so steps look evenly spaced and you can derive tints/shades systematically.
-- Define light **and** dark from the same semantic roles. Verify contrast (≥ 4.5:1 body, ≥ 3:1 large/UI). Color is never the only signal.
+- For supported themes, derive light/dark variants from shared semantic roles; add a new theme only when requested. Verify contrast (≥ 4.5:1 body, ≥ 3:1 large/UI). Color is never the only signal.
 
 ## Typography
 
@@ -60,8 +60,8 @@ Components reference *semantic* tokens, never raw values — so theming/dark mod
 
 ## Quick audit
 
-- [ ] Every color/space/type value comes from a token, not a literal.
-- [ ] Light + dark derive from the same semantic roles; contrast checked.
+- [ ] Repeated color/space/type decisions use the existing tokens.
+- [ ] Supported themes share semantic roles; contrast checked.
 - [ ] Type sizes/weights and spacing all sit on their scales.
 - [ ] Elevation and motion use the defined sets.
 - [ ] One documented source of truth for tokens.

@@ -26,7 +26,7 @@ A focused playbook for making React UIs feel instant. Measure first, then fix th
 - Split components so a frequently-changing piece doesn't re-render static siblings.
 - Pass stable references: wrap callbacks in `useCallback`, derive memoized objects with `useMemo`, only when they feed memoized children.
 - `React.memo` a child whose props are stable but whose parent re-renders often.
-- If the **React Compiler** (React 19+) is enabled, it auto-memoizes — stop hand-writing most `useMemo`/`useCallback`/`memo` and let it work; reserve manual memoization for cases it can't see.
+- If **React Compiler** is configured, use its automatic memoization where it covers the measured work. It is a separate build tool, not enabled merely by installing React 19; check the compiler's target and runtime requirements for the project's React version.
 - Prefer uncontrolled inputs or refs for high-frequency values (mouse, scroll, text typing) when you don't need each keystroke in state.
 
 ```tsx
@@ -54,12 +54,17 @@ const onMove = (e: React.PointerEvent) => { xRef.current = e.clientX; };
 - Use `useDeferredValue` to let an expensive view lag behind a fast input.
 
 ```tsx
+const [query, setQuery] = useState('');
+const [resultsQuery, setResultsQuery] = useState('');
 const [isPending, startTransition] = useTransition();
 const onChange = (q: string) => {
   setQuery(q);                       // urgent: input value
-  startTransition(() => setResults(filter(q))); // non-urgent: heavy filter
+  startTransition(() => setResultsQuery(q)); // lower-priority results render
 };
+// Pass resultsQuery to a memoized Results child; derive its results there.
 ```
+
+`startTransition` calls its callback immediately. Putting `filter(q)` inside that callback still blocks the event handler. Transitions allow React to interrupt rendering between components; they cannot interrupt a single long JavaScript calculation. Move that calculation to a worker or split it into yielding chunks. `useMemo` avoids repeats, but does not make the first calculation non-blocking.
 
 ## Avoid layout thrash
 
@@ -77,11 +82,11 @@ const onChange = (q: string) => {
 - [ ] Profiled and identified the dominant cost?
 - [ ] Long list virtualized?
 - [ ] Fast-changing state isolated / kept in a ref?
-- [ ] Heavy filter/sort wrapped in a transition or memoized?
+- [ ] Expensive rendering deferred; blocking filter/sort moved to a worker or yielding chunks?
 - [ ] Animations on transform/opacity only?
 - [ ] No new object/array/fn allocations feeding memoized children?
 
 ## Reference
 
-- React docs: `useTransition`, `useDeferredValue`, `useMemo`, `memo`.
+- React docs: [useTransition](https://react.dev/reference/react/useTransition), [useDeferredValue](https://react.dev/reference/react/useDeferredValue), `useMemo`, `memo`.
 - web.dev: "Optimize long tasks", "Rendering performance".

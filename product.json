@@ -19,17 +19,17 @@
   "distributions": [
     {
       "channel": "Product website",
-      "status": "prepared",
+      "status": "live",
       "url": "https://skills.shreyam1008.com.np/",
       "version": "main (unreleased)",
-      "verifiedAt": "2026-08-25"
+      "verifiedAt": "2026-09-09"
     },
     {
       "channel": "GitHub repository",
       "status": "live",
       "url": "https://github.com/shreyam1008/shre-skills/tree/main",
       "version": "main (unreleased)",
-      "verifiedAt": "2026-08-25"
+      "verifiedAt": "2026-09-09"
     },
     {
       "channel": "CalVer release",

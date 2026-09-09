@@ -9,7 +9,7 @@ The baseline rules for shipping a UI that looks right and works for everyone. Us
 
 ## Layout & placement
 
-- Primary action goes bottom-right of a form/dialog; secondary/cancel to its left.
+- Place the primary action consistently with the product, platform, reading direction, and form layout; there is no universal bottom-right rule.
 - Destructive actions are visually separated and never the default focus.
 - Keep a clear visual hierarchy: one primary action per view.
 - Group related controls; use whitespace, not borders, as the first separator.
@@ -21,13 +21,13 @@ The baseline rules for shipping a UI that looks right and works for everyone. Us
 - Use design tokens, not random raw hex values.
 - Text contrast: ≥ 4.5:1 for body, ≥ 3:1 for large text and UI/icon boundaries.
 - **Color is never the only signal** — pair it with text, icon, or shape (status pills, errors).
-- Limit accent colors; reserve red/green strictly for error/success.
+- Use status colors consistently and distinguish them from brand/decorative color; red/green are not universally reserved meanings across products and cultures.
 
 ## Accessibility checklist
 
 - Every interactive element is keyboard reachable and has a visible focus state.
 - Buttons and inputs have accessible names (label, `aria-label`, or visible text).
-- Modals/drawers trap focus and restore it on close; `Esc` closes.
+- Modal dialogs/drawers contain focus, restore it on close, and support dismissal. Non-modal drawers must not trap keyboard focus.
 - Hit targets are ≥ 24px (ideally 44px on touch).
 - Respect `prefers-reduced-motion`.
 - Images have `alt`; decorative images use empty `alt=""`.

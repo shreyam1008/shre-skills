@@ -21,7 +21,7 @@ const cards = skills.map((skill) => `        <li>
           <article class="skill-card">
             <h3><a href="https://github.com/shreyam1008/shre-skills/blob/main/${skill.relativeFile}">${escapeHtml(skill.name)}</a></h3>
             <p>${escapeHtml(skill.description)}</p>
-            <code>npx skills add shreyam1008/shre-skills@${escapeHtml(skill.name)}</code>
+            <div class="command"><code>npx skills add shreyam1008/shre-skills --skill ${escapeHtml(skill.name)}</code><button type="button" class="copy-button" data-copy="${escapeHtml(skill.name)}" hidden aria-label="Copy install command for ${escapeHtml(skill.name)}">Copy</button></div>
           </article>
         </li>`).join('\n');
 
@@ -37,7 +37,7 @@ await rm(outputRoot, { recursive: true, force: true });
 await mkdir(outputRoot, { recursive: true });
 await writeFile(join(outputRoot, 'index.html'), index);
 
-for (const file of ['styles.css', 'favicon.svg', '404.html']) {
+for (const file of ['styles.css', 'catalog.js', 'favicon.svg', '404.html']) {
   await cp(join(siteRoot, file), join(outputRoot, file));
 }
 

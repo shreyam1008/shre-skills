@@ -36,7 +36,7 @@ const res = await fetch(url, { signal: ac.signal });
 ## Data & correctness
 
 - Validate/parse external data at the boundary (a schema lib like Zod, or explicit checks) — don't trust shapes.
-- Keep untrusted text out of code/HTML sinks: prefer `textContent`; require a reviewed sanitizer/`TrustedHTML` before `innerHTML` or `insertAdjacentHTML`; avoid `eval` and string-form timers. Enforce Trusted Types with CSP where feasible.
+- Keep untrusted text out of code/HTML sinks: prefer `textContent`; sanitize rich HTML with a reviewed sanitizer before `innerHTML` or `insertAdjacentHTML`. A `TrustedHTML` value is safe only if its policy actually validates/sanitizes input; the type alone does not sanitize. Avoid `eval` and string-form timers. Enforce Trusted Types with CSP where feasible.
 - Beware floating-point money math; use integer minor units or a decimal lib.
 - Prefer copying array methods (`toSorted`, `toReversed`, `toSpliced`, `with`); copy-then-mutate only for compatibility. Use `structuredClone` only for cloneable values and handle `DataCloneError` at untrusted boundaries.
 - Use `Intl` for dates/numbers/currency formatting, not hand-rolled string math.

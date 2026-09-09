@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-08-25",
+  "reviewedAt": "2026-09-09",
   "sources": [
     {
       "id": "gpuweb-spec",
@@ -8,7 +8,12 @@
       "kind": "git",
       "url": "https://github.com/gpuweb/gpuweb",
       "revision": "7af79e816d5ae53626cb28b79be1fe83bb63c871",
-      "skills": ["webgpu", "webgl", "low-level-web-rendering"]
+      "skills": [
+        "webgpu",
+        "webgl",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "html-in-canvas-proposal",
@@ -16,7 +21,12 @@
       "kind": "git",
       "url": "https://github.com/WICG/html-in-canvas",
       "revision": "d4433e329697c4341a9f915f75dbd9608f3939fa",
-      "skills": ["low-level-web-rendering", "webgpu", "webgl"]
+      "skills": [
+        "low-level-web-rendering",
+        "webgpu",
+        "webgl"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "html-in-canvas-origin-trial",
@@ -24,7 +34,12 @@
       "kind": "browser-intent",
       "url": "https://groups.google.com/a/chromium.org/g/blink-dev/c/BpWbzJ9P22s",
       "revision": "origin-trial-extended-through-m154",
-      "skills": ["low-level-web-rendering", "webgpu", "webgl"]
+      "skills": [
+        "low-level-web-rendering",
+        "webgpu",
+        "webgl"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "modern-web-guidance",
@@ -33,7 +48,14 @@
       "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
       "revision": "265a187ec96288c29fb1d08d4c9102cafaeb18c9",
       "packageVersion": "0.0.185",
-      "skills": ["html", "css", "javascript", "web-performance", "low-level-web-rendering"]
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "web-performance",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "khronos-webgl",
@@ -41,7 +63,11 @@
       "kind": "git",
       "url": "https://github.com/KhronosGroup/WebGL",
       "revision": "e55ed012f0ed2bbe603936ae0a6046a67ecfe870",
-      "skills": ["webgl", "low-level-web-rendering"]
+      "skills": [
+        "webgl",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "wasm-bindgen",
@@ -49,7 +75,11 @@
       "kind": "git",
       "url": "https://github.com/wasm-bindgen/wasm-bindgen",
       "revision": "7efa2e0fd28966d70a03527ad2ff1e748d48f9d8",
-      "skills": ["wasm-rust", "low-level-web-rendering"]
+      "skills": [
+        "wasm-rust",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "webcodecs-spec",
@@ -57,7 +87,11 @@
       "kind": "git",
       "url": "https://github.com/w3c/webcodecs",
       "revision": "ce2788dc57681b4d56f3728848f3d99a1d1bf456",
-      "skills": ["low-level-web-rendering", "web-performance"]
+      "skills": [
+        "low-level-web-rendering",
+        "web-performance"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "css-paint-spec",
@@ -65,7 +99,11 @@
       "kind": "git",
       "url": "https://github.com/w3c/css-houdini-drafts",
       "revision": "954df531741a9d2da94aec82b073b3f9b5af5573",
-      "skills": ["low-level-web-rendering", "css"]
+      "skills": [
+        "low-level-web-rendering",
+        "css"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "mdn-platform-docs",
@@ -73,7 +111,15 @@
       "kind": "git",
       "url": "https://github.com/mdn/content",
       "revision": "737b931225e92e0cba47e57a150878b1a78ee45a",
-      "skills": ["html", "css", "javascript", "web-performance", "webgpu", "low-level-web-rendering"]
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "web-performance",
+        "webgpu",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
     },
     {
       "id": "w3c-aria",
@@ -81,7 +127,147 @@
       "kind": "git",
       "url": "https://github.com/w3c/aria",
       "revision": "37b9d2b8b9c7ba3ff24060d3367377d64dabef64",
-      "skills": ["html", "low-level-web-rendering"]
+      "skills": [
+        "html",
+        "low-level-web-rendering"
+      ],
+      "reviewedAt": "2026-08-25"
+    },
+    {
+      "id": "react-transition-docs",
+      "title": "React transition scheduling",
+      "kind": "platform-docs",
+      "url": "https://react.dev/reference/react/useTransition",
+      "revision": "sha256:d4370bbc49ce1daa6776affa5b938e5ab2ace08dbf208ae5c9217e5e272de5b4",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "react-rendering-performance",
+        "react-best-practices"
+      ]
+    },
+    {
+      "id": "react-compiler-docs",
+      "title": "React Compiler installation",
+      "kind": "platform-docs",
+      "url": "https://react.dev/learn/react-compiler/installation",
+      "revision": "sha256:a86ca3a2a5ed46773f514ec639286a99253ec563459537322d315967c712236f",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "react-rendering-performance",
+        "react-best-practices"
+      ]
+    },
+    {
+      "id": "webview2-message-docs",
+      "title": "WebView2 PostWebMessageAsJson API",
+      "kind": "platform-docs",
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.postwebmessageasjson",
+      "revision": "sha256:aa6d36d503b071d54e2a0213259355763c7381412491c482dc05bf2944e2ad2b",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "webview2-winui"
+      ]
+    },
+    {
+      "id": "webview2-security-docs",
+      "title": "WebView2 message origin and security boundaries",
+      "kind": "platform-docs",
+      "url": "https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/security",
+      "revision": "sha256:cdf13a9f77c196ff79da4648a43aff1c94596be85aa1a174acff27020d31be15",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "webview2-winui"
+      ]
+    },
+    {
+      "id": "cache-api-docs",
+      "title": "Cache Storage behavior and ownership",
+      "kind": "platform-docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Cache",
+      "revision": "sha256:0e51c2c7278a4711806a5ec8960382a172a26f29d881d351b6d29835a87a363f",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "service-worker",
+        "caching"
+      ]
+    },
+    {
+      "id": "pwa-install-docs",
+      "title": "PWA installability requirements",
+      "kind": "platform-docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable",
+      "revision": "sha256:509717eba23fb085d6698368cf7474850d7341cd2b1d84a7d57d36a2fc54b7fb",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "service-worker"
+      ]
+    },
+    {
+      "id": "wasm-slices-docs",
+      "title": "wasm-bindgen number slice transfers",
+      "kind": "platform-docs",
+      "url": "https://wasm-bindgen.github.io/wasm-bindgen/reference/types/number-slices.html",
+      "revision": "sha256:022121accb343da55ea028ebc7ff5a3b90ff6da6b2527797bac083fa81982279",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "wasm-rust"
+      ]
+    },
+    {
+      "id": "tanstack-query-keys-docs",
+      "title": "TanStack Query key identity",
+      "kind": "platform-docs",
+      "url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-keys",
+      "revision": "sha256:36bc7f987f39e0facf4ad89dc6b58bf6cfdf21fe33888659c62d82287f889ecb",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "tanstack"
+      ]
+    },
+    {
+      "id": "webgl-renderer-docs",
+      "title": "Optional WebGL renderer information",
+      "kind": "platform-docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info",
+      "revision": "sha256:a2ed57387785a5447b9632be2d64016b6e1571045f362733b2d4b44e830ba9a9",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "webgl",
+        "react-three-fiber"
+      ]
+    },
+    {
+      "id": "owasp-password-docs",
+      "title": "OWASP password storage guidance",
+      "kind": "platform-docs",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+      "revision": "sha256:74d45c5af8897bdd2a57a3970b6d14f5535f50367837d28d946d13063cccdbce",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "security"
+      ]
+    },
+    {
+      "id": "owasp-csrf-docs",
+      "title": "OWASP CSRF prevention guidance",
+      "kind": "platform-docs",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+      "revision": "sha256:e28fcbd1c48562ed3901b8acd026f51a6bac0e7709a03d48ec639dacdc63dbfa",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "security"
+      ]
+    },
+    {
+      "id": "r3f-demand-rendering-docs",
+      "title": "React Three Fiber scaling and on-demand rendering",
+      "kind": "platform-docs",
+      "url": "https://github.com/pmndrs/react-three-fiber/blob/master/docs/advanced/scaling-performance.mdx",
+      "revision": "sha256:687af67d1731b6839678ad4dccdef2db6e345c1c949154771846ba7da200cba4",
+      "reviewedAt": "2026-09-09",
+      "skills": [
+        "react-three-fiber"
+      ]
     }
   ]
 }

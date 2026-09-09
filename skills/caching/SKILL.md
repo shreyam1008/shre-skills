@@ -12,11 +12,11 @@ Caching is the highest-leverage performance lever and the easiest to get subtly 
 - **Yes** (fingerprinted/hashed assets) → cache forever, immutable.
 - **No** (HTML docs, API responses) → short freshness + revalidation.
 
-## The layers (request travels through all of them)
+## The layers (which may satisfy a request)
 
-`Browser memory/disk → Service Worker → CDN/shared cache → Origin`
+`App/query cache → controlling Service Worker → browser HTTP cache → CDN → Origin`
 
-Each can hold a copy. Set policy deliberately at each, and make sure they agree.
+This is a conceptual model, not a guaranteed network path: a service worker can answer from Cache Storage or call fetch, which may use the HTTP cache. A hit can avoid downstream work entirely. Set policy deliberately at each layer.
 
 ## HTTP `Cache-Control` — the essentials
 
@@ -32,7 +32,7 @@ Each can hold a copy. Set policy deliberately at each, and make sure they agree.
 # Fingerprinted asset (app.9f3c2.js) — cache aggressively
 Cache-Control: public, max-age=31536000, immutable
 
-# HTML / API response that must stay reasonably fresh
+# Public, non-personalized HTML / API response allowing stale reuse
 Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=600
 ```
 
@@ -60,7 +60,7 @@ Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=600
 
 ## Service worker caches (precise control)
 
-- `cache-first` for hashed static assets, `network-first` for HTML/navigations, `stale-while-revalidate` for API JSON (see `service-worker`).
+- `cache-first` for hashed static assets, `network-first` for HTML/navigations, and SWR only for data that may safely be stale. Cache Storage does not enforce HTTP freshness or `no-store`: implement exclusions, expiry, and account/logout cleanup explicitly (see `service-worker`).
 
 ## Debug checklist
 
@@ -70,6 +70,6 @@ Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=600
 
 ## Reference
 
-- MDN: `Cache-Control`, HTTP caching.
+- MDN: [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control), [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache), HTTP caching.
 - web.dev: "HTTP caching", "Love your cache".
 - Jono Alderson "A complete guide to HTTP caching"; your CDN's caching/purge docs.

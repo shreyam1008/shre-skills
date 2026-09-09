@@ -10,6 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="{{SITE_URL}}" />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./catalog.js" defer></script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="shre-skills" />
     <meta name="application-name" content="shre-skills" />
@@ -35,8 +36,9 @@
         <p class="lede">Practical agent skills for web engineering, performance, design, security, GPU work, and WebView2—kept as readable Markdown and maintained in the open.</p>
         <div class="install" aria-label="Install command">
           <span>Install the collection</span>
-          <code>npx skills add shreyam1008/shre-skills</code>
+          <div class="command"><code>npx skills add shreyam1008/shre-skills --skill '*'</code><button type="button" class="copy-button" data-copy="collection" hidden aria-label="Copy collection install command">Copy</button></div>
         </div>
+        <p class="install-help">Run in your project with Node.js installed, then choose your coding agent. <a href="https://github.com/shreyam1008/shre-skills#-install-options">More install options</a></p>
         <p class="hero-links"><a class="primary" href="https://github.com/shreyam1008/shre-skills">Browse the repository</a> <a href="#catalog">Explore all skills</a></p>
       </section>
 
@@ -44,8 +46,14 @@
         <div class="section-heading">
           <p class="eyebrow">Repository catalog</p>
           <h2 id="catalog-title">All {{SKILL_COUNT}} skills</h2>
-          <p>Each card links directly to its source file. The install slug, folder name, and frontmatter name are validated together in CI.</p>
+          <p>Choose a skill to read its guidance, or copy its install command. All {{SKILL_COUNT}} modules are available individually.</p>
         </div>
+        <div class="catalog-tools" hidden>
+          <label for="skill-search">Find a skill</label>
+          <div class="search-row"><input type="search" id="skill-search" placeholder="Search names or topics, e.g. React, caching, GPU" autocomplete="off" /><button type="button" id="clear-search">Clear</button></div>
+          <p id="search-status" role="status" aria-live="polite"></p>
+        </div>
+        <p id="no-results" hidden>No skills match your search. Try another topic or clear the search.</p>
         <ul class="skill-grid">
 {{SKILL_CARDS}}
         </ul>
@@ -53,6 +61,7 @@
     </main>
 
     <footer>
+      <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
       <p><a href="https://shreyam1008.com.np/projects/#distribution-shre-skills">Install channels and publication status</a></p>
       <p>Built and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>. Source is available under the <a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License</a>.</p>
     </footer>

@@ -37,7 +37,7 @@ await rm(outputRoot, { recursive: true, force: true });
 await mkdir(outputRoot, { recursive: true });
 await writeFile(join(outputRoot, 'index.html'), index);
 
-for (const file of ['styles.css', 'favicon.svg']) {
+for (const file of ['styles.css', 'favicon.svg', '404.html']) {
   await cp(join(siteRoot, file), join(outputRoot, file));
 }
 

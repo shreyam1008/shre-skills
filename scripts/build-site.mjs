@@ -99,7 +99,7 @@ const index = template
   .replace('{{CATEGORY_LINKS}}', categoryLinks)
   .replace('{{SKILL_SECTIONS}}', sections);
 await writeFile(join(outputRoot, 'index.html'), index);
-for (const file of ['favicon.svg', '404.html', '_headers']) await cp(join(siteRoot, file), join(outputRoot, file));
+for (const file of ['favicon.svg', 'social-card.png', 'social-card.svg', '404.html', '_headers']) await cp(join(siteRoot, file), join(outputRoot, file));
 for (const skill of skills) {
   await cp(join(repoRoot, 'skills', skill.name), join(outputRoot, 'skills', skill.name), { recursive: true });
 }

@@ -29,10 +29,19 @@ const compareFolder = async (source, destination) => {
   }
 };
 
+test('clean single-skill install copies references exactly without installing other skills', async () => {
+  const target = await fixture();
+  const result = install('react-best-practices', target);
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(await readdir(join(target, '.agents/skills')), ['react-best-practices']);
+  await compareFolder(join(repoRoot, 'skills/react-best-practices'), join(target, '.agents/skills/react-best-practices'));
+});
+
 test('installer copies every skill exactly and replaces stale files without touching siblings', async () => {
   const target = await fixture();
   let result = install('all', target);
   assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual((await readdir(join(target, '.agents/skills'))).sort(), (await loadSkills()).map(({ folder }) => folder).sort());
   for (const skill of await loadSkills()) {
     await compareFolder(join(repoRoot, 'skills', skill.folder), join(target, '.agents/skills', skill.folder));
   }

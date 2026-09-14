@@ -1,5 +1,8 @@
 # Releases
 
+First release proposal: [2026.09.14 readiness and rollback checklist](release-readiness-2026-09-14.md).
+This is a review candidate, not a published release.
+
 The repository will use CalVer tags in `YYYY.MM.DD` form. A tag is created only after repository validation, catalog generation, installation tests, and a review of every changed skill.
 
 No CalVer release has been published yet. The current public GitHub repository remains the distribution authority until the first verified tag is created. The custom-domain catalog is live on Cloudflare Pages with verified HTTPS; a live catalog is distinct from a tagged release.

@@ -121,6 +121,11 @@ To refresh skills installed through the CLI, run `bunx skills update` and choose
 The bundled script replaces the selected skill folder, including any local edits; back up customizations before rerunning it.
 On Windows, run `install.sh` from Git Bash or WSL.
 
+For reproducible installs, use a detached checkout at a full commit SHA with the
+bundled installer. The [first CalVer release proposal](docs/release-readiness-2026-09-14.md)
+includes pinned-install commands and a rollback checklist; its proposed tag is
+not yet published.
+
 See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for agent names and supported options.
 
 ### Merged skills

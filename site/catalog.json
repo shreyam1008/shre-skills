@@ -19,10 +19,10 @@
     "category": "Foundations",
     "summary": "Build responsive layouts with Grid, container queries, design tokens, and a predictable cascade."
   },
-  "desktop-surface-review": {
-    "title": "Desktop surface review",
-    "category": "Native",
-    "summary": "Compare BUI, embedded webviews, and native surfaces with measured memory, startup, input, and lifecycle evidence."
+  "database-guardrails": {
+    "title": "Database guardrails",
+    "category": "Foundations",
+    "summary": "Plan database changes through explicit approval, minimal schemas, programmatic migrations, and justified indexes."
   },
   "git": {
     "title": "Git workflows",

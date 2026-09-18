@@ -25,7 +25,7 @@ const categories = [
   { key: 'Performance', id: 'performance', title: 'Performance & offline', summary: 'Make the web faster, fresher, and more resilient.' },
   { key: 'Design', id: 'design', title: 'Interface design', summary: 'Create clear, consistent interfaces that work for more people.' },
   { key: 'Graphics', id: 'graphics', title: 'Graphics & compute', summary: 'Choose a renderer, build 3D scenes, and put the GPU to work.' },
-  { key: 'Native', id: 'native', title: 'Native integration', summary: 'Review local web/native surfaces and connect web interfaces with desktop platforms.' },
+  { key: 'Native', id: 'native', title: 'Native integration', summary: 'Connect web interfaces with the Windows desktop.' },
 ];
 for (const name of names) {
   for (const field of ['title', 'category', 'summary']) {

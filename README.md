@@ -47,6 +47,7 @@ bunx skills add shreyam1008/shre-skills --skill code-quality
 bunx skills add shreyam1008/shre-skills --skill ask-dont-assume
 bunx skills add shreyam1008/shre-skills --skill html
 bunx skills add shreyam1008/shre-skills --skill css
+bunx skills add shreyam1008/shre-skills --skill database-guardrails
 bunx skills add shreyam1008/shre-skills --skill javascript
 bunx skills add shreyam1008/shre-skills --skill git
 bunx skills add shreyam1008/shre-skills --skill react-best-practices
@@ -63,7 +64,6 @@ bunx skills add shreyam1008/shre-skills --skill wasm-rust
 bunx skills add shreyam1008/shre-skills --skill low-level-web-rendering
 bunx skills add shreyam1008/shre-skills --skill web-design-guidelines
 bunx skills add shreyam1008/shre-skills --skill webview2-winui
-bunx skills add shreyam1008/shre-skills --skill desktop-surface-review
 ```
 </details>
 
@@ -75,6 +75,7 @@ bunx skills add shreyam1008/shre-skills --skill desktop-surface-review
 |---|---|
 | [`ask-dont-assume`](skills/ask-dont-assume/SKILL.md) | Ask before unresolved choices and review assumptions once before material changes. |
 | [`code-quality`](skills/code-quality/SKILL.md) | Focused code review, correctness, and simplification. |
+| [`database-guardrails`](skills/database-guardrails/SKILL.md) | Ask-first database work with minimal schemas, programmatic migrations, and evidence-based indexes. |
 | [`html`](skills/html/SKILL.md) | Semantic markup, forms, a11y, metadata. |
 | [`css`](skills/css/SKILL.md) | Grid/flex, container queries, `:has()`/`@scope`, tokens. |
 | [`javascript`](skills/javascript/SKILL.md) | Modern JS/TS: async, immutability, footguns. |
@@ -93,7 +94,6 @@ bunx skills add shreyam1008/shre-skills --skill desktop-surface-review
 | [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | Visual systems, themes, hierarchy, accessibility, and UI state reviews. |
 | [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
-| [`desktop-surface-review`](skills/desktop-surface-review/SKILL.md) | Compare BUI, embedded webviews, and native desktop surfaces with measured resource budgets. |
 
 ## 🛠️ Install options
 

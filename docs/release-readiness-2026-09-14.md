@@ -1,8 +1,9 @@
 # First CalVer release readiness
 
-> Update 18 September 2026: this branch now includes the new `ask-dont-assume`
-> and `desktop-surface-review` skills. The 19-skill candidate described below is
-> superseded; rerun the checks and record the resulting full SHA before tagging.
+> Update 18 September 2026: this branch now includes the new
+> `ask-dont-assume` and `database-guardrails` skills. The earlier 19-skill and
+> 21-skill candidates described below are superseded; rerun the checks and
+> record the resulting full SHA before tagging.
 
 Status: proposed, publication awaiting explicit owner approval. Proposed tag:
 `2026.09.14` (no `v` prefix). If approval/publication occurs on another UTC date,
@@ -13,9 +14,9 @@ Branch: `release/readiness-2026.09.14`.
 Reviewed source baseline: `89b18974f889acc286cfd66a6d2e90b616da2290`.
 The candidate is the final reviewed commit on this branch, recorded by full SHA
 in its CI run. If merging changes the commit, validate the resulting commit and
-wait for its checks before tagging it. No skill content changes are included.
-The existing skill reviews are linked from `releases.md`; any subsequent skill
-change requires a new review before publication.
+wait for its checks before tagging it. The existing skill reviews are linked
+from `releases.md`; any subsequent skill change requires a new review before
+publication.
 
 ## Reproducible checks
 
@@ -30,7 +31,7 @@ git status --short
 ```
 
 The generated `_site` is ignored and is the production catalog build. The
-validator and behavioral tests cover the 19-skill inventory, metadata, complete
+validator and behavioral tests cover the 21-skill inventory, metadata, complete
 references, generated catalog consistency, hashed assets, clean one-skill and
 all-skill installs, stale-file replacement, sibling preservation, retired aliases,
 and unsafe destinations. CI runs these checks on Linux and Windows (Git Bash).
@@ -73,7 +74,7 @@ above for the reproducible release path.
 - Run all checks on that exact commit and confirm both platform CI jobs pass.
   Review the complete diff and preserve any unrelated work.
 - Create an annotated tag at the approved SHA, push that tag, and create a
-  GitHub release targeting the existing tag. Include the full SHA, the 19-skill
+  GitHub release targeting the existing tag. Include the full SHA, the 21-skill
   inventory, review links, pinned installation steps, and this rollback policy.
   Do not use an implicit branch head as the release target.
 - Fetch the remote tag into a fresh clone, verify its peeled commit SHA, and run

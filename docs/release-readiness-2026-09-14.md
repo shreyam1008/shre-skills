@@ -1,5 +1,9 @@
 # First CalVer release readiness
 
+> Update 18 September 2026: this branch now includes the new `ask-dont-assume`
+> and `desktop-surface-review` skills. The 19-skill candidate described below is
+> superseded; rerun the checks and record the resulting full SHA before tagging.
+
 Status: proposed, publication awaiting explicit owner approval. Proposed tag:
 `2026.09.14` (no `v` prefix). If approval/publication occurs on another UTC date,
 choose that day's `YYYY.MM.DD` tag and repeat the collision and candidate checks.

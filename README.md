@@ -10,7 +10,7 @@ Public catalog and release state are recorded in [`product.json`](product.json) 
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-19-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-21-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -40,10 +40,11 @@ bunx skills add shreyam1008/shre-skills --skill webgl
 ```
 
 <details open>
-<summary><b>📋 Copy all 19 one-liners</b></summary>
+<summary><b>📋 Copy all 21 one-liners</b></summary>
 
 ```bash
 bunx skills add shreyam1008/shre-skills --skill code-quality
+bunx skills add shreyam1008/shre-skills --skill ask-dont-assume
 bunx skills add shreyam1008/shre-skills --skill html
 bunx skills add shreyam1008/shre-skills --skill css
 bunx skills add shreyam1008/shre-skills --skill javascript
@@ -62,6 +63,7 @@ bunx skills add shreyam1008/shre-skills --skill wasm-rust
 bunx skills add shreyam1008/shre-skills --skill low-level-web-rendering
 bunx skills add shreyam1008/shre-skills --skill web-design-guidelines
 bunx skills add shreyam1008/shre-skills --skill webview2-winui
+bunx skills add shreyam1008/shre-skills --skill desktop-surface-review
 ```
 </details>
 
@@ -71,6 +73,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 
 | Skill | For |
 |---|---|
+| [`ask-dont-assume`](skills/ask-dont-assume/SKILL.md) | Ask before unresolved choices and review assumptions once before material changes. |
 | [`code-quality`](skills/code-quality/SKILL.md) | Focused code review, correctness, and simplification. |
 | [`html`](skills/html/SKILL.md) | Semantic markup, forms, a11y, metadata. |
 | [`css`](skills/css/SKILL.md) | Grid/flex, container queries, `:has()`/`@scope`, tokens. |
@@ -90,6 +93,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | Visual systems, themes, hierarchy, accessibility, and UI state reviews. |
 | [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
+| [`desktop-surface-review`](skills/desktop-surface-review/SKILL.md) | Compare BUI, embedded webviews, and native desktop surfaces with measured resource budgets. |
 
 ## 🛠️ Install options
 
@@ -130,7 +134,7 @@ See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for ag
 
 ### Merged skills
 
-The library now has 19 focused skills. Use these replacement names for new Skills CLI installs:
+The library now has 21 focused skills. Use these replacement names for new Skills CLI installs:
 
 | Previous name | Replacement |
 |---|---|

@@ -1,4 +1,9 @@
 {
+  "ask-dont-assume": {
+    "title": "Ask, don't assume",
+    "category": "Foundations",
+    "summary": "Clarify consequential choices, preserve settled decisions, and run one assumptions review before material changes."
+  },
   "caching": {
     "title": "Caching",
     "category": "Performance",
@@ -13,6 +18,11 @@
     "title": "Modern CSS",
     "category": "Foundations",
     "summary": "Build responsive layouts with Grid, container queries, design tokens, and a predictable cascade."
+  },
+  "desktop-surface-review": {
+    "title": "Desktop surface review",
+    "category": "Native",
+    "summary": "Compare BUI, embedded webviews, and native surfaces with measured memory, startup, input, and lifecycle evidence."
   },
   "git": {
     "title": "Git workflows",

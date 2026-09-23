@@ -166,6 +166,9 @@ test('WebGL diagnostic tolerates an unavailable optional extension', async () =>
 test('built catalog contains every source link, install command, and local asset', async () => {
   const html = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
   assert.ok(!html.includes('{{'));
+  assert.match(html, /id="companion-title"/);
+  assert.ok(html.includes('https://developer.chrome.com/docs/modern-web-guidance'));
+  assert.ok(html.includes('npx modern-web-guidance@latest search'));
   for (const skill of await loadSkills()) {
     assert.ok(html.includes(`https://github.com/shreyam1008/shre-skills/blob/main/${skill.relativeFile}`));
     assert.ok(html.includes(`shreyam1008/shre-skills --skill ${skill.name}`));

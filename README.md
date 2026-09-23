@@ -25,6 +25,13 @@ One place to pull consistent, opinionated guidance instead of re-searching every
 
 Product site: [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/) — live on Cloudflare Pages, HTTPS verified 9 September 2026. Browse and search the catalog, read the source, or copy an install command.
 
+Google Chrome's [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)
+is tracked as an upstream companion, not duplicated as another broad shre-skills
+entry. It provides targeted, current browser guidance across CSS, HTML, JavaScript,
+performance, forms, accessibility, and security. Its pinned source and the
+existing skills it informs are recorded in [`docs/source-baselines.json`](docs/source-baselines.json).
+For a feature-specific guide, use `npx modern-web-guidance@latest search "<task>"`.
+
 ## ⚡ Quick start
 
 Run from your target project with Bun and Node.js installed. Select all skills, then choose your agent in the CLI. Prefer npm? Replace `bunx` with `npx` in any command:

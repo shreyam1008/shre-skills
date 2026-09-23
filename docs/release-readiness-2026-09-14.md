@@ -1,9 +1,10 @@
 # First CalVer release readiness
 
-> Update 18 September 2026: this branch now includes the new
-> `ask-dont-assume` and `database-guardrails` skills. The earlier 19-skill and
-> 21-skill candidates described below are superseded; rerun the checks and
-> record the resulting full SHA before tagging.
+> Update 23 September 2026: this branch now includes the new
+> `ask-dont-assume` and `database-guardrails` skills. It also tracks Google's
+> Modern Web Guidance as an upstream source baseline rather than adding a broad
+> duplicate skill. The earlier 19-skill and 21-skill candidates described below
+> are superseded; rerun the checks and record the resulting full SHA before tagging.
 
 Status: proposed, publication awaiting explicit owner approval. Proposed tag:
 `2026.09.14` (no `v` prefix). If approval/publication occurs on another UTC date,

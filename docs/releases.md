@@ -7,6 +7,13 @@ The repository will use CalVer tags in `YYYY.MM.DD` form. A tag is created only 
 
 No CalVer release has been published yet. The current public GitHub repository remains the distribution authority until the first verified tag is created. The custom-domain catalog is live on Cloudflare Pages with verified HTTPS; a live catalog is distinct from a tagged release.
 
+## 2026-09-23 — database guardrails and Modern Web Guidance routing
+
+Added the ask-first database guardrails skill to the release candidate, removed
+the desktop-surface review, and tracked Google's Modern Web Guidance source for
+the existing HTML, CSS, JavaScript, performance, design, and security skills.
+The upstream feature library is not vendored as another broad skill.
+
 Fast-moving web-platform guidance must update [`source-baselines.json`](source-baselines.json) to the primary-source revision actually reviewed. The validator checks the baseline schema and required rendering-skill coverage; the review still decides whether upstream changes materially alter the guidance.
 
 ## 2026-09-09 — catalog review (main, untagged)

@@ -116,3 +116,24 @@ are different outcomes.
 
 These checks establish link visibility, not Google/Bing indexing, referral traffic,
 or ranking gains. Keep public PR links distinct from merged curated entries.
+
+## Submission-format preflight — 2 October 2026
+
+All 22 source skills passed the skill-creator validator and SkillMD's published
+CLI `skillmds@1.3.3` (`skillmd lint skills --format json`): **22 passed, zero
+errors**. YAML starts at byte zero, required name/description values parse,
+names match folders and the stricter [Agent Skills specification](https://agentskills.io/specification)
+limits, and local reference targets exist. The largest SKILL.md is 9,367 bytes;
+the longest is 224 lines. Companion files fit the observed GitHub-intake limits.
+
+The only SkillMD diagnostic is optional `license` warning `SK011`. The repository
+already has an MIT license; [SkillMD's rules](https://skillmd.com/docs/format#SK011)
+explicitly say warnings do not block publishing. No mandatory format correction
+was found, so queued submissions were not duplicated or reset for this audit.
+Repository validation, catalog build and all 15 regression tests also passed.
+
+Individual folders match SkillMD/MCP Market intake; whole-repository URLs match
+the collection routes recorded above. [Skillstore's developer guide](https://skillstore.io/docs/developers)
+and [AgenticSkills' inclusion criteria](https://agenticskills.io/methodology)
+still require audit/editorial review. Format conformance does not establish
+moderation approval; unexplained intake errors remain unresolved errors.

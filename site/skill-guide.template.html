@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{TITLE}} | shre-skills</title>
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="{{GUIDE_URL}}" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="{{STYLES_URL}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="shre-skills" />
+    <meta property="og:title" content="{{TITLE}} | shre-skills" />
+    <meta property="og:description" content="{{DESCRIPTION}}" />
+    <meta property="og:url" content="{{GUIDE_URL}}" />
+    <meta property="og:image" content="{{SITE_URL}}social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{TITLE}} | shre-skills" />
+    <meta name="twitter:description" content="{{DESCRIPTION}}" />
+    <meta name="twitter:image" content="{{SITE_URL}}social-card.png" />
+    <script type="application/ld+json">{{STRUCTURED_DATA}}</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#how-it-works">Skip to how it works</a>
+    <header class="site-header">
+      <a class="brand" href="{{SITE_URL}}"><img class="brand-mark" src="../favicon.svg" width="34" height="34" alt="" />shre-skills</a>
+      <nav aria-label="Skill links"><a href="{{SOURCE_URL}}">Source ↗</a><a href="{{SITE_URL}}#catalog">All skills</a></nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="guide-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Skill usage guide</p>
+          <h1 id="guide-title">{{TITLE}}</h1>
+          <p class="lede">{{INTRO}}</p>
+        </div>
+        <div class="install-panel">
+          <div class="terminal-heading">your-project / terminal</div>
+          <div class="install">
+            <div class="install-heading"><span class="install-kicker">INSTALL THE SKILL</span><h2>Start with one.</h2></div>
+            <div class="command"><code>{{INSTALL_BUNX}}</code></div>
+            <p class="install-help">Requires Bun and Node.js. Run in your project and choose your coding agent. Prefer npm with Node.js?</p>
+            <div class="command"><code>{{INSTALL_NPX}}</code></div>
+          </div>
+          <a class="install-guide" href="{{MARKDOWN_URL}}">Read the skill <span>Markdown ↗</span></a>
+        </div>
+      </section>
+      <section class="catalog" id="how-it-works" aria-labelledby="how-title">
+        <div class="section-heading"><h2 id="how-title">How it works</h2></div>
+        <ol>{{STEPS}}</ol>
+        <h3>Try this prompt</h3>
+        <div class="command"><code>{{PROMPT}}</code></div>
+        <p>{{REQUIREMENTS}}</p>
+        {{SETUP_LINK}}
+        {{NOTE}}
+        <p><a href="{{MARKDOWN_URL}}">Full workflow and focused references</a> · <a href="{{SOURCE_URL}}">GitHub source</a></p>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-credit"><a class="footer-brand" href="{{SITE_URL}}">shre-skills</a><p>Made and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>.</p></div>
+      <div class="footer-links"><a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License ↗</a></div>
+    </footer>
+  </body>
+</html>

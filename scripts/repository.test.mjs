@@ -10,6 +10,7 @@ import { loadSkills, loadSkillMigrations, repoRoot } from './repository.mjs';
 
 const bashPath = process.env.BASH_PATH || (process.platform === 'win32' ? 'C:/Program Files/Git/bin/bash.exe' : 'bash');
 const slash = (path) => path.replaceAll('\\', '/');
+const htmlText = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const install = (skill, target) => {
   const result = spawnSync(bashPath, [slash(join(repoRoot, 'install.sh')), skill, slash(target)], { encoding: 'utf8' });
   if (result.error) throw result.error;
@@ -169,8 +170,11 @@ test('built catalog contains every source link, install command, and local asset
   assert.match(html, /id="companion-title"/);
   assert.ok(html.includes('https://developer.chrome.com/docs/modern-web-guidance'));
   assert.ok(html.includes('npx modern-web-guidance@latest search'));
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
   for (const skill of await loadSkills()) {
-    assert.ok(html.includes(`https://github.com/shreyam1008/shre-skills/blob/main/${skill.relativeFile}`));
+    const entry = catalog.skills.find(({ name }) => name === skill.name);
+    const sourcePage = entry.guide ? await readFile(join(repoRoot, '_site', skill.name, 'index.html'), 'utf8') : html;
+    assert.ok(sourcePage.includes(`href="${entry.sourceUrl}"`), `${skill.name} needs a clickable source link`);
     assert.ok(html.includes(`shreyam1008/shre-skills --skill ${skill.name}`));
   }
   for (const [, path] of html.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
@@ -185,6 +189,46 @@ test('page assets use content hashes so cached styles cannot mismatch new markup
     assert.ok(match, name + ' must have a fingerprinted URL');
     const content = await readFile(join(repoRoot, '_site', match[0]));
     assert.equal(createHash('sha256').update(content).digest('hex').slice(0, 12), match[1]);
+  }
+});
+
+test('usage guides publish crawlable HTML, canonical metadata, assets, and complete skill links', async () => {
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
+  const home = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
+  const sitemap = await readFile(join(repoRoot, '_site/sitemap.xml'), 'utf8');
+  const llms = await readFile(join(repoRoot, '_site/llms.txt'), 'utf8');
+  const headers = (await readFile(join(repoRoot, '_site/_headers'), 'utf8')).replaceAll('\r\n', '\n');
+  const guides = catalog.skills.filter((skill) => skill.guide);
+  assert.ok(guides.length, 'publish at least the Browser DevTools usage guide');
+  for (const skill of guides) {
+    const html = await readFile(join(repoRoot, '_site', skill.name, 'index.html'), 'utf8');
+    const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    assert.ok(!html.includes('{{'));
+    assert.equal((html.match(/<h1\b/g) || []).length, 1);
+    assert.equal(html.match(/<link rel="canonical" href="([^"]+)"/)[1], skill.url);
+    assert.equal(html.match(/property="og:url" content="([^"]+)"/)[1], skill.url);
+    assert.equal(schema['@graph'].find((item) => item['@type'] === 'WebPage').url, skill.url);
+    assert.equal(schema['@graph'].find((item) => item['@type'] === 'CreativeWork').encoding.contentUrl, skill.markdownUrl);
+    assert.ok(home.includes(`href="${skill.url}"`));
+    assert.ok(sitemap.includes(`<loc>${skill.url}</loc>`));
+    assert.ok(llms.includes(skill.url));
+    assert.ok(html.includes(skill.install.bunx) && html.includes(skill.install.npx));
+    assert.ok(html.includes(htmlText(skill.guide.prompt)));
+    assert.ok(html.includes(htmlText(skill.guide.requirements)));
+    if (skill.guide.note) assert.ok(html.includes(htmlText(skill.guide.note)));
+    if (skill.guide.setupUrl) assert.ok(html.includes(`href="${htmlText(skill.guide.setupUrl)}"`));
+    assert.ok(html.includes(`href="${skill.markdownUrl}"`) && html.includes(`href="${skill.sourceUrl}"`));
+    assert.ok(!new URL(skill.url).pathname.startsWith('/skills/'), 'guide must avoid the Markdown Content-Type header scope');
+    assert.ok(headers.includes('/skills/*\n  Content-Type: text/markdown'));
+    assert.ok(html.match(/rel="stylesheet" href="([^"]+)"/)[1].startsWith('../'), 'guide assets must work on preview hosts');
+    for (const [, resource] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+      const resolved = new URL(resource, skill.url).toString();
+      if (!resolved.startsWith(catalog.url)) continue;
+      const relative = resolved.slice(catalog.url.length).split('#')[0];
+      if (!relative || resolved === skill.url) continue;
+      const file = relative.endsWith('/') ? `${relative}index.html` : relative;
+      assert.ok((await readFile(join(repoRoot, '_site', file))).length);
+    }
   }
 });
 

@@ -4,4 +4,5 @@
     <loc>{{SITE_URL}}</loc>
     <image:image><image:loc>{{SITE_URL}}social-card.png</image:loc></image:image>
   </url>
+{{GUIDE_URLS}}
 </urlset>

@@ -21,8 +21,11 @@ search, command copying, and the global bunx/npx choice; bunx is the default.
 
 SEO metadata includes a descriptive title and description, canonical URL,
 Open Graph and Twitter text previews, and WebSite/CollectionPage/ItemList
-structured data. The sitemap lists the canonical HTML page. Markdown and JSON
-are supplementary agent resources, not separate HTML landing pages.
+structured data. The sitemap lists the canonical catalog and any focused HTML
+usage guides. The Browser DevTools guide lives at `/browser-devtools/`, outside
+the `/skills/*` Markdown header scope. Its catalog card, JSON-LD, and machine-readable
+record use the guide URL; the complete skill folder remains under `/skills/`.
+Markdown and JSON are supplementary agent resources.
 These technical measures do not guarantee search indexing or rankings.
 
 GitHub Pages hosting and its deployment workflow were disabled on 9 September 2026.

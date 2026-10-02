@@ -32,7 +32,7 @@ git status --short
 ```
 
 The generated `_site` is ignored and is the production catalog build. The
-validator and behavioral tests cover the 21-skill inventory, metadata, complete
+validator and behavioral tests cover the current skill inventory, metadata, complete
 references, generated catalog consistency, hashed assets, clean one-skill and
 all-skill installs, stale-file replacement, sibling preservation, retired aliases,
 and unsafe destinations. CI runs these checks on Linux and Windows (Git Bash).
@@ -75,7 +75,7 @@ above for the reproducible release path.
 - Run all checks on that exact commit and confirm both platform CI jobs pass.
   Review the complete diff and preserve any unrelated work.
 - Create an annotated tag at the approved SHA, push that tag, and create a
-  GitHub release targeting the existing tag. Include the full SHA, the 21-skill
+  GitHub release targeting the existing tag. Include the full SHA, the current skill
   inventory, review links, pinned installation steps, and this rollback policy.
   Do not use an implicit branch head as the release target.
 - Fetch the remote tag into a fresh clone, verify its peeled commit SHA, and run

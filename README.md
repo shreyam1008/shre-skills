@@ -10,7 +10,7 @@ Public catalog and release state are recorded in [`product.json`](product.json) 
 
 HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-21-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-22-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -46,8 +46,15 @@ Want just one? Use `--skill <name>` from the table below:
 bunx skills add shreyam1008/shre-skills --skill webgl
 ```
 
+For live Chrome and React debugging, install `browser-devtools` and try:
+“Use $browser-devtools to inspect this app at &lt;URL&gt; and diagnose the slow &lt;interaction&gt;.”
+It reproduces the issue, collects focused request/component/profile evidence, and
+verifies the cause. The workflow uses native [agent-browser](https://github.com/vercel-labs/agent-browser) with installed Chrome;
+installing the skill alone does not install the controller or connect MCP.
+See the [short usage guide](https://skills.shreyam1008.com.np/browser-devtools/).
+
 <details open>
-<summary><b>📋 Copy all 21 one-liners</b></summary>
+<summary><b>📋 Copy all 22 one-liners</b></summary>
 
 ```bash
 bunx skills add shreyam1008/shre-skills --skill code-quality
@@ -60,6 +67,7 @@ bunx skills add shreyam1008/shre-skills --skill git
 bunx skills add shreyam1008/shre-skills --skill react-best-practices
 bunx skills add shreyam1008/shre-skills --skill tanstack
 bunx skills add shreyam1008/shre-skills --skill web-performance
+bunx skills add shreyam1008/shre-skills --skill browser-devtools
 bunx skills add shreyam1008/shre-skills --skill caching
 bunx skills add shreyam1008/shre-skills --skill service-worker
 bunx skills add shreyam1008/shre-skills --skill security
@@ -90,6 +98,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`react-best-practices`](skills/react-best-practices/SKILL.md) | React components, effects, data loading, and rendering-performance diagnosis. |
 | [`tanstack`](skills/tanstack/SKILL.md) | Query/Router/Table/Form/Start; cache keys, mutations, and route data. |
 | [`web-performance`](skills/web-performance/SKILL.md) | Core Web Vitals, adaptive frame budgets, scheduling, load speed. |
+| [`browser-devtools`](skills/browser-devtools/SKILL.md) | Native Rust CLI + Chrome for requests, storage, runtime, traces, and React inspection; advanced DevTools when needed. |
 | [`caching`](skills/caching/SKILL.md) | Cache-Control/CDN/browser/SW/query, invalidation. |
 | [`service-worker`](skills/service-worker/SKILL.md) | PWA, offline, caching strategies, updates. |
 | [`security`](skills/security/SKILL.md) | Validation, encoding, auth, secrets, XSS/CSRF/injection. |
@@ -141,7 +150,7 @@ See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for ag
 
 ### Merged skills
 
-The library now has 21 focused skills. Use these replacement names for new Skills CLI installs:
+The library now has 22 focused skills. Use these replacement names for new Skills CLI installs:
 
 | Previous name | Replacement |
 |---|---|

@@ -4,6 +4,24 @@
     "category": "Foundations",
     "summary": "Clarify consequential choices, preserve settled decisions, and run one assumptions review before material changes."
   },
+  "browser-devtools": {
+    "title": "Browser DevTools",
+    "category": "Performance",
+    "summary": "Use native agent-browser with Chrome for requests, storage, traces, and React inspection; expand relevant evidence with DevTools when needed.",
+    "guide": {
+      "title": "Browser DevTools for Chrome and React",
+      "intro": "Find the cause of a failed request or slow interaction. Start with a compact overview, then inspect the relevant network request, console error, stored state, trace, or React component.",
+      "steps": [
+        "Connect to the intended Chrome page and reproduce the issue.",
+        "Collect focused evidence, then follow the request, code, or component responsible.",
+        "Verify the cause. When a fix is requested, repeat the same scenario and run the project's checks."
+      ],
+      "prompt": "Use $browser-devtools to inspect this React app at <URL> and diagnose the slow <interaction>.",
+      "requirements": "Requires the native agent-browser CLI and Google Chrome. The skill installs instructions; it does not install the controller or connect an MCP server. It reads installed tool help and schemas, with official Chrome DevTools for advanced analysis.",
+      "setupUrl": "https://github.com/vercel-labs/agent-browser",
+      "note": "React inspection starts with the component tree and selected props/state. Render timing needs a development or profiling build. The CLI's aggregate recorder has fewer details than React DevTools Profiler."
+    }
+  },
   "caching": {
     "title": "Caching",
     "category": "Performance",

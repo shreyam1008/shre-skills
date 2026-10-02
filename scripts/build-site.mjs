@@ -34,12 +34,36 @@ for (const name of names) {
     }
   }
   if (!categories.some(({ key }) => key === presentation[name].category)) throw new Error(`Unknown category for ${name}`);
+  const guide = presentation[name].guide;
+  if (guide) {
+    for (const field of Object.keys(guide)) {
+      if (!['title', 'intro', 'steps', 'prompt', 'requirements', 'note', 'setupUrl'].includes(field)) throw new Error(`Unknown guide field: ${name}.guide.${field}`);
+    }
+    for (const field of ['title', 'intro', 'prompt', 'requirements']) {
+      if (typeof guide[field] !== 'string' || !guide[field].trim()) throw new Error(`site/catalog.json: ${name}.guide.${field} is required.`);
+    }
+    if (!Array.isArray(guide.steps) || !guide.steps.length || guide.steps.some((step) => typeof step !== 'string' || !step.trim())) {
+      throw new Error(`site/catalog.json: ${name}.guide.steps must contain useful steps.`);
+    }
+    for (const field of ['note', 'setupUrl']) {
+      if (guide[field] !== undefined && (typeof guide[field] !== 'string' || !guide[field].trim())) {
+        throw new Error(`site/catalog.json: ${name}.guide.${field} must be nonempty text when supplied.`);
+      }
+    }
+    if (guide.setupUrl) {
+      try {
+        if (new URL(guide.setupUrl).protocol !== 'https:') throw new Error('Invalid protocol');
+      } catch {
+        throw new Error(`site/catalog.json: ${name}.guide.setupUrl must be a valid HTTPS URL.`);
+      }
+    }
+  }
 }
 const records = skills.map((skill) => ({
   name: skill.name, ...presentation[skill.name],
   aliases: Object.keys(migrations).filter((previous) => migrations[previous] === skill.name),
   description: skill.description,
-  url: `${siteUrl}#skill-${skill.name}`,
+  url: presentation[skill.name].guide ? `${siteUrl}${skill.name}/` : `${siteUrl}#skill-${skill.name}`,
   sourceUrl: `${repository}/blob/main/${skill.relativeFile}`,
   markdownUrl: `${siteUrl}skills/${skill.name}/SKILL.md`,
   install: { bunx: `bunx skills add shreyam1008/shre-skills --skill ${skill.name}`, npx: `npx skills add shreyam1008/shre-skills --skill ${skill.name}` },
@@ -47,7 +71,7 @@ const records = skills.map((skill) => ({
 const card = (skill) => `<li data-aliases="${escapeHtml(JSON.stringify(skill.aliases))}" data-search="${escapeHtml(`${skill.name} ${skill.aliases.join(' ')} ${skill.description} ${skill.title} ${skill.category} ${skill.summary}`)}">
   <article id="skill-${skill.name}" class="skill-card" data-category="${skill.category.toLowerCase()}">
     <div class="card-meta"><span class="category">${escapeHtml(skill.category)}</span><a class="markdown-link" href="./skills/${skill.name}/SKILL.md" aria-label="Read ${skill.name} as Markdown">Markdown <span aria-hidden="true">↗</span></a></div>
-    <h4><a href="${skill.sourceUrl}">${escapeHtml(skill.title)}<span class="source-arrow" aria-hidden="true">↗</span></a></h4>
+    <h4><a href="${skill.guide ? skill.url : skill.sourceUrl}">${escapeHtml(skill.title)}<span class="source-arrow" aria-hidden="true">${skill.guide ? '→' : '↗'}</span></a></h4>
     <p>${escapeHtml(skill.summary)}</p>
     <div class="card-install"><span class="command-label">INSTALL SKILL</span><div class="command"><code data-install="${skill.name}">${skill.install.bunx}</code><button type="button" class="copy-button" data-copy="${skill.name}" hidden aria-label="Copy install command for ${skill.name}">Copy</button></div></div>
   </article>
@@ -103,11 +127,41 @@ for (const file of ['favicon.svg', 'favicon-192.png', 'social-card.png', 'social
 for (const skill of skills) {
   await cp(join(repoRoot, 'skills', skill.name), join(outputRoot, 'skills', skill.name), { recursive: true });
 }
+const guides = records.filter((skill) => skill.guide);
+const guideTemplate = guides.length ? await readFile(join(siteRoot, 'skill-guide.template.html'), 'utf8') : '';
+for (const skill of guides) {
+  const schema = {
+    '@context': 'https://schema.org', '@graph': [
+      { '@type': 'WebPage', '@id': `${skill.url}#page`, url: skill.url, name: skill.guide.title, description: skill.summary,
+        isPartOf: { '@id': `${siteUrl}#website` }, mainEntity: { '@id': skill.url } },
+      { '@type': 'CreativeWork', '@id': skill.url, name: skill.title, description: skill.summary, url: skill.url,
+        inLanguage: 'en', license: `${repository}/blob/main/LICENSE`, sameAs: skill.sourceUrl,
+        encoding: { '@type': 'MediaObject', contentUrl: skill.markdownUrl, encodingFormat: 'text/markdown' } },
+    ],
+  };
+  const replacements = {
+    SITE_URL: siteUrl, GUIDE_URL: skill.url, TITLE: skill.guide.title, DESCRIPTION: skill.summary,
+    INTRO: skill.guide.intro, PROMPT: skill.guide.prompt, REQUIREMENTS: skill.guide.requirements,
+    SOURCE_URL: skill.sourceUrl, MARKDOWN_URL: skill.markdownUrl,
+    INSTALL_BUNX: skill.install.bunx, INSTALL_NPX: skill.install.npx, STYLES_URL: `../${assets['styles.css']}`,
+  };
+  const guide = guideTemplate.replace(/\{\{([A-Z_]+)\}\}/g, (placeholder, key) => {
+    if (key === 'STEPS') return skill.guide.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('\n');
+    if (key === 'NOTE') return skill.guide.note ? `<p>${escapeHtml(skill.guide.note)}</p>` : '';
+    if (key === 'SETUP_LINK') return skill.guide.setupUrl ? `<p><a href="${escapeHtml(skill.guide.setupUrl)}">Tool setup and documentation ↗</a></p>` : '';
+    if (key === 'STRUCTURED_DATA') return JSON.stringify(schema).replaceAll('<', '\\u003c');
+    if (!(key in replacements)) throw new Error(`Unknown guide placeholder: ${key}`);
+    return escapeHtml(replacements[key]);
+  });
+  await mkdir(join(outputRoot, skill.name), { recursive: true });
+  await writeFile(join(outputRoot, skill.name, 'index.html'), guide);
+}
 await writeFile(join(outputRoot, '_redirects'), Object.entries(migrations)
   .map(([previous, next]) => `/skills/${previous}/SKILL.md /skills/${next}/SKILL.md 301`).join('\n') + '\n');
 for (const file of ['robots.txt', 'sitemap.xml']) {
   const source = await readFile(join(siteRoot, file), 'utf8');
-  await writeFile(join(outputRoot, file), source.replaceAll('{{SITE_URL}}', siteUrl));
+  await writeFile(join(outputRoot, file), source.replaceAll('{{SITE_URL}}', siteUrl)
+    .replace('{{GUIDE_URLS}}', guides.map((skill) => `  <url><loc>${escapeHtml(skill.url)}</loc></url>`).join('\n')));
 }
 await writeFile(join(outputRoot, 'skills.json'), JSON.stringify({ name: 'shre-skills', url: siteUrl, repository, license: 'MIT', skills: records }, null, 2) + '\n');
 await writeFile(join(outputRoot, 'llms.txt'), `# shre-skills
@@ -126,6 +180,7 @@ npm alternative: \`npx skills add shreyam1008/shre-skills --skill '*'\`
 - [Browse categories](${siteUrl}): Human-readable catalog with search and install commands.
 - [Machine-readable catalog](${siteUrl}skills.json): Every skill's description, category, URLs, and both installation commands.
 - [Source repository](${repository}): Installation options, history, credits, and license.
+${guides.map((skill) => `- [${skill.title}: usage guide](${skill.url}): Install, prerequisites, and a focused example.`).join('\n')}
 
 ${categories.map((category) => `## ${category.title}\n\n${records.filter((skill) => skill.category === category.key).map((skill) => `- [${skill.name}](${skill.markdownUrl}): ${skill.summary}`).join('\n')}`).join('\n\n')}
 `);

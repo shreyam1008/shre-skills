@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-23",
+  "reviewedAt": "2026-10-02",
   "sources": [
     {
       "id": "gpuweb-spec",
@@ -323,6 +323,52 @@
         "security"
       ],
       "reviewScope": "Reviewed the upstream retrieval model and current feature/use-case coverage; keep it as a pinned companion source for overlapping skills rather than vendoring a duplicate broad skill."
+    },
+    {
+      "id": "chrome-devtools-agents",
+      "title": "Official Chrome DevTools MCP, CLI, and agent skills",
+      "kind": "git",
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "revision": "e52c6b59b476c5e04d8dd9fd4bd017ba3b3d65df",
+      "reviewedAt": "2026-10-02",
+      "skills": ["browser-devtools"],
+      "reviewScope": "Reviewed release 1.10.1 CLI configuration/generated command source for advanced trace/heap analysis and page developer tools. Source enables capabilities omitted by prose docs; discover installed schemas/help. This revision is research provenance, not a runtime requirement."
+    },
+    {
+      "id": "chrome-devtools-protocol",
+      "title": "Chrome DevTools Protocol schema and discovery",
+      "kind": "git",
+      "url": "https://github.com/ChromeDevTools/devtools-protocol",
+      "revision": "3e46e43d9611a3ef508dea0024e5fe6b87d1d578",
+      "reviewedAt": "2026-10-02",
+      "skills": ["browser-devtools"],
+      "reviewScope": "Reviewed target protocol discovery and diagnostic domains; tip-of-tree and historical stable labels are not runtime compatibility guarantees."
+    },
+    {
+      "id": "vercel-agent-browser",
+      "title": "Vercel agent-browser native Chrome diagnostics and React inspection",
+      "kind": "git",
+      "url": "https://github.com/vercel-labs/agent-browser",
+      "revision": "39a74c70d7759d5a6de7a22c04570bb626bbd081",
+      "reviewedArtifact": {
+        "version": "0.38.2",
+        "asset": "agent-browser-win32-x64.exe",
+        "url": "https://github.com/vercel-labs/agent-browser/releases/download/v0.38.2/agent-browser-win32-x64.exe",
+        "sha256": "a6a9a3654c41ee19c05961b73489db98cff9eae88a77436986df08a7a7a73786"
+      },
+      "reviewedAt": "2026-10-02",
+      "skills": ["browser-devtools"],
+      "reviewScope": "Reviewed release 0.38.2 Rust controller and verified its release asset SHA256. Windows Chrome smoke tested request/response, console, storage, trace CPU samples, and genuine React development/production tree/inspection/render aggregates. Confirmed timing placeholders/heuristic counts, absent standalone core guide, and a captured-Node-pipe lifetime caveat; direct PowerShell works. Installed help and observed behavior govern. Chrome remains a separate process."
+    },
+    {
+      "id": "react-devtools-browser-integration",
+      "title": "Official React DevTools Chrome integration and profiling capabilities",
+      "kind": "git",
+      "url": "https://github.com/react/react",
+      "revision": "7c6ac13e19fef500b7f669a16bbd01ecc95965ca",
+      "reviewedAt": "2026-10-02",
+      "skills": ["browser-devtools"],
+      "reviewScope": "Reviewed the experimental browser-side DevTools integration, component/owner inspection, hook inspection behavior, and per-commit profiling. Use installed package documentation and discovered schemas rather than private React internals or this research revision as a runtime requirement."
     }
   ]
 }

@@ -46,7 +46,7 @@ not submitted again.
 | AgentHub | One collection containing all 22 skills | **Public page / draft status.** [Collection page](https://www.agentskillsmarket.space/skill/shre-skills-22-agent-skills) is anonymously accessible, retains the source-repository link and describes the whole library. Its ZIP contains all 22 expected SKILL.md files and Browser DevTools references. SHA-256: `b44782c8829a76cd207670baacb1ac8f6ecadf09202b0c23cec5d29546c834cb`. The page still says `draft`; moderation approval is unverified. GitHub bulk intake gave no acceptance receipt; the manual repository-backed collection route succeeded. |
 | Skillstore | All 22 skills | **Accepted / processing.** Intake detected 22 skills. [Submission status](https://skillstore.io/submissions/dedfe130-b8d5-4fd0-b8d0-280a4c409b6d) links [processing run 37020600946](https://github.com/aiskillstore/marketplace/actions/runs/37020600946), using source revision `ba9787f41c2fe1be1062eeb6322bc339a1026383`. Audit, review and publication remain external pending steps. |
 | AgenticSkills | Whole repository collection | **Submitted / editorial review.** [Submission form](https://agenticskills.io/submit) returned “Skill Submitted!” and a weekly review-queue receipt. No submission ID or public listing URL supplied. |
-| SkillMD | Individual skill folders | **20 of 22 submitted / 2 rate limited.** [My skills](https://skillmd.com/my-skills) shows 20 submissions under the site's `shreyam-adhikari` namespace, all in review. Names and descriptions came from the source frontmatter; Browser DevTools retained its seven companion files. `webgpu` and `webview2-winui` each returned “rate limited” and remain unaccepted. Resume their prepared folder submissions after the site's limit resets; its reset time was not supplied by the UI. |
+| SkillMD | All 22 individual skill folders | **22 of 22 submitted / pending review.** [My skills](https://skillmd.com/my-skills) was checked against all 22 unique source names. Names and descriptions came from the source frontmatter; Browser DevTools retained its seven companion files. The first 20 use the original `shreyam-adhikari` skill namespace. After correcting the public profile to [`shreyam1008`](https://skillmd.com/u/shreyam1008), cooldown retries accepted `shreyam1008/webgpu` and `shreyam1008/webview2-winui`. Submission does not establish publication. |
 
 Additional routes with incomplete outcomes:
 
@@ -66,3 +66,53 @@ Additional routes with incomplete outcomes:
 Keep receipts and existing submission identities when checking publication or
 feedback. Do not duplicate queued entries, infer acceptance from a spinner, or
 purchase placement to resolve an unexplained failure.
+
+## Retry and identity history
+
+- **SkillMD:** the first campaign accepted 20 skills, then rate limited WebGPU
+  and WebView2. An initial WebGPU cooldown retry was also rate limited. A later
+  retry of each remaining skill succeeded after the profile correction: WebGPU
+  at 15:07 UTC and WebView2 at 15:08 UTC on 2 October. The dashboard check at
+  15:08 UTC contains all 22 unique names, all in review; no accepted entry
+  was duplicated. The site did not supply a reset time.
+- **SkillMD identity:** the signup default was `shreyam-adhikari`; the requested
+  public username is now `shreyam1008`, with display name Shreyam Adhikari.
+  Profile settings explicitly warn that old profile links stop working and
+  existing skill URLs are unaffected. The existing 20 namespaces were observed
+  unchanged after the rename. The skill-content editor does not expose a
+  namespace field; moving those entries would need a supported migration route,
+  not duplicate submissions.
+- **AgentHub:** GitHub bulk intake gave no acceptance receipt. The manual,
+  repository-backed collection succeeded; its summary was corrected and the
+  22-skill package verified. Its public page still says `draft`.
+- **Other failures:** MCP Market's two additional skill attempts, Agent-Skills.md,
+  OmniSkill, and Skills Directory have the errors recorded above. There is no
+  later success receipt for those attempts. Keep the error history when retrying;
+  replace a current status only after an actual receipt or public listing appears.
+
+## Website-link audit — 2 October 2026, 15:08 UTC
+
+The product destination is the [skill catalog](https://skills.shreyam1008.com.np/);
+the creator destination is the [personal site](https://shreyam1008.com.np/).
+Both are included where the destination supports them. A repository link, a
+plain-text URL, an unpublished submission, and a public clickable website link
+are different outcomes.
+
+| Destination | Skill catalog | Personal site | Observed evidence |
+| --- | --- | --- | --- |
+| Awesome Skills | Public clickable links | Public clickable links | [Live collection](https://www.awesomeskills.dev/en/skill/shreyam1008-shre-skills) links the catalog and Browser DevTools guide, plus the creator homepage and project anchor. Observed website anchors have no `nofollow`. |
+| askill | No direct website link verified | No direct website link verified | All 22 public listings link their GitHub source; neither owned website appeared in the checked public HTML. |
+| AgentHub | Plain-text URL | Plain-text URL | [Collection](https://www.agentskillsmarket.space/skill/shre-skills-22-agent-skills) mentions both URLs, but no direct website anchors were found in checked public HTML. The repository is clickable; the collection remains draft. |
+| SkillMD | Plain-text bio URL | Plain-text bio URL | [Renamed public profile](https://skillmd.com/u/shreyam1008) shows both URLs as text, without direct website anchors. All 22 submissions await review. |
+| Skillstore | No public website backlink verified | No public website backlink verified | [Status page](https://skillstore.io/submissions/dedfe130-b8d5-4fd0-b8d0-280a4c409b6d) links the repository and processing workflow. Still Processing; audit job remains in progress. |
+| AgenticSkills | Supplied in submission Website field | No public website backlink verified | Editorial receipt exists; no published listing yet. The receipt does not reproduce the form payload. |
+| Skillboard | No public website backlink verified | No public website backlink verified | Repository intake is pending review; no listing URL. |
+| MCP Market | No public website backlink verified | No public website backlink verified | Browser DevTools source-folder intake is queued; no listing URL. |
+| Junminhong PR 61 / Kodus PR 132 | Public PR-description links | Public PR-description links | [PR 61](https://github.com/junminhong/awesome-agent-skills/pull/61) and [PR 132](https://github.com/kodustech/awesome-agent-skills/pull/132) link both websites in their descriptions, with GitHub's `nofollow`. Proposed README entries link the repository only; maintainer placement remains pending. |
+| Agent Craft PR 16 | PR-description and proposed-entry links | No link verified | [PR 16](https://github.com/open-agent-craft/awesome-agent-skills/pull/16) links the catalog; proposed README/data placement remains pending. |
+| Ezeafk PR 37 | Proposed README link | No link verified | [PR 37](https://github.com/Ezeafk/awesome-agent-skills/pull/37) proposes a catalog `docs` link. No owned-website anchor was found in the PR description; merge remains pending. |
+| Agent-Skills.md / OmniSkill / Skills Directory | No accepted backlink | No accepted backlink | The attempts failed, as recorded above. |
+| SkillsMP / Vercel skills.sh | Unconfirmed | Unconfirmed | Automatic discovery routes; no actual listing or outbound website link confirmed. |
+
+These checks establish link visibility, not Google/Bing indexing, referral traffic,
+or ranking gains. Keep public PR links distinct from merged curated entries.

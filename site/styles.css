@@ -18,7 +18,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
 body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
 a { color: inherit; text-decoration-color: var(--line); text-underline-offset: .25em; }
 a:hover { color: var(--accent-strong); text-decoration-color: currentColor; }
-:is(a, button, input):focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: .25rem; }
+:is(a, button, input, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: .25rem; }
 button, input { font: inherit; }
 button { min-height: 2.75rem; padding: .55rem .8rem; color: var(--text); background: var(--surface-raised); border: 1px solid var(--line); border-radius: .45rem; cursor: pointer; transition: background .15s, border-color .15s; }
 button:hover { border-color: var(--accent); background: #30283f; }
@@ -97,6 +97,13 @@ h1 span { color: var(--accent); }
 .card-install .command { align-items: flex-end; gap: .7rem; }
 .card-install .command code { font-size: .875rem; color: #bdb4ce; }
 .card-install .copy-button { min-width: 3.7rem; padding-inline: .6rem; background: #24202d; }
+.card-prompt { margin-top: auto; }
+.card-prompt + .card-install { margin-top: 0; }
+.prompt-block { padding-block: 1rem; border-top: 1px solid var(--line); }
+.prompt-heading { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.prompt-heading .command-label { margin: 0; }
+.prompt-text { margin: .75rem 0 0; overflow-wrap: anywhere; color: #bdb4ce; font-size: .875rem; line-height: 1.65; user-select: text; }
+.prompt-block summary { margin-top: .6rem; width: fit-content; color: var(--muted); font-size: .8125rem; cursor: pointer; }
 .companion-access { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem); align-items: center; gap: 2rem; padding-block: 2.5rem; border-top: 1px solid var(--line); }
 .companion-access h2 { margin: 0; font-size: 1.7rem; font-weight: 580; letter-spacing: -.04em; line-height: 1.2; }
 .companion-access p:not(.eyebrow) { max-width: 48rem; margin: .6rem 0 0; color: var(--muted); line-height: 1.65; }

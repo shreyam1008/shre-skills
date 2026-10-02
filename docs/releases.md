@@ -20,6 +20,11 @@ request failures, storage, console stacks, CPU trace evidence, and genuine React
 development/production inspection. React render aggregates and unavailable timings
 are distinguished from full DevTools Profiler output. This update creates no CalVer tag.
 
+Added a standalone **Copy prompt** action for every skill and the Browser DevTools
+guide. Each prompt describes the action, accepts task context, and links public
+guidance for one-off use without installing the skill. Prompts are readable in
+static HTML and included in `skills.json`, `llms.txt`, and catalog search.
+
 ## 2026-09-23 — database guardrails and Modern Web Guidance routing
 
 Added the ask-first database guardrails skill to the release candidate, removed

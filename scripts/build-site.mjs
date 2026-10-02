@@ -28,7 +28,7 @@ const categories = [
   { key: 'Native', id: 'native', title: 'Native integration', summary: 'Connect web interfaces with the Windows desktop.' },
 ];
 for (const name of names) {
-  for (const field of ['title', 'category', 'summary']) {
+  for (const field of ['title', 'category', 'summary', 'prompt']) {
     if (typeof presentation[name]?.[field] !== 'string' || !presentation[name][field].trim()) {
       throw new Error(`site/catalog.json: ${name}.${field} is required.`);
     }
@@ -37,9 +37,9 @@ for (const name of names) {
   const guide = presentation[name].guide;
   if (guide) {
     for (const field of Object.keys(guide)) {
-      if (!['title', 'intro', 'steps', 'prompt', 'requirements', 'note', 'setupUrl'].includes(field)) throw new Error(`Unknown guide field: ${name}.guide.${field}`);
+      if (!['title', 'intro', 'steps', 'requirements', 'note', 'setupUrl'].includes(field)) throw new Error(`Unknown guide field: ${name}.guide.${field}`);
     }
-    for (const field of ['title', 'intro', 'prompt', 'requirements']) {
+    for (const field of ['title', 'intro', 'requirements']) {
       if (typeof guide[field] !== 'string' || !guide[field].trim()) throw new Error(`site/catalog.json: ${name}.guide.${field} is required.`);
     }
     if (!Array.isArray(guide.steps) || !guide.steps.length || guide.steps.some((step) => typeof step !== 'string' || !step.trim())) {
@@ -61,6 +61,9 @@ for (const name of names) {
 }
 const records = skills.map((skill) => ({
   name: skill.name, ...presentation[skill.name],
+  guide: presentation[skill.name].guide
+    ? { ...presentation[skill.name].guide, prompt: presentation[skill.name].prompt }
+    : undefined,
   aliases: Object.keys(migrations).filter((previous) => migrations[previous] === skill.name),
   description: skill.description,
   url: presentation[skill.name].guide ? `${siteUrl}${skill.name}/` : `${siteUrl}#skill-${skill.name}`,
@@ -68,11 +71,12 @@ const records = skills.map((skill) => ({
   markdownUrl: `${siteUrl}skills/${skill.name}/SKILL.md`,
   install: { bunx: `bunx skills add shreyam1008/shre-skills --skill ${skill.name}`, npx: `npx skills add shreyam1008/shre-skills --skill ${skill.name}` },
 }));
-const card = (skill) => `<li data-aliases="${escapeHtml(JSON.stringify(skill.aliases))}" data-search="${escapeHtml(`${skill.name} ${skill.aliases.join(' ')} ${skill.description} ${skill.title} ${skill.category} ${skill.summary}`)}">
+const card = (skill) => `<li data-aliases="${escapeHtml(JSON.stringify(skill.aliases))}" data-search="${escapeHtml(`${skill.name} ${skill.aliases.join(' ')} ${skill.description} ${skill.title} ${skill.category} ${skill.summary} ${skill.prompt}`)}">
   <article id="skill-${skill.name}" class="skill-card" data-category="${skill.category.toLowerCase()}">
     <div class="card-meta"><span class="category">${escapeHtml(skill.category)}</span><a class="markdown-link" href="./skills/${skill.name}/SKILL.md" aria-label="Read ${skill.name} as Markdown">Markdown <span aria-hidden="true">↗</span></a></div>
     <h4><a href="${skill.guide ? skill.url : skill.sourceUrl}">${escapeHtml(skill.title)}<span class="source-arrow" aria-hidden="true">${skill.guide ? '→' : '↗'}</span></a></h4>
     <p>${escapeHtml(skill.summary)}</p>
+    <div class="prompt-block card-prompt"><div class="prompt-heading"><span class="command-label">USE ONCE</span><button type="button" class="copy-button" data-copy-prompt="${skill.name}" hidden aria-label="Copy prompt for ${skill.name}">Copy prompt</button></div><details><summary>View prompt</summary><p class="prompt-text" data-prompt="${skill.name}">${escapeHtml(skill.prompt)}</p></details></div>
     <div class="card-install"><span class="command-label">INSTALL SKILL</span><div class="command"><code data-install="${skill.name}">${skill.install.bunx}</code><button type="button" class="copy-button" data-copy="${skill.name}" hidden aria-label="Copy install command for ${skill.name}">Copy</button></div></div>
   </article>
 </li>`;
@@ -84,7 +88,7 @@ const sections = categories.map((category) => {
 </section>`;
 }).join('\n');
 const categoryLinks = `<a href="#catalog" data-filter="all" aria-current="true">All skills <span>${skills.length}</span></a>` + categories.map((category) => `<a href="#category-${category.id}" data-filter="${category.id}">${escapeHtml(category.title)} <span>${records.filter((skill) => skill.category === category.key).length}</span></a>`).join('\n');
-const description = `Browse ${skills.length} open-source agent skills for web development, React, performance, design, graphics, and native apps. Install all or one with bunx or npx.`;
+const description = `Browse ${skills.length} open-source agent skills for web development, React, performance, design, graphics, and native apps. Copy a one-off prompt or install with bunx or npx.`;
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -121,7 +125,7 @@ const index = template
   .replace('{{SCRIPT_URL}}', assets['catalog.js'])
   .replace('{{STRUCTURED_DATA}}', JSON.stringify(structuredData).replaceAll('<', '\\u003c'))
   .replace('{{CATEGORY_LINKS}}', categoryLinks)
-  .replace('{{SKILL_SECTIONS}}', sections);
+  .replace('{{SKILL_SECTIONS}}', () => sections);
 await writeFile(join(outputRoot, 'index.html'), index);
 for (const file of ['favicon.svg', 'favicon-192.png', 'social-card.png', 'social-card.svg', '404.html', '_headers']) await cp(join(siteRoot, file), join(outputRoot, file));
 for (const skill of skills) {
@@ -141,9 +145,10 @@ for (const skill of guides) {
   };
   const replacements = {
     SITE_URL: siteUrl, GUIDE_URL: skill.url, TITLE: skill.guide.title, DESCRIPTION: skill.summary,
-    INTRO: skill.guide.intro, PROMPT: skill.guide.prompt, REQUIREMENTS: skill.guide.requirements,
+    INTRO: skill.guide.intro, PROMPT: skill.prompt, SKILL_NAME: skill.name, REQUIREMENTS: skill.guide.requirements,
     SOURCE_URL: skill.sourceUrl, MARKDOWN_URL: skill.markdownUrl,
     INSTALL_BUNX: skill.install.bunx, INSTALL_NPX: skill.install.npx, STYLES_URL: `../${assets['styles.css']}`,
+    SCRIPT_URL: `../${assets['catalog.js']}`,
   };
   const guide = guideTemplate.replace(/\{\{([A-Z_]+)\}\}/g, (placeholder, key) => {
     if (key === 'STEPS') return skill.guide.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('\n');
@@ -170,6 +175,10 @@ await writeFile(join(outputRoot, 'llms.txt'), `# shre-skills
 
 Each skill is readable Markdown with YAML name and description metadata. Choose only the skills relevant to your task. A SKILL.md may link to optional local references; read those only for the matching task.
 
+## One-off use
+
+Every catalog card has a Copy prompt action. Paste the prompt into your coding agent and replace its task placeholder. No skill installation is needed; the prompt links the public guidance. Browser, project, or platform tools required by the task still need to be available.
+
 ## Installation
 
 Install every skill: \`bunx skills add shreyam1008/shre-skills --skill '*'\`
@@ -177,12 +186,12 @@ npm alternative: \`npx skills add shreyam1008/shre-skills --skill '*'\`
 
 ## Catalog
 
-- [Browse categories](${siteUrl}): Human-readable catalog with search and install commands.
-- [Machine-readable catalog](${siteUrl}skills.json): Every skill's description, category, URLs, and both installation commands.
+- [Browse categories](${siteUrl}): Human-readable catalog with search, one-off prompts, and install commands.
+- [Machine-readable catalog](${siteUrl}skills.json): Every skill's description, category, prompt, URLs, and both installation commands.
 - [Source repository](${repository}): Installation options, history, credits, and license.
 ${guides.map((skill) => `- [${skill.title}: usage guide](${skill.url}): Install, prerequisites, and a focused example.`).join('\n')}
 
-${categories.map((category) => `## ${category.title}\n\n${records.filter((skill) => skill.category === category.key).map((skill) => `- [${skill.name}](${skill.markdownUrl}): ${skill.summary}`).join('\n')}`).join('\n\n')}
+${categories.map((category) => `## ${category.title}\n\n${records.filter((skill) => skill.category === category.key).map((skill) => `- [${skill.name}](${skill.markdownUrl}): ${skill.summary}\n  One-off prompt: ${skill.prompt}`).join('\n')}`).join('\n\n')}
 `);
 await writeFile(join(outputRoot, '.nojekyll'), '');
 console.log(`Built ${skills.length} skills in ${categories.length} categories for ${siteUrl}`);

@@ -213,7 +213,10 @@ test('usage guides publish crawlable HTML, canonical metadata, assets, and compl
     assert.ok(sitemap.includes(`<loc>${skill.url}</loc>`));
     assert.ok(llms.includes(skill.url));
     assert.ok(html.includes(skill.install.bunx) && html.includes(skill.install.npx));
-    assert.ok(html.includes(htmlText(skill.guide.prompt)));
+    assert.ok(html.includes(htmlText(skill.prompt)));
+    assert.equal(skill.guide.prompt, skill.prompt, 'retain the guide prompt field without a second source');
+    assert.ok(html.includes(`data-copy-prompt="${skill.name}"`));
+    assert.match(html, /<script src="\.\.\/catalog\.[a-f0-9]{12}\.js" defer><\/script>/);
     assert.ok(html.includes(htmlText(skill.guide.requirements)));
     if (skill.guide.note) assert.ok(html.includes(htmlText(skill.guide.note)));
     if (skill.guide.setupUrl) assert.ok(html.includes(`href="${htmlText(skill.guide.setupUrl)}"`));
@@ -229,6 +232,67 @@ test('usage guides publish crawlable HTML, canonical metadata, assets, and compl
       const file = relative.endsWith('/') ? `${relative}index.html` : relative;
       assert.ok((await readFile(join(repoRoot, '_site', file))).length);
     }
+  }
+});
+
+test('every skill publishes a standalone one-off prompt in HTML and both agent indexes', async () => {
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
+  const sourceCatalog = JSON.parse(await readFile(join(repoRoot, 'site/catalog.json'), 'utf8'));
+  const html = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
+  const llms = await readFile(join(repoRoot, '_site/llms.txt'), 'utf8');
+  assert.equal((html.match(/data-copy-prompt="/g) || []).length, catalog.skills.length);
+  for (const skill of catalog.skills) {
+    assert.equal(skill.prompt, sourceCatalog[skill.name].prompt);
+    assert.ok(skill.prompt.includes(skill.markdownUrl), `${skill.name} needs its public guidance link`);
+    assert.match(skill.prompt, /\[[^\]]+\]/, `${skill.name} needs a task placeholder`);
+    assert.ok(!skill.prompt.includes(`$${skill.name}`), `${skill.name} must work without an installed invocation`);
+    assert.ok(html.includes(`data-prompt="${skill.name}">${htmlText(skill.prompt)}</p>`));
+    assert.ok(llms.includes(skill.prompt));
+  }
+});
+
+test('guide prompt copying works without catalog controls and supports manual copying', async () => {
+  const html = await readFile(join(repoRoot, '_site/browser-devtools/index.html'), 'utf8');
+  const scriptFile = html.match(/src="\.\.\/([^\"]+\.js)"/)[1];
+  const script = await readFile(join(repoRoot, '_site', scriptFile), 'utf8');
+  const catalog = JSON.parse(await readFile(join(repoRoot, '_site/skills.json'), 'utf8'));
+  const prompt = catalog.skills.find(({ name }) => name === 'browser-devtools').prompt;
+  for (const inDisclosure of [false, true]) {
+    const disclosure = inDisclosure ? { open: false } : null;
+    const text = { textContent: prompt, closest: () => disclosure };
+    const status = { textContent: '' };
+    let activate, copied, selected;
+    const button = {
+      hidden: true, dataset: { copyPrompt: 'browser-devtools' },
+      hasAttribute: (name) => name === 'data-copy-prompt',
+      closest: () => ({ querySelector: () => text }),
+      addEventListener: (_name, handler) => { activate = handler; },
+    };
+    const context = {
+      document: {
+        querySelector: (selector) => selector === '#copy-status' ? status : null,
+        querySelectorAll: (selector) => selector === '[data-copy], [data-copy-prompt]' ? [button] : [],
+        createRange: () => ({ selectNodeContents: (node) => { selected = node.textContent; } }),
+      },
+      window: { getSelection: () => ({ removeAllRanges() {}, addRange() {} }) },
+      navigator: { clipboard: { writeText: async (value) => { copied = value; } } },
+      setTimeout: () => 1, clearTimeout() {},
+    };
+    runInNewContext(script, context);
+    assert.equal(button.hidden, false);
+    await activate();
+    assert.equal(copied, prompt);
+    assert.equal(button.disabled, false);
+    assert.match(status.textContent, /Copied browser-devtools prompt/);
+    context.navigator.clipboard.writeText = async () => { throw new Error('Clipboard denied'); };
+    await activate();
+    assert.equal(selected, prompt);
+    if (disclosure) assert.equal(disclosure.open, true);
+    assert.match(status.textContent, /Clipboard unavailable.*prompt.*selected/);
+    context.navigator.clipboard = undefined;
+    selected = undefined;
+    await activate();
+    assert.equal(selected, prompt, 'manual copying also works without the Clipboard API');
   }
 });
 

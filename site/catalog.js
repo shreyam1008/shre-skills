@@ -41,25 +41,27 @@ function categoryFromHash() {
   filterSkills();
   if (replacement) replacement.querySelector('article').scrollIntoView();
 }
-for (const link of categoryLinks) {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    activeCategory = link.dataset.filter;
-    history.replaceState(null, '', link.hash);
+if (search) {
+  for (const link of categoryLinks) {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      activeCategory = link.dataset.filter;
+      history.replaceState(null, '', link.hash);
+      filterSkills();
+    });
+  }
+  window.addEventListener('hashchange', categoryFromHash);
+  search.addEventListener('input', filterSkills);
+  document.querySelector('#clear-search').addEventListener('click', () => {
+    search.value = '';
+    activeCategory = 'all';
+    history.replaceState(null, '', '#catalog');
     filterSkills();
+    search.focus();
   });
+  document.querySelector('.catalog-tools').hidden = false;
+  categoryFromHash();
 }
-window.addEventListener('hashchange', categoryFromHash);
-search.addEventListener('input', filterSkills);
-document.querySelector('#clear-search').addEventListener('click', () => {
-  search.value = '';
-  activeCategory = 'all';
-  history.replaceState(null, '', '#catalog');
-  filterSkills();
-  search.focus();
-});
-document.querySelector('.catalog-tools').hidden = false;
-categoryFromHash();
 
 const runnerSwitch = document.querySelector('.runner-switch');
 function updateRunner() {
@@ -74,31 +76,37 @@ function updateRunner() {
   document.querySelector('#runner-status').textContent = `${runner} selected · applies to every command below`;
   for (const button of document.querySelectorAll('[data-copy]')) button.textContent = 'Copy';
 }
-runnerSwitch.addEventListener('change', updateRunner);
-runnerSwitch.hidden = false;
-updateRunner();
+if (runnerSwitch) {
+  runnerSwitch.addEventListener('change', updateRunner);
+  runnerSwitch.hidden = false;
+  updateRunner();
+}
 
 const copyStatus = document.querySelector('#copy-status');
 let copyTimer;
-for (const button of document.querySelectorAll('[data-copy]')) {
+for (const button of document.querySelectorAll('[data-copy], [data-copy-prompt]')) {
+  const isPrompt = button.hasAttribute('data-copy-prompt');
+  const defaultLabel = isPrompt ? 'Copy prompt' : 'Copy';
   button.hidden = false;
   button.addEventListener('click', async () => {
-    const code = button.parentElement.querySelector('code');
+    const code = isPrompt ? button.closest('.prompt-block').querySelector('[data-prompt]') : button.parentElement.querySelector('code');
     button.disabled = true;
     try {
       await navigator.clipboard.writeText(code.textContent.trim());
       button.textContent = 'Copied';
-      copyStatus.textContent = `Copied ${button.dataset.copy} install command.`;
+      copyStatus.textContent = isPrompt ? `Copied ${button.dataset.copyPrompt} prompt.` : `Copied ${button.dataset.copy} install command.`;
     } catch {
+      const disclosure = code.closest('details');
+      if (disclosure) disclosure.open = true;
       const range = document.createRange();
       range.selectNodeContents(code);
       const selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(range);
-      copyStatus.textContent = 'Clipboard unavailable. The command is selected; use your keyboard or menu to copy it.';
+      copyStatus.textContent = `Clipboard unavailable. The ${isPrompt ? 'prompt' : 'command'} is selected; use your keyboard or menu to copy it.`;
     } finally {
       button.disabled = false;
-      setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+      setTimeout(() => { button.textContent = defaultLabel; }, 2000);
       clearTimeout(copyTimer);
       copyTimer = setTimeout(() => { copyStatus.textContent = ''; }, 8000);
     }

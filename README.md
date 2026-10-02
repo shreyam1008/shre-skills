@@ -25,6 +25,13 @@ One place to pull consistent, opinionated guidance instead of re-searching every
 
 Product site: [skills.shreyam1008.com.np](https://skills.shreyam1008.com.np/) — live on Cloudflare Pages, HTTPS verified 9 September 2026. Browse and search the catalog, read the source, or copy an install command.
 
+For one-off work, use **Copy prompt** on any catalog card, replace the task
+placeholder, and paste into your coding agent. The prompt links the public skill
+guidance; no skill installation is needed. Your agent needs URL access and the
+browser, project, or platform tools required by the task. Prompts are also included
+in [skills.json](https://skills.shreyam1008.com.np/skills.json) and
+[llms.txt](https://skills.shreyam1008.com.np/llms.txt).
+
 Google Chrome's [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)
 is tracked as an upstream companion, not duplicated as another broad shre-skills
 entry. It provides targeted, current browser guidance across CSS, HTML, JavaScript,

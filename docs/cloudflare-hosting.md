@@ -26,6 +26,10 @@ usage guides. The Browser DevTools guide lives at `/browser-devtools/`, outside
 the `/skills/*` Markdown header scope. Its catalog card, JSON-LD, and machine-readable
 record use the guide URL; the complete skill folder remains under `/skills/`.
 Markdown and JSON are supplementary agent resources.
+Every catalog card exposes a readable one-off prompt and a Copy prompt button;
+the Browser DevTools guide uses the same prompt. Prompt text is present in static
+HTML, `skills.json`, and `llms.txt`. The shared script progressively enables copying
+on both catalog and guide pages; reading prompts does not require JavaScript.
 These technical measures do not guarantee search indexing or rankings.
 
 GitHub Pages hosting and its deployment workflow were disabled on 9 September 2026.

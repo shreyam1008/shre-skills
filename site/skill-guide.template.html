@@ -9,6 +9,7 @@
     <link rel="canonical" href="{{GUIDE_URL}}" />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="{{STYLES_URL}}" />
+    <script src="{{SCRIPT_URL}}" defer></script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="shre-skills" />
     <meta property="og:title" content="{{TITLE}} | shre-skills" />
@@ -37,7 +38,7 @@
         <div class="install-panel">
           <div class="terminal-heading">your-project / terminal</div>
           <div class="install">
-            <div class="install-heading"><span class="install-kicker">INSTALL THE SKILL</span><h2>Start with one.</h2></div>
+            <div class="install-heading"><span class="install-kicker">OPTIONAL SKILL INSTALLATION</span><h2>Keep it for ongoing work.</h2></div>
             <div class="command"><code>{{INSTALL_BUNX}}</code></div>
             <p class="install-help">Requires Bun and Node.js. Run in your project and choose your coding agent. Prefer npm with Node.js?</p>
             <div class="command"><code>{{INSTALL_NPX}}</code></div>
@@ -48,8 +49,9 @@
       <section class="catalog" id="how-it-works" aria-labelledby="how-title">
         <div class="section-heading"><h2 id="how-title">How it works</h2></div>
         <ol>{{STEPS}}</ol>
-        <h3>Try this prompt</h3>
-        <div class="command"><code>{{PROMPT}}</code></div>
+        <h3>Use once without installing the skill</h3>
+        <p>Copy this prompt into your coding agent and replace the task placeholder. The prompt links the public guidance; the tools required by the task still need to be available.</p>
+        <div class="prompt-block"><div class="prompt-heading"><span class="command-label">ONE-OFF PROMPT</span><button type="button" class="copy-button" data-copy-prompt="{{SKILL_NAME}}" hidden aria-label="Copy prompt for {{SKILL_NAME}}">Copy prompt</button></div><p class="prompt-text" data-prompt="{{SKILL_NAME}}">{{PROMPT}}</p></div>
         <p>{{REQUIREMENTS}}</p>
         {{SETUP_LINK}}
         {{NOTE}}
@@ -57,6 +59,7 @@
       </section>
     </main>
     <footer>
+      <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
       <div class="footer-credit"><a class="footer-brand" href="{{SITE_URL}}">shre-skills</a><p>Made and maintained by <a href="https://shreyam1008.com.np/">Shreyam Adhikari</a>.</p></div>
       <div class="footer-links"><a href="https://github.com/shreyam1008/shre-skills/blob/main/LICENSE">MIT License ↗</a></div>
     </footer>

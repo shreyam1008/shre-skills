@@ -2,12 +2,14 @@
   "ask-dont-assume": {
     "title": "Ask, don't assume",
     "category": "Foundations",
-    "summary": "Clarify consequential choices, preserve settled decisions, and run one assumptions review before material changes."
+    "summary": "Clarify consequential choices, preserve settled decisions, and run one assumptions review before material changes.",
+    "prompt": "Carry out this task after resolving consequential unknowns: [Describe the task or paste the relevant code/URL]. Separate facts, settled decisions, and assumptions; ask only about unresolved choices that materially affect the result. Once those choices are settled, complete the requested work and report the result and verification. For detailed guidance, read https://skills.shreyam1008.com.np/skills/ask-dont-assume/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "browser-devtools": {
     "title": "Browser DevTools",
     "category": "Performance",
     "summary": "Use native agent-browser with Chrome for requests, storage, traces, and React inspection; expand relevant evidence with DevTools when needed.",
+    "prompt": "Diagnose this Chrome app issue: [Paste the URL, reproduction steps, and expected behavior]. Use available native agent-browser and Google Chrome, reproduce the issue, and inspect relevant requests, console errors, storage, traces, or React components. Report the evidence, supported cause, and verification; state missing tool prerequisites. For detailed guidance, read https://skills.shreyam1008.com.np/skills/browser-devtools/SKILL.md and only needed linked references; apply it without installing the skill.",
     "guide": {
       "title": "Browser DevTools for Chrome and React",
       "intro": "Find the cause of a failed request or slow interaction. Start with a compact overview, then inspect the relevant network request, console error, stored state, trace, or React component.",
@@ -16,7 +18,6 @@
         "Collect focused evidence, then follow the request, code, or component responsible.",
         "Verify the cause. When a fix is requested, repeat the same scenario and run the project's checks."
       ],
-      "prompt": "Use $browser-devtools to inspect this React app at <URL> and diagnose the slow <interaction>.",
       "requirements": "Requires the native agent-browser CLI and Google Chrome. The skill installs instructions; it does not install the controller or connect an MCP server. It reads installed tool help and schemas, with official Chrome DevTools for advanced analysis.",
       "setupUrl": "https://github.com/vercel-labs/agent-browser",
       "note": "React inspection starts with the component tree and selected props/state. Render timing needs a development or profiling build. The CLI's aggregate recorder has fewer details than React DevTools Profiler."
@@ -25,101 +26,121 @@
   "caching": {
     "title": "Caching",
     "category": "Performance",
-    "summary": "Keep data fresh across browser, CDN, service worker, and application caches."
+    "summary": "Keep data fresh across browser, CDN, service worker, and application caches.",
+    "prompt": "Diagnose stale content or define a caching policy for: [Describe the task or paste the relevant code/URL]. Identify the serving cache layer from evidence, protect private data, and recommend freshness, revalidation, and invalidation rules with a way to verify them. For detailed guidance, read https://skills.shreyam1008.com.np/skills/caching/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "code-quality": {
     "title": "Review & simplify code",
     "category": "Foundations",
-    "summary": "Find correctness and maintenance problems, then simplify the code while preserving its contracts."
+    "summary": "Find correctness and maintenance problems, then simplify the code while preserving its contracts.",
+    "prompt": "Review or simplify this code as requested: [Describe the task or paste the relevant code/URL]. Trace behavior and callers, check meaningful failure paths, and preserve public contracts. Return prioritized actionable findings or a minimal refactor with relevant verification. For detailed guidance, read https://skills.shreyam1008.com.np/skills/code-quality/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "css": {
     "title": "Modern CSS",
     "category": "Foundations",
-    "summary": "Build responsive layouts with Grid, container queries, design tokens, and a predictable cascade."
+    "summary": "Build responsive layouts with Grid, container queries, design tokens, and a predictable cascade.",
+    "prompt": "Implement or fix the CSS for: [Describe the task or paste the relevant code/URL]. Preserve the intended design, address layout and cascade at their cause, and verify responsive sizing, overflow, focus, and reduced motion where relevant. Return the focused change and checks performed. For detailed guidance, read https://skills.shreyam1008.com.np/skills/css/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "database-guardrails": {
     "title": "Database guardrails",
     "category": "Foundations",
-    "summary": "Plan database changes through explicit approval, minimal schemas, programmatic migrations, and justified indexes."
+    "summary": "Plan database changes through explicit approval, minimal schemas, programmatic migrations, and justified indexes.",
+    "prompt": "Plan this database change from repository schemas and migration files: [Describe the task and provide relevant schema/migration files]. Propose the smallest design, justified indexes, versioned migrations, verification, and recovery. Access or change a database only when its exact target, operation, and scope are explicitly authorized. For detailed guidance, read https://skills.shreyam1008.com.np/skills/database-guardrails/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "git": {
     "title": "Git workflows",
     "category": "Foundations",
-    "summary": "Keep history readable, resolve conflicts carefully, and recover from mistakes."
+    "summary": "Keep history readable, resolve conflicts carefully, and recover from mistakes.",
+    "prompt": "Inspect this Git task and provide safe next steps or perform the requested operations: [Describe the task and identify the repository/branch]. Preserve unrelated changes and intended behavior; do not discard work, rewrite shared history, or publish without specific authorization. Report the resulting state and verification. For detailed guidance, read https://skills.shreyam1008.com.np/skills/git/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "html": {
     "title": "Semantic HTML",
     "category": "Foundations",
-    "summary": "Give pages solid structure with accessible forms, native controls, and useful metadata."
+    "summary": "Give pages solid structure with accessible forms, native controls, and useful metadata.",
+    "prompt": "Implement or correct the HTML for: [Describe the task or paste the relevant code/URL]. Use semantic structure, named native controls, accessible forms, and appropriate head metadata. Preserve intended behavior and verify keyboard interaction and relevant document states. Return the focused change and checks performed. For detailed guidance, read https://skills.shreyam1008.com.np/skills/html/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "javascript": {
     "title": "JavaScript & TypeScript",
     "category": "Foundations",
-    "summary": "Handle async work, data, types, and browser APIs without the common footguns."
+    "summary": "Handle async work, data, types, and browser APIs without the common footguns.",
+    "prompt": "Implement or debug this JavaScript/TypeScript logic: [Describe the task or paste the relevant code/URL]. Trace async work, data boundaries, state ownership, and cleanup; preserve public types and failure behavior. Return a minimal solution with checks for relevant races, invalid inputs, and errors. For detailed guidance, read https://skills.shreyam1008.com.np/skills/javascript/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "low-level-web-rendering": {
     "title": "Choose your renderer",
     "category": "Graphics",
-    "summary": "Find the right path through DOM, SVG, Canvas, GPU, and WASM for your workload."
+    "summary": "Find the right path through DOM, SVG, Canvas, GPU, and WASM for your workload.",
+    "prompt": "Choose a rendering approach for: [Describe the workload, interaction, and target devices]. Compare DOM, SVG, Canvas, workers, WebGL, WebGPU, and WASM against the measured bottleneck. Recommend the least specialized suitable path, preserving semantics, accessibility, fallback, and recovery, with a validation plan. For detailed guidance, read https://skills.shreyam1008.com.np/skills/low-level-web-rendering/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "react-best-practices": {
     "title": "React correctness & performance",
     "category": "React",
-    "summary": "Build reliable components and diagnose slow renders, effects, state, and data loading."
+    "summary": "Build reliable components and diagnose slow renders, effects, state, and data loading.",
+    "prompt": "Implement or review this React component or interaction: [Describe the task or paste the relevant code/URL]. Check the installed React/framework versions, state and effect ownership, data loading, cleanup, and rendering cost where relevant. Preserve the selected stack and return focused changes or findings with interaction checks. For detailed guidance, read https://skills.shreyam1008.com.np/skills/react-best-practices/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "react-three-fiber": {
     "title": "React Three Fiber",
     "category": "Graphics",
-    "summary": "Create efficient 3D scenes with sensible frame loops, reusable assets, and fewer draw calls."
+    "summary": "Create efficient 3D scenes with sensible frame loops, reusable assets, and fewer draw calls.",
+    "prompt": "Build or optimize this React Three Fiber scene: [Describe the scene or paste the relevant code/URL]. Use compatible installed R3F/drei/Three versions, manage frame loops and resource ownership, and measure before optimizing draw calls or quality. Verify actual frames, resize behavior, and cleanup; report changes and results. For detailed guidance, read https://skills.shreyam1008.com.np/skills/react-three-fiber/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "security": {
     "title": "Web security",
     "category": "Foundations",
-    "summary": "Protect trust boundaries with validation, authorization, safe output, and secure defaults."
+    "summary": "Protect trust boundaries with validation, authorization, safe output, and secure defaults.",
+    "prompt": "Review the web security of: [Describe the authorized scope or paste relevant code]. Check input boundaries, authorization, contextual output encoding, sessions, and secret handling. Return evidence-backed priorities and minimal fixes with verification. Redact secrets; assess only authorized systems and do not change production or credentials without authorization. For detailed guidance, read https://skills.shreyam1008.com.np/skills/security/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "service-worker": {
     "title": "Service workers & PWAs",
     "category": "Performance",
-    "summary": "Make offline behavior, cache ownership, and application updates work together."
+    "summary": "Make offline behavior, cache ownership, and application updates work together.",
+    "prompt": "Implement or debug this service-worker/PWA behavior: [Describe the task or paste the relevant code/URL]. Check lifecycle, offline routing, cache ownership, private-data exclusions, and update flow. Preserve other apps' caches and test upgrades, failed requests, and missing offline fallbacks. Return the focused change and verified behavior. For detailed guidance, read https://skills.shreyam1008.com.np/skills/service-worker/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "tanstack": {
     "title": "The TanStack toolkit",
     "category": "React",
-    "summary": "Connect query caches, route data, forms, tables, and virtual lists with less glue code."
+    "summary": "Connect query caches, route data, forms, tables, and virtual lists with less glue code.",
+    "prompt": "Implement or debug this TanStack feature: [Describe the task or paste the relevant code/URL]. Use the project's selected libraries and installed versions. Check query identity, mutation reconciliation, loaders, URL state, or form/table behavior as relevant; preserve loading and error states. Return focused changes and interaction checks. For detailed guidance, read https://skills.shreyam1008.com.np/skills/tanstack/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "vgpu": {
     "title": "vgpu: shaders & 3D",
     "category": "Graphics",
-    "summary": "Build expressive GPU visuals with Vercel’s vgpu: shaders, materials, 3D scenes, and responsive effects."
+    "summary": "Build expressive GPU visuals with Vercel’s vgpu: shaders, materials, 3D scenes, and responsive effects.",
+    "prompt": "Implement or debug this Vercel vgpu visual: [Describe the effect or paste the relevant code/URL]. Resolve the selected package version and its matching docs. Preserve semantic UI, reduced motion, fallback, and resource cleanup; validate shaders and inspect real frames and relevant performance. Return the visual change and checks performed. For detailed guidance, read https://skills.shreyam1008.com.np/skills/vgpu/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "wasm-rust": {
     "title": "Rust & WebAssembly",
     "category": "Graphics",
-    "summary": "Move demanding computation to WASM and keep memory transfers under control."
+    "summary": "Move demanding computation to WASM and keep memory transfers under control.",
+    "prompt": "Evaluate or implement Rust/WebAssembly for: [Describe the compute task or paste relevant code]. Measure CPU work and JS/WASM transfer costs, use compatible toolchain versions, and keep memory ownership and cleanup explicit. Verify output correctness, loading, and main-thread responsiveness; report whether WASM improves the workload. For detailed guidance, read https://skills.shreyam1008.com.np/skills/wasm-rust/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "web-design-guidelines": {
     "title": "Web interface design",
     "category": "Design",
-    "summary": "Create coherent visual systems and review hierarchy, interaction states, accessibility, and responsive behavior."
+    "summary": "Create coherent visual systems and review hierarchy, interaction states, accessibility, and responsive behavior.",
+    "prompt": "Review or improve this web interface: [Describe the task or provide the relevant screen/URL]. Preserve branding and intended interaction. Inspect rendered hierarchy, themes, loading/error states, keyboard access, contrast, and narrow-screen behavior. Return findings by user impact and location, or implement the requested focused repairs and verify them. For detailed guidance, read https://skills.shreyam1008.com.np/skills/web-design-guidelines/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "web-performance": {
     "title": "Web performance",
     "category": "Performance",
-    "summary": "Improve loading, Core Web Vitals, and frame times by measuring the work that matters."
+    "summary": "Improve loading, Core Web Vitals, and frame times by measuring the work that matters.",
+    "prompt": "Diagnose this web performance issue: [Paste the URL, slow interaction, and target devices]. Establish a reproducible baseline, identify the dominant loading, scripting, layout, or paint cost, and recommend or implement requested focused fixes. Compare equivalent before/after scenarios and distinguish lab measurements from field Core Web Vitals. For detailed guidance, read https://skills.shreyam1008.com.np/skills/web-performance/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "webgl": {
     "title": "WebGL",
     "category": "Graphics",
-    "summary": "Take control of shaders, geometry, textures, and draw calls with a reliable GPU foundation."
+    "summary": "Take control of shaders, geometry, textures, and draw calls with a reliable GPU foundation.",
+    "prompt": "Implement or debug this raw WebGL/WebGL2 rendering task: [Describe the task or paste relevant code]. Inspect context capabilities, GLSL, buffers, textures, state, and measured draw cost. Preserve usable fallback and context-loss recovery; verify rendered output, resize behavior, and resource cleanup. Return focused changes and evidence. For detailed guidance, read https://skills.shreyam1008.com.np/skills/webgl/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "webgpu": {
     "title": "WebGPU",
     "category": "Graphics",
-    "summary": "Build modern rendering and compute pipelines with capability checks and usable fallbacks."
+    "summary": "Build modern rendering and compute pipelines with capability checks and usable fallbacks.",
+    "prompt": "Implement or debug this raw WebGPU/WGSL task: [Describe the workload or paste relevant code]. Check secure-context support, device features and limits, shader validation, and resource lifetime. Preserve fallback and device-loss recovery; verify actual output and measured cost on available target hardware. Return focused changes and verification limits. For detailed guidance, read https://skills.shreyam1008.com.np/skills/webgpu/SKILL.md and only needed linked references; apply it without installing the skill."
   },
   "webview2-winui": {
     "title": "WebView2 & WinUI",
     "category": "Native",
-    "summary": "Bring web interfaces into Windows apps with local assets and a secure messaging boundary."
+    "summary": "Bring web interfaces into Windows apps with local assets and a secure messaging boundary.",
+    "prompt": "Implement or debug this WebView2 integration in WinUI 3: [Describe the task or paste relevant native/web code]. Check initialization, local-asset mapping, navigation and message trust boundaries, lifecycle, and packaged assets. Verify affected interactions in the actual Windows app and report native/runtime and build evidence or unperformed checks. For detailed guidance, read https://skills.shreyam1008.com.np/skills/webview2-winui/SKILL.md and only needed linked references; apply it without installing the skill."
   }
 }

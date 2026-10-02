@@ -31,3 +31,38 @@ and [Ezeafk PR 37](https://github.com/Ezeafk/awesome-agent-skills/pull/37) remai
 the campaign did not duplicate them. Catalog Copy prompt actions support one-off
 use without installing skills; agents still require URL access and task tools.
 Submission, acceptance, public availability, and search indexing are separate states.
+
+## Additional website submissions — 2 October 2026
+
+The Google query `agent skills marketplace submit` surfaced AgentHub,
+AgenticSkills, and MCP Market. Other candidates were checked against their own
+submission documentation. The shortlist prioritizes free, relevant intake for
+the whole library; it is not a traffic-ranking claim. Earlier placements were
+not submitted again.
+
+| Channel | Scope | Verified state / next action |
+| --- | --- | --- |
+| askill | All 22 skills | **Publicly live.** Repository intake returned “Found and indexed 22 skills.” Listing IDs `704458` through `704479` each returned anonymous HTTP 200 with the expected skill name, author, canonical page and GitHub source. Example: [Browser DevTools](https://askill.sh/skills/704459). This proves directory publication, not Google indexing. |
+| AgentHub | One collection containing all 22 skills | **Public page / draft status.** [Collection page](https://www.agentskillsmarket.space/skill/shre-skills-22-agent-skills) is anonymously accessible, retains the source-repository link and describes the whole library. Its ZIP contains all 22 expected SKILL.md files and Browser DevTools references. SHA-256: `b44782c8829a76cd207670baacb1ac8f6ecadf09202b0c23cec5d29546c834cb`. The page still says `draft`; moderation approval is unverified. GitHub bulk intake gave no acceptance receipt; the manual repository-backed collection route succeeded. |
+| Skillstore | All 22 skills | **Accepted / processing.** Intake detected 22 skills. [Submission status](https://skillstore.io/submissions/dedfe130-b8d5-4fd0-b8d0-280a4c409b6d) links [processing run 37020600946](https://github.com/aiskillstore/marketplace/actions/runs/37020600946), using source revision `ba9787f41c2fe1be1062eeb6322bc339a1026383`. Audit, review and publication remain external pending steps. |
+| AgenticSkills | Whole repository collection | **Submitted / editorial review.** [Submission form](https://agenticskills.io/submit) returned “Skill Submitted!” and a weekly review-queue receipt. No submission ID or public listing URL supplied. |
+| SkillMD | Individual skill folders | **20 of 22 submitted / 2 rate limited.** [My skills](https://skillmd.com/my-skills) shows 20 submissions under the site's `shreyam-adhikari` namespace, all in review. Names and descriptions came from the source frontmatter; Browser DevTools retained its seven companion files. `webgpu` and `webview2-winui` each returned “rate limited” and remain unaccepted. Resume their prepared folder submissions after the site's limit resets; its reset time was not supplied by the UI. |
+
+Additional routes with incomplete outcomes:
+
+- [MCP Market](https://mcpmarket.com/submit?type=skill) accepted Browser DevTools
+  into its **free** queue (displayed estimate: 4–6 weeks). Ask Don't Assume and
+  Caching both returned “Failed to submit skill.” The other 21 skills have no
+  accepted submission; the failure cause is unconfirmed. No paid placement was
+  purchased.
+- [Agent-Skills.md](https://agent-skills.md/submit) returned “Internal server
+  error” for the skills-folder URL. No acceptance confirmed.
+- [OmniSkill](https://omniskill.online/) returned a network/JSON parsing error.
+  No acceptance confirmed.
+- [Skills Directory](https://www.skillsdirectory.com/submit) authenticated through
+  GitHub, then the repository scan returned “Couldn't submit this skill / Something
+  went wrong. Please try again.” No acceptance confirmed.
+
+Keep receipts and existing submission identities when checking publication or
+feedback. Do not duplicate queued entries, infer acceptance from a spinner, or
+purchase placement to resolve an unexplained failure.

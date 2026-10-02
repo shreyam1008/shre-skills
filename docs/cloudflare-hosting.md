@@ -32,6 +32,13 @@ HTML, `skills.json`, and `llms.txt`. The shared script progressively enables cop
 on both catalog and guide pages; reading prompts does not require JavaScript.
 These technical measures do not guarantee search indexing or rankings.
 
+Bing Webmaster Tools uses the homepage's `msvalidate.01` meta tag for ownership
+verification. Its value comes from the site's Bing verification panel; preserve
+it in `site/index.template.html` when editing the homepage. Submit new or updated
+canonical pages through Google URL Inspection and Bing URL Submission, and
+resubmit the sitemap when its URLs change.
+Check each console's result separately from the site's deployment status.
+
 GitHub Pages hosting and its deployment workflow were disabled on 9 September 2026.
 
 For ordinary rollback, restore a previous successful Cloudflare deployment or

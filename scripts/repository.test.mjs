@@ -166,6 +166,9 @@ test('WebGL diagnostic tolerates an unavailable optional extension', async () =>
 
 test('built catalog contains every source link, install command, and local asset', async () => {
   const html = await readFile(join(repoRoot, '_site/index.html'), 'utf8');
+  const bingTags = [...html.matchAll(/<meta name="msvalidate\.01" content="([^"]+)"\s*\/?>/g)];
+  assert.equal(bingTags.length, 1, 'retain one nonempty Bing ownership verification tag');
+  assert.ok(html.split('</head>')[0].includes(bingTags[0][0]), 'Bing verifies the homepage head');
   assert.ok(!html.includes('{{'));
   assert.match(html, /id="companion-title"/);
   assert.ok(html.includes('https://developer.chrome.com/docs/modern-web-guidance'));

@@ -151,3 +151,78 @@ tests passed locally on Windows before publication.
 Existing queued submissions are updated in place where the directory offers an
 editor. Namespace changes and new duplicate entries are not used to refresh
 metadata; moderation remains separate from source-format checks.
+
+All 22 existing SkillMD entries were subsequently saved in place and reopened
+through the account editor. Their raw SKILL.md text matches the committed source
+after the editor's whitespace trimming and newline normalization. MIT metadata
+is present in every saved entry. Browser DevTools retains all seven companion
+files; the React and design skills retain their reference files. The queue still
+contains exactly 22 entries, with no duplicates, all in review. The public
+profile remains `shreyam1008`; 20 older submission namespaces still retain
+`shreyam-adhikari`, while the last two retain `shreyam1008`. Their existing slugs
+were preserved rather than recreated under another namespace. Public skill
+count zero remains consistent with pending moderation.
+
+## Profile cleanup and another collection contribution — 2 October 2026
+
+The public GitHub profile uses `shreyam1008`, the name Shreyam Adhikari, a concise
+developer bio and the HTTPS personal homepage. The repository description now
+states its web-development scope and one-off prompts; its homepage remains the
+skill catalog.
+
+AgentHub's existing collection has a clear 22-skill description and a verified
+replacement ZIP from commit `97f59e0aebf0edfaf200bd5e5f0cf1ba58ae8bfa`:
+69 files, including every SKILL.md and supporting reference, with SHA256
+`74340912d4d1d862539b9ad1854c0fd94229cdf053ffacd2f06e1053e46dfe35`.
+The downloaded public package matches that hash. Its creator Website anchor
+now links the personal homepage. Catalog/guide URLs remain plain text because
+its description renderer does not render inline Markdown links. The collection
+still says `draft`. The profile shows a generic Los Angeles location, but its
+editor offers no location field; that site placeholder is not verified creator
+information.
+
+[Awesome Codex CLI PR 354](https://github.com/RoggeOhta/awesome-codex-cli/pull/354)
+proposes the **whole collection** in the existing Skills collections section.
+The [contribution rules](https://github.com/RoggeOhta/awesome-codex-cli/blob/main/CONTRIBUTING.md)
+allow clearly useful Codex projects without a minimum star count. The README
+change adds one factual entry and updates the actual resource count 271 to 272.
+The PR discloses maintainership and Codex assistance, and links both owned sites
+in its body. `awesome-lint@2.3.0`, whitespace, duplicate URLs, badge target,
+resource count and Markdown-render checks passed on head
+`bb0c96ff2d336bcfa4f4a76f44bd699289f597d6`. No CI/check/status jobs were
+configured or observed for that head; their absence is not a passing CI result.
+The PR is open and awaiting maintainer review.
+
+The four earlier collection PRs remain open and unmerged. Kodus PR 132 has two
+successful Socket checks on its unchanged head. The others have no reported
+checks; Junminhong PR 61 also requires review. Skillstore discovery succeeded,
+but its audit workflow still processes the earlier submitted `ba9787f41` source.
+
+Larger lists were screened before contributing:
+
+- [VoltAgent](https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md)
+  requires demonstrated community adoption.
+- [travisvn](https://github.com/travisvn/awesome-claude-skills/blob/main/CONTRIBUTING.md)
+  requires 10 stars and excludes AI-assisted submissions.
+- BehiSecc's maintainer applies a 60-star minimum, including collections, in
+  [PR 493](https://github.com/BehiSecc/awesome-claude-skills/pull/493) and
+  [PR 494](https://github.com/BehiSecc/awesome-claude-skills/pull/494).
+- [JackyST0](https://github.com/JackyST0/awesome-agent-skills/blob/main/CONTRIBUTING.md)
+  requires 64 stars.
+- [hesreallyhim](https://github.com/hesreallyhim/awesome-claude-code/blob/main/CONTRIBUTING.md)
+  uses human-only website recommendations.
+- [karanb192](https://github.com/karanb192/awesome-claude-skills/blob/main/CONTRIBUTING.md)
+  requires actual Claude testing in its submission checklist.
+- heilcheng's two-examples-per-skill quality rule remains unverified for this
+  collection, so no PR was submitted there.
+
+No unsupported testing/adoption claims were made to satisfy these conditions.
+
+Metadata commit `97f59e0` passed [CI run 37028503936](https://github.com/shreyam1008/shre-skills/actions/runs/37028503936)
+on both Windows and Ubuntu, with all 16 tests passing, and Cloudflare deployed
+that exact commit. All 22 production skill files and official GitHub raw source
+files return 200 and match normalized committed contents. Canonical metadata,
+assets, catalog, robots, sitemap, HTTPS redirection and real 404 checks passed.
+GitHub's HTML source pages separately returned a common 503 error during the
+probe; recheck those HTML links when GitHub recovers. Available raw files are
+not counted as an HTML availability pass.

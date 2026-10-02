@@ -1,6 +1,7 @@
 ---
 name: tanstack
 description: "Uses TanStack Query, Router, Table, Form, Virtual, or Start in an existing or explicitly selected TanStack project. Use for its query keys, mutations, loaders, URL state, and library APIs; do not introduce the stack for generic React work."
+license: MIT
 ---
 
 # TanStack

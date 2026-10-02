@@ -1,6 +1,7 @@
 ---
 name: css
 description: "Implements or debugs CSS layout, responsive sizing, cascade, selectors, and styling performance. Use for concrete stylesheet work; visual-system design and UX reviews belong to web-design-guidelines."
+license: MIT
 ---
 
 # CSS

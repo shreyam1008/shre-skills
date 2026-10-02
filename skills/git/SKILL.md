@@ -1,6 +1,7 @@
 ---
 name: git
 description: "Manages Git commits, branches, conflict resolution, and recovery. Use when the task requires Git operations or history analysis; follow the repository workflow."
+license: MIT
 ---
 
 # Git

@@ -1,6 +1,7 @@
 ---
 name: web-design-guidelines
 description: Designs or reviews web interfaces for visual hierarchy, coherent tokens and themes, interaction states, responsiveness, and accessibility. Use for a UI redesign, design-system decisions, or a screen/flow review. Pure CSS debugging and HTML markup implementation are separate tasks.
+license: MIT
 ---
 
 # Web interface design and review

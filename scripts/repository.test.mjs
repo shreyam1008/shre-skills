@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { runInNewContext, createContext, runInContext } from 'node:vm';
 import test from 'node:test';
-import { loadSkills, loadSkillMigrations, repoRoot } from './repository.mjs';
+import { loadSkills, loadSkillMigrations, parseSkill, repoRoot } from './repository.mjs';
 
 const bashPath = process.env.BASH_PATH || (process.platform === 'win32' ? 'C:/Program Files/Git/bin/bash.exe' : 'bash');
 const slash = (path) => path.replaceAll('\\', '/');
@@ -29,6 +29,19 @@ const compareFolder = async (source, destination) => {
     else assert.deepEqual(await readFile(copy), await readFile(original));
   }
 };
+
+test('skill metadata supports an optional license while rejecting unknown and duplicate fields', () => {
+  const frontmatter = '---\nname: example\ndescription: A focused example skill.\n';
+  const legacy = { name: 'example', description: 'A focused example skill.' };
+  assert.deepEqual(parseSkill(`${frontmatter}---\n# Example\n`, 'SKILL.md'), legacy);
+  for (const newline of ['\n', '\r\n']) {
+    const source = `${frontmatter}license: MIT\n---\n# Example\n`.replaceAll('\n', newline);
+    assert.deepEqual(parseSkill(source, 'SKILL.md'), { ...legacy, license: 'MIT' });
+  }
+  assert.throws(() => parseSkill(`${frontmatter}unknown: value\n---\n`, 'SKILL.md'), /unsupported frontmatter key unknown/);
+  assert.throws(() => parseSkill(`${frontmatter}license: ""\nlicense: MIT\n---\n`, 'SKILL.md'), /duplicate frontmatter key license/);
+  assert.throws(() => parseSkill(`${frontmatter}license: "MIT\n---\n`, 'SKILL.md'), /license must be a valid double-quoted YAML string/);
+});
 
 test('clean single-skill install copies references exactly without installing other skills', async () => {
   const target = await fixture();

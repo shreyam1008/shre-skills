@@ -1,6 +1,7 @@
 ---
 name: caching
 description: "Diagnoses stale data and defines HTTP/CDN caching, freshness, and invalidation policies. Use for cache headers, ETags, hashed assets, or cache-layer investigations. Service-worker lifecycle and TanStack APIs are separate workflows."
+license: MIT
 ---
 
 # Caching

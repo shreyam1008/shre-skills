@@ -1,6 +1,7 @@
 ---
 name: webgpu
 description: "Implements or debugs raw browser WebGPU/WGSL pipelines, compute, buffers, textures, and device loss. Use for direct GPU API work; vgpu-library APIs and R3F scenes have separate workflows."
+license: MIT
 ---
 
 # WebGPU

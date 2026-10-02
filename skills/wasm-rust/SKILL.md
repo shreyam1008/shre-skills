@@ -1,6 +1,7 @@
 ---
 name: wasm-rust
 description: "Implements Rust/WebAssembly modules and wasm-bindgen integration. Use for measured CPU kernels, wasm packaging, and JS-WASM transfers; not GPU shader execution or DOM styling."
+license: MIT
 ---
 
 # Rust + WebAssembly

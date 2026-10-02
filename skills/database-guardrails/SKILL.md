@@ -1,6 +1,7 @@
 ---
 name: database-guardrails
 description: "Plans database-backed changes with an ask-first safety gate, minimal schema growth, programmatic versioned migrations, and evidence-based indexes. Use for database modeling, schema changes, migrations, data repair, or database performance work; do not access or change a database by default."
+license: MIT
 ---
 
 # Database guardrails

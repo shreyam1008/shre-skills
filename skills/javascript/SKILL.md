@@ -1,6 +1,7 @@
 ---
 name: javascript
 description: "Implements or debugs JavaScript/TypeScript language behavior, async work, data transformations, and runtime memory. Use for JS/TS logic issues; React rendering and UI design have separate workflows."
+license: MIT
 ---
 
 # JavaScript

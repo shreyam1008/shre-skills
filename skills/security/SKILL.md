@@ -1,6 +1,7 @@
 ---
 name: security
 description: "Reviews and implements web security boundaries, authorization, output encoding, session protection, and secret handling. Use for security-sensitive changes or a requested security review."
+license: MIT
 ---
 
 # Security

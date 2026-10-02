@@ -1,6 +1,7 @@
 ---
 name: low-level-web-rendering
 description: "Chooses between DOM, SVG, Canvas, WebGL, WebGPU, and worker rendering, or evaluates experimental HTML-in-Canvas. Use for renderer selection or architecture tradeoffs, not routine work in an already-selected GPU library."
+license: MIT
 ---
 
 # Low-Level Web Rendering

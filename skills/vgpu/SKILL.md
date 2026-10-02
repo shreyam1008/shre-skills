@@ -1,6 +1,7 @@
 ---
 name: vgpu
 description: "Builds shader effects, materials, particles, and 3D visual surfaces with Vercel vgpu. Use when vgpu is requested or installed, including integration and GPU debugging. Read version-matched docs; do not migrate other renderers implicitly."
+license: MIT
 ---
 
 # vgpu: shaders, 3D, and visual UI

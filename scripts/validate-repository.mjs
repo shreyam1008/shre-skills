@@ -17,6 +17,9 @@ for (const skill of skills) {
   if (skill.description.length < 20 || skill.description.length > 1024) {
     errors.push(`${skill.relativeFile}: description must contain 20–1024 characters`);
   }
+  if (skill.license !== 'MIT') {
+    errors.push(`${skill.relativeFile}: license must declare MIT to match the repository LICENSE`);
+  }
 }
 
 if (new Set(folderNames).size !== folderNames.length) errors.push('skill folder names must be unique');

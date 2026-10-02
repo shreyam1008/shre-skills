@@ -1,6 +1,7 @@
 ---
 name: browser-devtools
 description: "Inspect and debug Chrome web apps with the native agent-browser CLI and Chrome DevTools. Use for network requests, console errors, source debugging, storage, performance/CPU/memory analysis, React component trees and render profiling, and browser-driven reproduction. Start with a compact overview, then inspect relevant details using installed APIs."
+license: MIT
 ---
 
 # Browser DevTools

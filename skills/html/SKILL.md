@@ -1,6 +1,7 @@
 ---
 name: html
 description: "Implements semantic HTML, forms, document structure, and head metadata. Use for markup and native accessibility behavior, rather than general visual design or CSS layout."
+license: MIT
 ---
 
 # HTML

@@ -1,6 +1,7 @@
 ---
 name: service-worker
 description: "Implements service-worker lifecycle, offline routing, cache ownership, update flows, and PWA behavior. Use for a worker or offline/PWA task; HTTP/CDN header policy alone belongs to caching."
+license: MIT
 ---
 
 # Service Worker & PWA

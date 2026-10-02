@@ -1,6 +1,7 @@
 ---
 name: react-three-fiber
 description: "Builds and optimizes scenes using @react-three/fiber and drei. Use for R3F frame loops, React scene ownership, assets, and instancing; do not select solely because a task mentions 3D or Three.js."
+license: MIT
 ---
 
 # React Three Fiber

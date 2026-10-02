@@ -1,6 +1,7 @@
 ---
 name: code-quality
 description: Reviews and simplifies code for maintainability and correctness. Use for a requested code review, refactor, removal of unnecessary abstractions or dependencies, or investigation of tangled logic. Not a default checklist for every small edit.
+license: MIT
 ---
 
 # Code review and simplification

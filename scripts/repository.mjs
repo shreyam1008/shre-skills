@@ -38,8 +38,8 @@ export const parseSkill = (source, file) => {
     const match = line.match(/^([a-z][a-z-]*):\s+(.+)$/);
     if (!match) throw new Error(`${file}: unsupported or invalid frontmatter line: ${line}`);
     const [, key, raw] = match;
-    if (!['name', 'description'].includes(key)) throw new Error(`${file}: unsupported frontmatter key ${key}`);
-    if (metadata[key]) throw new Error(`${file}: duplicate frontmatter key ${key}`);
+    if (!['name', 'description', 'license'].includes(key)) throw new Error(`${file}: unsupported frontmatter key ${key}`);
+    if (Object.hasOwn(metadata, key)) throw new Error(`${file}: duplicate frontmatter key ${key}`);
     metadata[key] = parseScalar(raw, file, key);
   }
 

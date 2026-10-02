@@ -1,6 +1,7 @@
 ---
 name: webview2-winui
 description: "Embeds web content in WinUI 3 through WebView2. Use for virtual host mapping, native/web messages, lifecycle, and desktop packaging; not generic browser React development."
+license: MIT
 ---
 
 # WebView2 in WinUI 3

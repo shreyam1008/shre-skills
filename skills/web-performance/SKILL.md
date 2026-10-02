@@ -1,6 +1,7 @@
 ---
 name: web-performance
 description: "Diagnoses browser loading, Core Web Vitals, main-thread work, and layout/paint bottlenecks. Use for a slow page or measured browser-performance issue; isolated React renders and GPU passes have specialist workflows."
+license: MIT
 ---
 
 # Web Performance

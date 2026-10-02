@@ -137,3 +137,17 @@ the collection routes recorded above. [Skillstore's developer guide](https://ski
 and [AgenticSkills' inclusion criteria](https://agenticskills.io/methodology)
 still require audit/editorial review. Format conformance does not establish
 moderation approval; unexplained intake errors remain unresolved errors.
+
+## Metadata refinement — 2 October 2026
+
+Each of the 22 skills now explicitly declares `license: MIT`, matching the
+repository license. Skill instructions and reference files are unchanged.
+SkillMD's published `skillmds@1.3.3` strict lint passes all 22 with **zero errors
+and zero warnings**. The repository parser accepts the standard license field,
+rejects duplicate fields even when their first value is empty, and keeps unknown
+metadata rejected. Repository validation, production build and all 16 regression
+tests passed locally on Windows before publication.
+
+Existing queued submissions are updated in place where the directory offers an
+editor. Namespace changes and new duplicate entries are not used to refresh
+metadata; moderation remains separate from source-format checks.

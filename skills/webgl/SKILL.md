@@ -1,6 +1,7 @@
 ---
 name: webgl
 description: "Implements or debugs raw WebGL/WebGL2 contexts, GLSL, buffers, textures, and GL draw calls. Use for direct WebGL API work, not generic 3D tasks owned by a higher-level renderer."
+license: MIT
 ---
 
 # WebGL

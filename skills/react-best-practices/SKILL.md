@@ -1,6 +1,7 @@
 ---
 name: react-best-practices
 description: Builds and reviews React components, hooks, state, data loading, and rendering performance. Use for React correctness, effect cleanup, slow renders, or unresponsive component interactions. TanStack-specific API work and React Three Fiber scenes have separate workflows.
+license: MIT
 ---
 
 # React correctness and rendering

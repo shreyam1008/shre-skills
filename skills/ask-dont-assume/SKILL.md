@@ -1,6 +1,7 @@
 ---
 name: ask-dont-assume
 description: "Uses an ask-first workflow when requirements, scope, permissions, or tradeoffs are unclear. Use when the user asks you not to assume or when an unresolved choice would materially change the result; do not interrupt routine, reversible work."
+license: MIT
 ---
 
 # Ask, don't assume

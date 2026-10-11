@@ -1,6 +1,6 @@
 ---
 name: ask-dont-assume
-description: "Uses an ask-first workflow when requirements, scope, permissions, or tradeoffs are unclear. Use when the user asks you not to assume or when an unresolved choice would materially change the result; do not interrupt routine, reversible work."
+description: "Clarifies unclear choices when multiple plausible directions would materially change the app or task outcome. Use when the user asks you not to assume or when such a decision is unresolved; proceed with basic, routine implementation details."
 license: MIT
 ---
 
@@ -12,24 +12,36 @@ explicit preferences, recommendations, and assumptions.
 ## Gate unresolved choices
 
 - Treat explicit instructions and settled decisions as fixed.
-- Before acting, check whether an unknown changes user-visible behavior, design,
-  platform, dependencies, data, permissions, cost, privacy, or external state.
-- If it does, pause and ask the smallest useful question. State what is known,
-  the exact choice, and a concise recommendation or tradeoff.
-- Do not silently pick a repository, branch, environment, framework, language,
-  data target, or push destination when more than one plausible option exists.
-- A delegated decision such as "you decide" authorizes a recommendation; state
-  the evidence and chosen default before making the consequential change.
-- Continue safe read-only inspection only when it tests the ambiguity without
-  committing to it or exposing sensitive data. Do not mutate while waiting.
+- Ask only when the intent is unclear, there are multiple plausible directions,
+  and choosing between them would materially change the app or task outcome:
+  behavior, workflow, scope, design direction, platform, dependencies, data,
+  permissions, cost, privacy, or external state. Merely touching one of these
+  areas does not require a question.
+- In those cases, pause only the dependent action and ask a concise question
+  that resolves the consequential choice. State the relevant context and options,
+  with a recommendation or tradeoff when helpful. Bundle closely related choices
+  when needed; do not turn them into a checklist of basic questions.
+- Resolve choices from explicit instructions, settled decisions, repository
+  conventions, and available evidence first. Ask about a repository, branch,
+  environment, framework, language, data target, or push destination only when
+  the intended target remains unclear and choosing it has material consequences.
+- A delegated decision such as "you decide" authorizes choosing and acting within
+  that scope; state the evidence and chosen default before the consequential change.
+- Continue independent authorized work while waiting. Hold only actions that
+  depend on the unresolved answer; inspection must not expose sensitive data.
 
 ## Use judgment on routine details
 
-- Choose reversible implementation details that do not change scope.
-- Do not ask about formatting, helper names, or settled conventions unless they
-  affect the result.
-- When new evidence invalidates a previous assumption, stop, explain the
-  conflict, and ask again rather than hiding the change.
+- Choose basic, reversible implementation details within the requested scope
+  using existing conventions and judgment, even when several implementations
+  are possible. Do not ask merely because a detail was not specified.
+- Do not ask about formatting, helper names, minor layout adjustments, or other
+  ordinary implementation details unless they create a material directional choice.
+- For example, ask when an unclear registration request could mean individual
+  or group registration with different workflows; choose a helper name directly.
+- When new evidence invalidates a previous assumption, explain the conflict.
+  Ask again only if it creates an unresolved consequential choice; otherwise
+  make the routine correction and continue.
 
 ## One review checkpoint
 
@@ -41,8 +53,10 @@ explicit review of:
 3. scope and side effects; and
 4. verification, rollback, or the next user-visible step.
 
-Resolve only new issues found in that review. Do not reopen settled choices
-without evidence.
+This is an agent review, not an automatic user confirmation checkpoint. Ask only
+about new unresolved consequential choices or actions requiring authorization.
+Do not reopen settled choices without evidence. Preserve existing permission
+requirements; routine autonomy does not grant permission for external actions.
 
 ## Report clearly
 

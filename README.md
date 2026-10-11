@@ -95,7 +95,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 
 | Skill | For |
 |---|---|
-| [`ask-dont-assume`](skills/ask-dont-assume/SKILL.md) | Ask before unresolved choices and review assumptions once before material changes. |
+| [`ask-dont-assume`](skills/ask-dont-assume/SKILL.md) | Clarify unclear choices with materially different outcomes; proceed with routine details. |
 | [`code-quality`](skills/code-quality/SKILL.md) | Focused code review, correctness, and simplification. |
 | [`database-guardrails`](skills/database-guardrails/SKILL.md) | Ask-first database work with minimal schemas, programmatic migrations, and evidence-based indexes. |
 | [`html`](skills/html/SKILL.md) | Semantic markup, forms, a11y, metadata. |

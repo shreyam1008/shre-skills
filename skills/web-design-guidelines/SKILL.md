@@ -22,6 +22,14 @@ Separate destructive actions from routine ones. Use confirmation, undo, or anoth
 
 Represent loading, empty, error, success, and stale states where the flow can encounter them. Preserve user input during recoverable failures. Show active search/filter state and a clear reset path.
 
+## Layout stability
+
+- Keep search, filter, sort, action, and pagination controls in predictable positions during routine updates. Changing results or loading state should not unexpectedly resize or move nearby controls, disrupting pointer targeting or keyboard focus.
+- Reserve space for media and asynchronous content. Give changing filter chips, result counts, badges, and loading labels a stable region or separate row so they do not take width from the search field and push its buttons around. Use suitable grid tracks or width bounds; do not require fixed pixel sizes everywhere.
+- Keep table column and action widths stable as rows change through filtering, sorting, or pagination. Choose column sizing and overflow behavior explicitly; truncate long values with an accessible way to read the full value when needed. Preserve focus and avoid unnecessary scroll resets.
+- Allow intentional expansion, user-driven rearrangement, and responsive reflow when the viewport changes. Stability must not prevent content access, text zoom, or usable small-screen layouts.
+- Compare before and after states at the same viewport: no filters, one or many chips, long labels, loading, populated, and empty results. Check that changing content does not move the controls the user is operating; an initial-load check alone is insufficient.
+
 ## Accessibility and responsiveness
 
 - Use named native controls where possible, with logical keyboard order and visible focus. Check the actual interaction, not just presence of ARIA attributes.
@@ -30,7 +38,6 @@ Represent loading, empty, error, success, and stale states where the flow can en
 - Keep touch targets comfortably usable; account for WCAG target-size exceptions and aim for 44px where practical. Respect reduced motion, text zoom, and forced colors.
 - Check meaningful image alternatives, errors associated with fields, and appropriate status announcements.
 - Test narrow screens with realistic long labels and data. Preserve intentional scrolling for tables or graphics while fixing accidental page overflow.
-- Reserve space for media and asynchronous content so the interface does not jump during use.
 
 ## Verification and findings
 

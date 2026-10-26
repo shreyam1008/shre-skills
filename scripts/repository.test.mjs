@@ -225,6 +225,13 @@ test('usage guides publish crawlable HTML, canonical metadata, assets, and compl
     assert.equal(html.match(/property="og:url" content="([^"]+)"/)[1], skill.url);
     assert.equal(schema['@graph'].find((item) => item['@type'] === 'WebPage').url, skill.url);
     assert.equal(schema['@graph'].find((item) => item['@type'] === 'CreativeWork').encoding.contentUrl, skill.markdownUrl);
+    const breadcrumbs = schema['@graph'].find((item) => item['@type'] === 'BreadcrumbList').itemListElement;
+    assert.deepEqual(breadcrumbs.map(({ position, item }) => ({ position, item })), [
+      { position: 1, item: catalog.url }, { position: 2, item: skill.url },
+    ]);
+    assert.match(html, /aria-label="Breadcrumb"/);
+    assert.ok(html.includes(`aria-current="page">${htmlText(skill.guide.title)}</span>`));
+    assert.ok(html.includes(`content="shre-skills: ${htmlText(skill.guide.title)}"`));
     assert.ok(home.includes(`href="${skill.url}"`));
     assert.ok(sitemap.includes(`<loc>${skill.url}</loc>`));
     assert.ok(llms.includes(skill.url));

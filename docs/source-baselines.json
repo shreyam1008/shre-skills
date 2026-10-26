@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-02",
+  "reviewedAt": "2026-10-26",
   "sources": [
     {
       "id": "gpuweb-spec",
@@ -21,27 +21,60 @@
       "title": "WICG HTML-in-Canvas proposal",
       "kind": "git",
       "url": "https://github.com/WICG/html-in-canvas",
-      "revision": "14a0815adaf8f146112f35927a32831d31cc4ccc",
+      "revision": "5fb3df86d84de598c7f0fcfc5ee53de1df067e7d",
       "skills": [
+        "html-in-canvas",
         "low-level-web-rendering",
         "webgpu",
         "webgl"
       ],
-      "reviewedAt": "2026-09-09",
-      "reviewScope": "Reviewed current explainer, API names, drawable snapshots, worker transfer, geometry, and paint event ordering."
+      "reviewedAt": "2026-10-26",
+      "reviewScope": "Reviewed content=drawable, drawable boundaries, paint snapshots, current drawing APIs, geometry and accessibility, readback restrictions, and worker ownership. Trial wording remains older than Chrome's implementation docs; use runtime capability checks and the separate rollout record."
     },
     {
-      "id": "html-in-canvas-origin-trial",
-      "title": "Chromium HTML-in-Canvas intent and extension",
-      "kind": "browser-intent",
-      "url": "https://groups.google.com/a/chromium.org/g/blink-dev/c/BpWbzJ9P22s",
-      "revision": "origin-trial-extended-through-m154",
+      "id": "html-in-canvas-chrome-status",
+      "title": "Chrome 157 release status and HTML-in-Canvas entry",
+      "kind": "platform-docs",
+      "url": "https://chromestatus.com/release-notes/157",
+      "revision": "chrome-157-beta-stable-scheduled-2026-11-03-checked-2026-10-26",
       "skills": [
+        "html-in-canvas",
         "low-level-web-rendering",
         "webgpu",
         "webgl"
       ],
-      "reviewedAt": "2026-09-09"
+      "reviewedAt": "2026-10-26",
+      "reviewScope": "HTML-in-Canvas listed for M157; full Stable scheduled 3 November while release page still identifies Beta. Replaces the September origin-trial-only baseline without asserting universal availability."
+    },
+    {
+      "id": "html-in-canvas-chrome-guides",
+      "title": "Chrome HTML-in-Canvas overview and context implementation guides",
+      "kind": "platform-docs",
+      "url": "https://developer.chrome.com/docs/web-platform/html-in-canvas",
+      "revision": "overview-concepts-2d-webgl-webgpu-updated-2026-10-23",
+      "skills": ["html-in-canvas", "low-level-web-rendering", "html", "webgl", "webgpu", "vgpu"],
+      "reviewedAt": "2026-10-26",
+      "reviewScope": "Reviewed overview, concepts including fallback, and all three context guides: current names, getElementImageDefaultSize, texture allocation/usage, paint lifecycle, CSS versus canvas pixels, and geometry. Chrome 157 support in docs is distinct from rollout status."
+    },
+    {
+      "id": "html-in-canvas-chrome-demos",
+      "title": "Chrome CSS and Web UI demos: HTML-in-Canvas",
+      "kind": "git",
+      "url": "https://github.com/GoogleChromeLabs/css-web-ui-demos",
+      "revision": "dbb54120c0271246611fb64577f6f177d2e0c258",
+      "skills": ["html-in-canvas"],
+      "reviewedAt": "2026-10-26",
+      "reviewScope": "Reviewed HTML-in-Canvas resource list and demo directory as discovery sources, including separate community examples and framework links. No demo code copied or target-browser conformance inferred."
+    },
+    {
+      "id": "modern-web-guidance-html-canvas",
+      "title": "Modern Web Guidance: HTML media export from canvas",
+      "kind": "git",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance",
+      "revision": "65e7edd67e77420eaf02c5df00fdc0521417d809",
+      "skills": ["html-in-canvas"],
+      "reviewedAt": "2026-10-26",
+      "reviewScope": "Reviewed skills/modern-web-guidance/guides/visual-design/export-html-media-from-canvas.md only. Support statements conflict internally and snapshot sizing still uses ElementImage.width/height; current Chrome context guides govern. This narrow review does not refresh the older broader corpus baseline."
     },
     {
       "id": "modern-web-guidance",

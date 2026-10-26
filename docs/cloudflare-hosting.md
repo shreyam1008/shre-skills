@@ -22,9 +22,13 @@ search, command copying, and the global bunx/npx choice; bunx is the default.
 SEO metadata includes a descriptive title and description, canonical URL,
 Open Graph and Twitter text previews, and WebSite/CollectionPage/ItemList
 structured data. The sitemap lists the canonical catalog and any focused HTML
-usage guides. The Browser DevTools guide lives at `/browser-devtools/`, outside
+usage guides. Browser DevTools lives at `/browser-devtools/` and HTML-in-Canvas
+at `/html-in-canvas/`, outside
 the `/skills/*` Markdown header scope. Its catalog card, JSON-LD, and machine-readable
-record use the guide URL; the complete skill folder remains under `/skills/`.
+record use each guide's URL; the complete skill folder remains under `/skills/`.
+Guides have unique titles/descriptions, canonical and social metadata, and
+visible breadcrumbs matching their BreadcrumbList structured data. Guide URLs
+are generated into the sitemap and agent indexes from the catalog records.
 Markdown and JSON are supplementary agent resources.
 Every catalog card exposes a readable one-off prompt and a Copy prompt button;
 the Browser DevTools guide uses the same prompt. Prompt text is present in static

@@ -1,6 +1,6 @@
 ---
 name: low-level-web-rendering
-description: "Chooses between DOM, SVG, Canvas, WebGL, WebGPU, and worker rendering, or evaluates experimental HTML-in-Canvas. Use for renderer selection or architecture tradeoffs, not routine work in an already-selected GPU library."
+description: "Chooses between DOM, SVG, Canvas, WebGL, WebGPU, worker rendering, and HTML-in-Canvas. Use for renderer selection or architecture tradeoffs; HTML-in-Canvas implementation and existing GPU-library work have separate workflows."
 license: MIT
 ---
 
@@ -15,6 +15,7 @@ Choose the least specialized renderer that meets the product need. A GPU path is
 | Text, forms, navigation, selectable content | DOM + CSS | Native semantics, layout, accessibility, input, search, and internationalization. |
 | Scalable diagrams with addressable elements | SVG | DOM semantics plus vector rendering; watch very large node counts. |
 | Dense custom 2D pixels, drawing, charts, sprites | Canvas 2D | Immediate-mode rendering; supply a semantic DOM alternative for interaction. |
+| Live HTML panels or shader-treated controls inside a canvas scene | HTML-in-Canvas when supported | Retains DOM layout and semantics; synchronize drawing and interaction geometry, and keep a usable DOM fallback. See `html-in-canvas`. |
 | Canvas work blocks input/scroll | OffscreenCanvas + Worker | Moves supported rendering and preparation off the main thread. Feature-detect. |
 | Portable 3D/shaders | WebGL2 | Mature compatibility; use an engine unless raw API control is the product. |
 | Compute, storage buffers, explicit modern GPU pipelines | WebGPU | Progressive enhancement with a WebGL/CPU fallback; see `webgpu`. |
@@ -78,26 +79,11 @@ if ('transferControlToOffscreen' in canvas) {
 - Transfer ownership once. Do not copy large frame payloads when transferable buffers or shared state are justified.
 - Worker support differs by context/API. Test the exact browser matrix; the fallback is part of the architecture.
 
-## HTML-in-Canvas and CSS Paint: lab only
+## HTML-in-Canvas and CSS Paint
 
-HTML-in-Canvas is a **WICG proposal**, not a production rendering dependency. The current explainer keeps real DOM descendants under `<canvas layoutsubtree>`, marks drawn elements with `drawable`, and uses `drawElementImage()`, `texElementSubImage2D()`, and `GPUQueue.drawElementImageToTexture()` for Canvas 2D, WebGL, and WebGPU. Earlier drafts used different names. It is not DOM-free painting, and vgpu does not require it.
+HTML-in-Canvas draws live DOM inside a canvas; it does not remove DOM layout or replace the core WebGL/WebGPU APIs. Use it when HTML needs to share a canvas scene or shader effect. For implementation, use `html-in-canvas`, which owns support checks, `content="drawable"`, paint scheduling, geometry, and fallback. It is independent of vgpu.
 
-Current status reviewed 9 September 2026:
-
-- Chromium records the origin trial as M148–M150, subsequently extended through M154.
-- Gecko and WebKit have no positive implementation signal.
-- The API shape, privacy rules, hit testing, and accessibility behavior are still being developed.
-- The explainer now includes `CanvasPaintEvent.changedElements`, transferable `ElementImage` snapshots for workers, and explicit element geometry updates. Snapshot drawing and DOM updates are distinct: mutations during `paint` appear in the next rendering update.
-- WebGL/WebGPU experiments must update element geometry for hit testing and accessibility; 2D drawing can update it automatically. Captured snapshots do not make DOM layout or input independent of the main thread.
-- Cross-origin embedded content and readback are restricted; consult the current privacy rules rather than treating this as unrestricted DOM screenshot access.
-
-Rules:
-
-- Use it only for a lab/prototype or a separately guarded enhancement.
-- Feature-detect the exact method; never infer it from a Chrome version.
-- Keep an equivalent semantic DOM path visible and meaningful when the experimental drawing method is absent; descendants used only as ordinary canvas fallback content are not enough in a canvas-capable browser.
-- Production fallback: DOM overlay for interactive UI; DOM/SVG/Canvas 2D for 2D content; DOM overlay or established texture pipeline for WebGL/WebGPU scenes.
-- Never make an origin-trial token or browser flag a normal-user requirement.
+Support reviewed 26 October 2026: Chrome's documentation describes Chrome 157, while Chrome Status schedules its full stable release for 3 November. Treat this as a capability-gated enhancement and verify the actual target runtime. Keep ordinary DOM/overlay interaction when unsupported; canvas fallback descendants alone are insufficient. Browser flags and origin trials are development tools, not normal-user prerequisites.
 
 CSS Paint worklets are also a specialized progressive enhancement, not an escape hatch from DOM/CSS architecture. Keep an ordinary CSS background/border fallback and do not put content or essential state only in paint output.
 
@@ -131,5 +117,5 @@ CSS Paint worklets are also a specialized progressive enhancement, not an escape
 - W3C: [WebCodecs](https://www.w3.org/TR/webcodecs/) and [CSS Painting API](https://drafts.css-houdini.org/css-paint-api/).
 - MDN: [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API), [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas), and [WebCodecs](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API).
 - WICG: [HTML-in-Canvas explainer](https://github.com/WICG/html-in-canvas).
-- Chromium: [HTML-in-Canvas intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/t_nGEmJ_v4s) and [experiment extension](https://groups.google.com/a/chromium.org/g/blink-dev/c/BpWbzJ9P22s).
+- Chrome: [HTML-in-Canvas overview](https://developer.chrome.com/docs/web-platform/html-in-canvas) and [Chrome 157 release status](https://chromestatus.com/release-notes/157).
 - web.dev: rendering performance and avoiding large, complex layouts and layout thrashing.

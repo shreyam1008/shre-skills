@@ -88,7 +88,7 @@ const sections = categories.map((category) => {
 </section>`;
 }).join('\n');
 const categoryLinks = `<a href="#catalog" data-filter="all" aria-current="true">All skills <span>${skills.length}</span></a>` + categories.map((category) => `<a href="#category-${category.id}" data-filter="${category.id}">${escapeHtml(category.title)} <span>${records.filter((skill) => skill.category === category.key).length}</span></a>`).join('\n');
-const description = `Browse ${skills.length} open-source agent skills for web development, React, performance, design, graphics, and native apps. Copy a one-off prompt or install with bunx or npx.`;
+const description = `Browse ${skills.length} free coding-agent skills for React, HTML-in-Canvas, WebGPU, web performance, and native apps. Copy a prompt or install with bunx or npx.`;
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -141,6 +141,10 @@ for (const skill of guides) {
       { '@type': 'CreativeWork', '@id': skill.url, name: skill.title, description: skill.summary, url: skill.url,
         inLanguage: 'en', license: `${repository}/blob/main/LICENSE`, sameAs: skill.sourceUrl,
         encoding: { '@type': 'MediaObject', contentUrl: skill.markdownUrl, encodingFormat: 'text/markdown' } },
+      { '@type': 'BreadcrumbList', '@id': `${skill.url}#breadcrumbs`, itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'All skills', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: skill.guide.title, item: skill.url },
+      ] },
     ],
   };
   const replacements = {

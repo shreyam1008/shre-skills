@@ -2,6 +2,24 @@
 
 Last checked: 2 October 2026 (UTC)
 
+## HTML-in-Canvas publication — 26 October 2026
+
+The main update adds a 23rd skill, `html-in-canvas`, and the dedicated
+[website guide](https://skills.shreyam1008.com.np/html-in-canvas/). README, catalog
+search, one-off prompts, `skills.json`, and `llms.txt` expose the same skill.
+The guide has canonical and social metadata, visible/structured breadcrumbs,
+and a generated sitemap entry. Existing install and static-output checks cover
+the additional skill and reference; usage-guide checks cover its URLs and metadata.
+
+Publication goes through `main` and the existing Cloudflare Pages integration.
+Verify Windows/Linux CI and Cloudflare against the exact pushed commit, then
+check the public guide, Markdown, reference, sitemap, catalog, assets, and 404.
+Source/deployment success does not establish search indexing or a CalVer release.
+The channel table and directory-placement evidence below retain their original
+check dates and counts; they are historical evidence, not a fresh directory audit.
+
+## Public channel snapshot — 2 October 2026
+
 | Channel | Version | Status | Evidence / next action |
 | --- | --- | --- | --- |
 | GitHub repository | `main` (unreleased) | **Live** | 22 active skills, including Chrome/React `browser-devtools`, optional references, and install migration documentation. Google's Modern Web Guidance remains an upstream companion. |

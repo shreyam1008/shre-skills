@@ -17,7 +17,8 @@ Most skills here are original syntheses written from primary sources (MDN, web.d
 
 - Skill structure follows [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-skills) and [Claude authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): bounded triggers, focused instructions, and optional references loaded for the matching task.
 - `css` / `html` / `javascript` / `web-performance` cross-reference [`GoogleChrome/modern-web-guidance-src`](https://github.com/GoogleChrome/modern-web-guidance-src).
-- `webgpu` and the rendering decision guidance are synthesized from the [GPU for the Web specifications](https://github.com/gpuweb/gpuweb), [Khronos WebGL](https://github.com/KhronosGroup/WebGL), and the [WICG HTML-in-Canvas proposal](https://github.com/WICG/html-in-canvas). HTML-in-Canvas remains explicitly experimental.
+- `webgpu` and the rendering decision guidance are synthesized from the [GPU for the Web specifications](https://github.com/gpuweb/gpuweb), [Khronos WebGL](https://github.com/KhronosGroup/WebGL), and the [WICG HTML-in-Canvas proposal](https://github.com/WICG/html-in-canvas).
+- `html-in-canvas` is an original synthesis of [Chrome's implementation guides](https://developer.chrome.com/docs/web-platform/html-in-canvas), the WICG explainer, and the [Chrome team's demo collection](https://github.com/GoogleChromeLabs/css-web-ui-demos/tree/main/html-in-canvas). It keeps runtime support distinct from rollout announcements and community examples; no upstream skill or demo is vendored.
 
 ## Primary references used across skills
 

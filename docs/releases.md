@@ -7,6 +7,20 @@ The repository will use CalVer tags in `YYYY.MM.DD` form. A tag is created only 
 
 No CalVer release has been published yet. The current public GitHub repository remains the distribution authority until the first verified tag is created. The custom-domain catalog is live on Cloudflare Pages with verified HTTPS; a live catalog is distinct from a tagged release.
 
+## 2026-10-26 — HTML-in-Canvas skill and website guide (main, untagged)
+
+Added `html-in-canvas` as a focused implementation skill with optional context
+notes. The renderer router delegates to it; HTML, WebGL, WebGPU, and vgpu retain
+their existing ownership. Replaced stale lab-only and `layoutsubtree` guidance
+with current API names, explicit support checks, paint and geometry handling,
+and a usable DOM fallback. README and generated catalogs now contain 23 skills.
+See [scope and source review](html-in-canvas-review-2026-10-26.md).
+Added a focused `/html-in-canvas/` usage guide, linked from the README and
+catalog, with canonical/social metadata, structured data, sitemap discovery, and
+the existing one-off prompt. Usage guides now expose visible and structured
+breadcrumbs. Publication uses the existing main/Cloudflare flow; no CalVer tag
+is created. Channel verification is recorded separately in the distribution log.
+
 ## 2026-10-02 — Chrome and React Browser DevTools (main, untagged)
 
 Added `browser-devtools` for focused Chrome network, console, storage, source,

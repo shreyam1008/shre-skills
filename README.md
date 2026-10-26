@@ -8,9 +8,9 @@ Public catalog and release state are recorded in [`product.json`](product.json) 
 
 **Focused agent skills for building fast, correct web apps.**
 
-HTML/CSS/JS · React + TanStack · performance · caching · security · GPU/WASM rendering
+HTML/CSS/JS · React + TanStack · performance · caching · security · HTML-in-Canvas · GPU/WASM rendering
 
-[![skills](https://img.shields.io/badge/skills-22-6C5CE7?style=for-the-badge)](#-skills)
+[![skills](https://img.shields.io/badge/skills-23-6C5CE7?style=for-the-badge)](#-skills)
 [![license](https://img.shields.io/badge/license-MIT-00B894?style=for-the-badge)](LICENSE)
 [![sources](https://img.shields.io/badge/sources-pinned_primary-0984E3?style=for-the-badge)](docs/source-baselines.json)
 [![by](https://img.shields.io/badge/by-buggythegret-FD79A8?style=for-the-badge)](https://shreyam1008.com.np)
@@ -39,6 +39,26 @@ performance, forms, accessibility, and security. Its pinned source and the
 existing skills it informs are recorded in [`docs/source-baselines.json`](docs/source-baselines.json).
 For a feature-specific guide, use `npx modern-web-guidance@latest search "<task>"`.
 
+### HTML-in-Canvas
+
+Use `html-in-canvas` to draw live HTML into
+Canvas 2D, WebGL, or WebGPU: interactive scene panels, rich labels, and shader
+effects that preserve native controls. Read the [HTML-in-Canvas usage guide](https://skills.shreyam1008.com.np/html-in-canvas/)
+for support requirements, the workflow, and a one-off prompt.
+
+```bash
+bunx skills add shreyam1008/shre-skills --skill html-in-canvas
+```
+
+Example request: “Use $html-in-canvas to add an interactive HTML settings panel
+to this canvas scene. Check the target browser, synchronize paint and input
+geometry, and keep the form usable as ordinary HTML when unsupported.”
+
+Use `low-level-web-rendering` when choosing the renderer; use `html-in-canvas`
+once live HTML inside a canvas is the task. The existing `html`, `webgl`, and
+`webgpu` skills retain their roles. This skill is independent of Google's
+Modern Web Guidance and does not install an engine or enable browser features.
+
 ## ⚡ Quick start
 
 Run from your target project with Bun and Node.js installed. Select all skills, then choose your agent in the CLI. Prefer npm? Replace `bunx` with `npx` in any command:
@@ -61,12 +81,13 @@ installing the skill alone does not install the controller or connect MCP.
 See the [short usage guide](https://skills.shreyam1008.com.np/browser-devtools/).
 
 <details open>
-<summary><b>📋 Copy all 22 one-liners</b></summary>
+<summary><b>📋 Copy all 23 one-liners</b></summary>
 
 ```bash
 bunx skills add shreyam1008/shre-skills --skill code-quality
 bunx skills add shreyam1008/shre-skills --skill ask-dont-assume
 bunx skills add shreyam1008/shre-skills --skill html
+bunx skills add shreyam1008/shre-skills --skill html-in-canvas
 bunx skills add shreyam1008/shre-skills --skill css
 bunx skills add shreyam1008/shre-skills --skill database-guardrails
 bunx skills add shreyam1008/shre-skills --skill javascript
@@ -99,6 +120,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`code-quality`](skills/code-quality/SKILL.md) | Focused code review, correctness, and simplification. |
 | [`database-guardrails`](skills/database-guardrails/SKILL.md) | Ask-first database work with minimal schemas, programmatic migrations, and evidence-based indexes. |
 | [`html`](skills/html/SKILL.md) | Semantic markup, forms, a11y, metadata. |
+| [`html-in-canvas`](skills/html-in-canvas/SKILL.md) | Live HTML in Canvas 2D/WebGL/WebGPU: paint lifecycle, textures, interaction geometry, and DOM fallback. |
 | [`css`](skills/css/SKILL.md) | Grid/flex, container queries, `:has()`/`@scope`, tokens. |
 | [`javascript`](skills/javascript/SKILL.md) | Modern JS/TS: async, immutability, footguns. |
 | [`git`](skills/git/SKILL.md) | Commits, branching, rebase/merge, recovery. |
@@ -114,7 +136,7 @@ bunx skills add shreyam1008/shre-skills --skill webview2-winui
 | [`webgpu`](skills/webgpu/SKILL.md) | Browser WebGPU/WGSL, compute, device loss, measured fallbacks. |
 | [`vgpu`](skills/vgpu/SKILL.md) | Vercel vgpu: shader effects, procedural materials, 3D, visual UI, and version-aware docs. |
 | [`wasm-rust`](skills/wasm-rust/SKILL.md) | Hot paths to Rust + WebAssembly. |
-| [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Production router for DOM, SVG, Canvas, GPU, WASM, and rendering labs. |
+| [`low-level-web-rendering`](skills/low-level-web-rendering/SKILL.md) | Choose DOM, SVG, Canvas, GPU, WASM, or capability-gated HTML-in-Canvas. |
 | [`web-design-guidelines`](skills/web-design-guidelines/SKILL.md) | Visual systems, themes, hierarchy, accessibility, and UI state reviews. |
 | [`webview2-winui`](skills/webview2-winui/SKILL.md) | WebView2 in WinUI 3: virtual host mapping, SPA integration, messaging. |
 
@@ -157,7 +179,7 @@ See the [Skills CLI documentation](https://github.com/vercel-labs/skills) for ag
 
 ### Merged skills
 
-The library now has 22 focused skills. Use these replacement names for new Skills CLI installs:
+The library now has 23 focused skills. Use these replacement names for new Skills CLI installs:
 
 | Previous name | Replacement |
 |---|---|

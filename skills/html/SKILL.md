@@ -55,6 +55,8 @@ Semantic HTML is the cheapest accessibility and SEO win available — the browse
 
 ## Reference
 
+For live HTML rendered inside a canvas, use `html-in-canvas` for paint, geometry, and support checks. Keep this skill for the underlying semantic markup; ordinary HTML does not need a canvas.
+
 - `GoogleChrome/modern-web-guidance-src` (HTML/forms/accessibility guides).
 - MDN: HTML element reference; "HTML: A good basis for accessibility".
 - WHATWG HTML Living Standard; web.dev: "Learn HTML", "Learn Forms".

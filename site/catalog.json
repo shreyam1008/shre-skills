@@ -59,6 +59,26 @@
     "summary": "Give pages solid structure with accessible forms, native controls, and useful metadata.",
     "prompt": "Implement or correct the HTML for: [Describe the task or paste the relevant code/URL]. Use semantic structure, named native controls, accessible forms, and appropriate head metadata. Preserve intended behavior and verify keyboard interaction and relevant document states. Return the focused change and checks performed. For detailed guidance, read https://skills.shreyam1008.com.np/skills/html/SKILL.md and only needed linked references; apply it without installing the skill."
   },
+  "html-in-canvas": {
+    "title": "HTML-in-Canvas",
+    "category": "Graphics",
+    "summary": "Draw live HTML into 2D or GPU canvas scenes with aligned input, paint updates, and usable DOM fallbacks.",
+    "prompt": "Implement or debug HTML-in-Canvas for: [Describe the HTML panel, effect, or canvas scene and target browsers]. Check current browser and installed engine APIs, preserve real semantic controls and an ordinary DOM fallback, and implement paint synchronization, texture sizing, and interaction geometry for the selected context. Verify pixels, keyboard/pointer input, resize, and unsupported behavior; report runtime limits. For detailed guidance, read https://skills.shreyam1008.com.np/skills/html-in-canvas/SKILL.md and only needed linked references; apply it without installing the skill.",
+    "guide": {
+      "title": "HTML-in-Canvas for 2D, WebGL and WebGPU",
+      "intro": "Draw real HTML into a canvas while retaining native controls and semantic structure. Use this agent skill for interactive panels in 3D scenes, styled chart labels, or shader effects on HTML. It covers the paint lifecycle, texture updates, interaction geometry, and a usable DOM fallback.",
+      "steps": [
+        "Choose the existing Canvas 2D, WebGL, WebGPU, or engine integration and check its actual HTML-in-Canvas APIs. Keep ordinary HTML visible until the enhanced path is ready; browser or engine names alone do not establish support.",
+        "Set content=\"drawable\" on the canvas and mark independently drawn descendants with drawable. Keep real labels, buttons, and forms. Nested drawable elements need their own draw calls because their pixels are excluded from the parent's snapshot.",
+        "Render fresh HTML snapshots in the paint event. Use drawElementImage for 2D, texElementSubImage2D for WebGL, or drawElementImageToTexture for WebGPU. Allocate textures at the measured size and update them when the HTML changes.",
+        "Align input with the image. 2D drawing updates element geometry by default; GPU scenes must call updateElementGeometry with a matching CSS-pixel transform as the scene moves. Keep pointer targets, focus, and accessibility bounds synchronized.",
+        "Verify actual rendering, typing, selection, keyboard focus, resize, and the unsupported path. Preserve an ordinary DOM or overlay alternative and measure layout, paint, and upload costs before claiming a performance improvement."
+      ],
+      "requirements": "Requires a browser/runtime exposing the selected HTML-in-Canvas methods and access to the app's source and browser tools. A GPU path also needs a working WebGL or WebGPU context. Installing the skill adds guidance; it does not install a graphics engine or enable browser features.",
+      "setupUrl": "https://developer.chrome.com/docs/web-platform/html-in-canvas",
+      "note": "Support reviewed 26 October 2026: Chrome's guides describe Chrome 157 support, while Chrome Status schedules its full Stable release for 3 November. Recheck the target runtime and keep a working fallback; normal users should not need development flags."
+    }
+  },
   "javascript": {
     "title": "JavaScript & TypeScript",
     "category": "Foundations",

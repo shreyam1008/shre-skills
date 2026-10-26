@@ -115,9 +115,9 @@ context.configure({ device, format, alphaMode: 'premultiplied' });
 - Watch for pipeline churn, redundant bind groups, too many submissions, oversized textures, overdraw, and hidden readbacks.
 - Test integrated GPUs, battery-saving modes, blocklisted adapters, software fallbacks, and device loss—not only a desktop discrete GPU.
 
-## Experimental HTML-in-Canvas boundary
+## HTML-in-Canvas integration
 
-The proposed `GPUQueue.drawElementImageToTexture()` HTML-in-Canvas path (formerly `copyElementImageToTexture()`) is not a production WebGPU primitive yet. The explainer was rechecked on 9 September 2026; it remains separate from the core WebGPU specification. Keep semantic DOM or another renderer as the shipping path and feature-detect experiments against the current draft. See `low-level-web-rendering` for the routing and fallback rule. For Vercel's vgpu library and shader-based visual UI, use `vgpu`; it does not depend on HTML-in-Canvas.
+For live DOM textures through `GPUQueue.drawElementImageToTexture()`, use `html-in-canvas` alongside this skill. It owns the separate support gate, texture upload requirements, paint lifecycle, interaction geometry, and DOM fallback. WebGPU availability alone does not provide this method. For Vercel's vgpu library, use `vgpu`; it does not require HTML-in-Canvas.
 
 ## Ship gate
 

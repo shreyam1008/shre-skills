@@ -161,6 +161,8 @@ footer { display: flex; align-items: center; justify-content: space-between; gap
   .category::before { background: CanvasText; }
 }
 
+.guide-breadcrumbs { margin-top: 2rem; flex-wrap: wrap; align-items: baseline; gap: .6rem; color: var(--muted); font-size: .875rem; overflow-wrap: anywhere; }
+
 /* Progressive controls and grouped browsing. The HTML catalog also works without JS. */
 .runner-switch { display: flex; gap: .4rem; margin: 0 0 1rem; padding: 0; border: 0; }
 .runner-switch legend { margin-bottom: .5rem; color: var(--muted); font-size: .8125rem; }

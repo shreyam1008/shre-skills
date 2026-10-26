@@ -6,7 +6,7 @@ license: MIT
 
 # vgpu: shaders, 3D, and visual UI
 
-Use vgpu to create the visual surface the task needs while keeping the surrounding application usable. It renders GPU pixels into a canvas; it does not provide HTML layout, accessible controls, text selection, or an automatic WebGL fallback. HTML-in-Canvas is a separate experimental proposal.
+Use vgpu to create the visual surface the task needs while keeping the surrounding application usable. It renders GPU pixels into a canvas; it does not provide HTML layout, accessible controls, text selection, or an automatic WebGL fallback. For live DOM drawn into a canvas, use the separate, capability-gated `html-in-canvas` workflow.
 
 ## Resolve the project's version first
 
